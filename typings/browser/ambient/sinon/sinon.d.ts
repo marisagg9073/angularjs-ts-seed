@@ -1,4 +1,6 @@
-// Type definitions for Sinon 1.8.1
+// Compiled using typings@0.6.8
+// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/6e7d83167d86d857817bd492786f8304f5c4a0e4/sinon/sinon.d.ts
+// Type definitions for Sinon 1.16.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -92,6 +94,7 @@ declare module Sinon {
         resetBehavior(): void;
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
+        returnsThis(): SinonStub;
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
         callsArg(index: number): SinonStub;
@@ -181,7 +184,20 @@ declare module Sinon {
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number): Date;
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
         restore(): void;
-    }
+
+		/**
+		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+		 * without affecting timers, intervals or immediates.
+		 * @param now The new 'now' in unix milliseconds
+		 */
+		setSystemTime(now: number): void;
+		/**
+		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+		 * without affecting timers, intervals or immediates.
+		 * @param now The new 'now' as a JavaScript Date
+		 */
+		setSystemTime(date: Date): void;
+	}
 
     interface SinonFakeTimersStatic {
         (): SinonFakeTimers;
@@ -251,6 +267,7 @@ declare module Sinon {
         fakeHTTPMethods: boolean;
         getHTTPMethod: (request: SinonFakeXMLHttpRequest) => string;
         requests: SinonFakeXMLHttpRequest[];
+        respondImmediately: boolean;
 
         // Methods
         respondWith(body: string): void;

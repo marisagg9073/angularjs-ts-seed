@@ -1,10 +1,15 @@
+// Compiled using typings@0.6.8
+// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/621f12c6602bcc569bc6ad3a67a0af3ba3832618/angularjs/angular-resource.d.ts
 // Type definitions for Angular JS 1.3 (ngResource module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
 
+declare module 'angular-resource' {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
@@ -20,6 +25,7 @@ declare module angular.resource {
          */
         stripTrailingSlashes?: boolean;
     }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
@@ -46,9 +52,17 @@ declare module angular.resource {
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
         method: string;
-        isArray?: boolean;
         params?: any;
+        url?: string;
+        isArray?: boolean;
+        transformRequest?: angular.IHttpRequestTransformer | angular.IHttpRequestTransformer[];
+        transformResponse?: angular.IHttpResponseTransformer | angular.IHttpResponseTransformer[];
         headers?: any;
+        cache?: boolean | angular.ICacheObject;
+        timeout?: number | angular.IPromise<any>;
+        withCredentials?: boolean;
+        responseType?: string;
+        interceptor?: any;
     }
 
     // Baseclass for everyresource with default actions.
@@ -127,12 +141,15 @@ declare module angular.resource {
         /** the promise of the original server interaction that created this instance. **/
         $promise : angular.IPromise<T>;
         $resolved : boolean;
+        toJSON: () => {
+          [index: string]: any;
+        }
     }
 
     /**
      * Really just a regular Array object with $promise and $resolve attached to it
      */
-    interface IResourceArray<T> extends Array<T> {
+    interface IResourceArray<T> extends Array<T & IResource<T>> {
         /** the promise of the original server interaction that created this collection. **/
         $promise : angular.IPromise<IResourceArray<T>>;
         $resolved : boolean;
@@ -143,6 +160,13 @@ declare module angular.resource {
         ($resource: angular.resource.IResourceService): IResourceClass<T>;
         <U extends IResourceClass<T>>($resource: angular.resource.IResourceService): U;
     }
+
+    // IResourceServiceProvider used to configure global settings
+    interface IResourceServiceProvider extends angular.IServiceProvider {
+
+        defaults: IResourceOptions;
+    }
+
 }
 
 /** extensions to base ng based on using angular-resource */
