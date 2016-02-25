@@ -1,9 +1,9 @@
+// Compiled using typings@0.6.8
+// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/d6dd320291705694ba8e1a79497a908e9f5e6617/mocha/mocha.d.ts
 // Type definitions for mocha 2.2.5
 // Project: http://mochajs.org/
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, otiai10 <https://github.com/otiai10>, jt000 <https://github.com/jt000>, Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../node/node.d.ts" />
 
 interface MochaSetupOptions {
     //milliseconds to wait before considering a test slow
@@ -30,7 +30,7 @@ interface MochaSetupOptions {
     // grep string or regexp to filter tests with
     grep?: any;
 }
-    
+
 interface MochaDone {
     (error?: Error): void;
 }
@@ -51,6 +51,10 @@ declare function before(action: () => void): void;
 
 declare function before(action: (done: MochaDone) => void): void;
 
+declare function before(description: string, action: () => void): void;
+
+declare function before(description: string, action: (done: MochaDone) => void): void;
+
 declare function setup(action: () => void): void;
 
 declare function setup(action: (done: MochaDone) => void): void;
@@ -58,6 +62,10 @@ declare function setup(action: (done: MochaDone) => void): void;
 declare function after(action: () => void): void;
 
 declare function after(action: (done: MochaDone) => void): void;
+
+declare function after(description: string, action: () => void): void;
+
+declare function after(description: string, action: (done: MochaDone) => void): void;
 
 declare function teardown(action: () => void): void;
 
@@ -67,6 +75,10 @@ declare function beforeEach(action: () => void): void;
 
 declare function beforeEach(action: (done: MochaDone) => void): void;
 
+declare function beforeEach(description: string, action: () => void): void;
+
+declare function beforeEach(description: string, action: (done: MochaDone) => void): void;
+
 declare function suiteSetup(action: () => void): void;
 
 declare function suiteSetup(action: (done: MochaDone) => void): void;
@@ -74,6 +86,10 @@ declare function suiteSetup(action: (done: MochaDone) => void): void;
 declare function afterEach(action: () => void): void;
 
 declare function afterEach(action: (done: MochaDone) => void): void;
+
+declare function afterEach(description: string, action: () => void): void;
+
+declare function afterEach(description: string, action: (done: MochaDone) => void): void;
 
 declare function suiteTeardown(action: () => void): void;
 
@@ -102,6 +118,12 @@ declare class Mocha {
     invert(): Mocha;
     ignoreLeaks(value: boolean): Mocha;
     checkLeaks(): Mocha;
+    /**
+     * Function to allow assertion libraries to throw errors directly into mocha.
+     * This is useful when running tests in a browser because window.onerror will
+     * only receive the 'message' attribute of the Error.
+     */
+    throwError(error: Error): void;
     /** Enables growl support. */
     growl(): Mocha;
     globals(value: string): Mocha;
@@ -120,7 +142,7 @@ declare class Mocha {
 // merge the Mocha class declaration with a module
 declare module Mocha {
     /** Partial interface for Mocha's `Runnable` class. */
-    interface IRunnable extends NodeJS.EventEmitter {
+    interface IRunnable {
         title: string;
         fn: Function;
         async: boolean;
@@ -129,10 +151,10 @@ declare module Mocha {
     }
 
     /** Partial interface for Mocha's `Suite` class. */
-    interface ISuite extends NodeJS.EventEmitter {
+    interface ISuite {
         parent: ISuite;
         title: string;
-    
+
         fullTitle(): string;
     }
 
@@ -140,12 +162,12 @@ declare module Mocha {
     interface ITest extends IRunnable {
         parent: ISuite;
         pending: boolean;
-        
+
         fullTitle(): string;
     }
 
     /** Partial interface for Mocha's `Runner` class. */
-    interface IRunner extends NodeJS.EventEmitter {}
+    interface IRunner {}
 
     interface IContextDefinition {
         (description: string, spec: () => void): ISuite;
@@ -153,7 +175,7 @@ declare module Mocha {
         skip(description: string, spec: () => void): void;
         timeout(ms: number): void;
     }
-    
+
     interface ITestDefinition {
         (expectation: string, assertion?: () => void): ITest;
         (expectation: string, assertion?: (done: MochaDone) => void): ITest;
@@ -176,7 +198,7 @@ declare module Mocha {
 
             constructor(runner: IRunner);
         }
-    
+
         export class Doc extends Base {}
         export class Dot extends Base {}
         export class HTML extends Base {}
