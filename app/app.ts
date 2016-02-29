@@ -1,7 +1,9 @@
 /// <reference path="../typings/browser.d.ts" />
 
+
 import {components} from './components/components';
 import {services} from './services/services';
+
 
 let app = angular.module('app', [
   'ngNewRouter',
@@ -11,6 +13,7 @@ let app = angular.module('app', [
 
 let appRoutes = [
   { path: '/', component: 'home' },
+  { path: '/feature1', component: 'feature1' },
   { path: '/about', component: 'about' }
 ];
 

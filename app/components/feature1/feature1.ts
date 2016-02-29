@@ -1,7 +1,9 @@
 import {NamesList} from '../../services/names-list';
 
-export class AboutController {
+export class Feature1Controller {
+
   static $inject = ['NamesList'];
+
   names: Array<string>;
   list: NamesList;
 
