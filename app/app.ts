@@ -2,7 +2,7 @@
 
 
 import {components} from './components/components';
-import {services} from './services/services';
+import {services}   from './services/services';
 
 let app = angular.module('app', [
   'ngNewRouter',
