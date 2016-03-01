@@ -10,16 +10,17 @@ let app = angular.module('app', [
   services.name
 ]);
 
-let appRoutes:Array<angular.RouteDefinition> = [
-  { path: '/', component: 'home' },
-  { path: '/feature1', component: 'feature1' },
-  { path: '/about', component: 'about' }
-];
-
 class AppController {
   static $inject = ['$router'];
 
   constructor($router) {
+
+    let appRoutes:Array<angular.RouteDefinition> = [
+      { path: '/', component: 'home' },
+      { path: '/feature1', component: 'feature1' },
+      { path: '/about', component: 'about' }
+    ];
+
     $router.config(appRoutes);
   }
 }
