@@ -4,14 +4,13 @@
 import {components} from './components/components';
 import {services} from './services/services';
 
-
 let app = angular.module('app', [
   'ngNewRouter',
   components.name,
   services.name
 ]);
 
-let appRoutes = [
+let appRoutes:Array<angular.RouteDefinition> = [
   { path: '/', component: 'home' },
   { path: '/feature1', component: 'feature1' },
   { path: '/about', component: 'about' }

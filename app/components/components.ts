@@ -1,12 +1,11 @@
-import {Feature1Controller} from './feature1/feature1';
-import {HomeController} from './home/home';
-import {AboutController} from './about/about';
+import {feature1} from './feature1/feature1';
+import {home} from './home/home';
+import {about} from './about/about';
 
-let components = angular.module('app.components', [])
-  .controller('AboutController', AboutController)
-  .controller('Feature1Controller', Feature1Controller)
-  .controller('HomeController', HomeController)
+
+let components = angular.module('app.components',
+  [ home.name, feature1.name, about.name]
+  );
 ;
-
 
 export {components}

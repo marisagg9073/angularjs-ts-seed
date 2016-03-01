@@ -7,7 +7,7 @@ export class Feature1Controller {
   names: Array<string>;
   list: NamesList;
 
-  constructor(list) {
+  constructor( list:NamesList) {
     this.list = list;
     this.names = list.get();
   }
@@ -17,3 +17,9 @@ export class Feature1Controller {
     newname = '';
   }
 }
+
+let feature1 =   angular.module('app.feature1', [])
+    .controller('Feature1Controller', Feature1Controller)
+  ;
+
+export {feature1}
