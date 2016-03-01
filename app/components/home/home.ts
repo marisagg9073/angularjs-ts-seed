@@ -4,12 +4,6 @@ export class HomeController {
 
   constructor(private router:any ) {
     console.log("childRouter", router);
-    /*
-    router.config( [
-      { path: '/', component: 'home' }
-    ]);
-    */
-
   }
 
 }
