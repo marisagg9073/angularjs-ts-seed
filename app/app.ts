@@ -16,9 +16,9 @@ class AppController {
   constructor($router) {
 
     let appRoutes:Array<angular.RouteDefinition> = [
-      { path: '/', component: 'home' },
-      { path: '/feature1', component: 'feature1' },
-      { path: '/about', component: 'about' }
+      { path: '/',          component: 'home'  },
+      { path: '/feature1',  component: 'feature1' },
+      { path: '/about',     component: 'about' }
     ];
 
     $router.config(appRoutes);
