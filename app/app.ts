@@ -2,18 +2,18 @@
 
 
 import {components} from './components/components';
-import {services}   from './services/services';
+import {Service}   from './services/names-list';
 
 let app = angular.module('app', [
   'ngNewRouter',
   components.name,
-  services.name
+  Service.NamesList.moduleName
 ]);
 
+@at.controller('app', 'AppController')
 class AppController {
-  static $inject = ['$router'];
 
-  constructor($router) {
+  constructor( @at.inject('$router') $router) {
 
     let appRoutes:Array<angular.RouteDefinition> = [
       { path: '/',          component: 'home'  },
@@ -25,13 +25,15 @@ class AppController {
   }
 }
 
-app.directive('app', () => {
-  return {
-    restrict: 'E',
-    templateUrl: 'app.html?v=<%= VERSION %>',
-    controller: AppController
-  };
-});
+@at.directive( 'app', 'app' )
+class App  {
+    public static restrict =  'E';
+    public static templateUrl =  'app.html?v=<%= VERSION %>';
+    public static controller = AppController;
+    public static link: angular.IDirectiveLinkFn = (scope, element, attrs, ctrl: App) => {
+        console.log( "App.directive", "init");
+    };    
+}
 
 
 export {app}
