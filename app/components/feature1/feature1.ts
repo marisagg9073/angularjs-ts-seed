@@ -1,17 +1,16 @@
-import {NamesList} from '../../services/names-list';
+import {Service} from '../../services/names-list';
 
 export module Feature1 {
 
     export const moduleName = 'app.feature1';
 
     @at.controller( moduleName, 'Feature1Controller')
-    @at.inject( 'NamesList')
+    @at.inject( Service.NamesList.name )
     class Feature1Controller {
 
     names: Array<string>;
     
-    constructor( private list:NamesList) {
-        this.list = list;
+    constructor( private list:Service.NamesList) {
         this.names = list.get();
     }
 

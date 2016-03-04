@@ -1,4 +1,4 @@
-import {NamesList} from '../../services/names-list';
+import {Service} from '../../services/names-list';
 
 
 export module About {
@@ -7,14 +7,13 @@ export module About {
     
 
     @at.controller( moduleName, 'AboutController')
-    @at.inject( '$router','NamesList')
+    @at.inject( '$router', Service.NamesList.name)
     class AboutController {
     names: Array<string>;
 
-    constructor( private router:any, private list:NamesList) {
+    constructor( private router:any, private list:Service.NamesList) {
 
         console.log( "router", router );
-        this.list = list;
         this.names = list.get();
     }
 
