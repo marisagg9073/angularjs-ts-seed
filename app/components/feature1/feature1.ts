@@ -1,25 +1,27 @@
 import {NamesList} from '../../services/names-list';
 
-export class Feature1Controller {
+export module Feature1 {
 
-  static $inject = ['NamesList'];
+    export const moduleName = 'app.feature1';
 
-  names: Array<string>;
-  list: NamesList;
+    @at.controller( moduleName, 'Feature1Controller')
+    @at.inject( 'NamesList')
+    class Feature1Controller {
 
-  constructor( list:NamesList) {
-    this.list = list;
-    this.names = list.get();
-  }
+    names: Array<string>;
+    
+    constructor( private list:NamesList) {
+        this.list = list;
+        this.names = list.get();
+    }
 
-  addName(newname) {
-    this.list.add(newname);
-    newname = '';
-  }
+    addName(newname) {
+        this.list.add(newname);
+        newname = '';
+    }
+    }
+    
 }
 
-let feature1 =   angular.module('app.feature1', [])
-    .controller('Feature1Controller', Feature1Controller)
-  ;
 
-export {feature1}
+

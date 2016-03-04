@@ -1,15 +1,19 @@
 
-export class HomeController {
-  static $inject = ['$router'];
+export module Home {
+    
+    export const moduleName = "app.home";
 
-  constructor(private router:any ) {
-    console.log("childRouter", router);
-  }
+    @at.controller( moduleName, 'HomeController')
+    @at.inject( '$router')
+    class HomeController {
 
+
+    constructor(private router:any ) {
+        console.log("childRouter", router);
+    }
+
+    }
+ 
 }
 
-let home = angular.module('app.home', ['ngNewRouter'])
-  .controller('HomeController', ['$router', HomeController])
-;
 
-export {home}

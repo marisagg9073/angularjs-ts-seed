@@ -1,27 +1,30 @@
 import {NamesList} from '../../services/names-list';
 
-export class AboutController {
-  static $inject = ['$router', 'NamesList'];
-  names: Array<string>;
-  list: NamesList;
 
-  constructor( router:any, list:NamesList) {
+export module About {
+    
+    export const moduleName = "app.about";
+    
 
-    console.log( "router", router );
-    this.list = list;
-    this.names = list.get();
-  }
+    @at.controller( moduleName, 'AboutController')
+    @at.inject( '$router','NamesList')
+    class AboutController {
+    names: Array<string>;
 
-  addName(newname) {
-    this.list.add(newname);
-    newname = '';
-  }
+    constructor( private router:any, private list:NamesList) {
+
+        console.log( "router", router );
+        this.list = list;
+        this.names = list.get();
+    }
+
+    addName(newname) {
+        this.list.add(newname);
+        newname = '';
+    }
+    }
+    
 }
 
 
 
-let about = angular.module('app.about', [])
-  .controller('AboutController', AboutController)
-;
-
-export {about}
