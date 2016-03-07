@@ -8,17 +8,47 @@ export module Feature1 {
     @at.inject( Service.NamesList.name )
     class Feature1Controller {
 
-    names: Array<string>;
-    
-    constructor( private list:Service.NamesList) {
-        this.names = list.get();
+        names: Array<string>;
+        
+        constructor( private list:Service.NamesList) {
+            this.names = list.get();
+        }
+
+        addName(newname) {
+            this.list.add(newname);
+            newname = '';
+        }
+        
+
     }
 
-    addName(newname) {
-        this.list.add(newname);
-        newname = '';
+    @at.component( moduleName, 'featureTest')
+    class Feature1Component  {
+        
+        
+        public static template: angular.IComponentTemplateFn = () => {
+            
+            return '<span>{{ $ctrl.name }}</span>';
+        };
+        
+        //public static transclude = true;
+        //public static templateUrl = "components/feature1/feature-test.html";
+        
+        // And the rest are simple Ctrl instance members
+        public name: string;
+
+        constructor(  ) {
+            console.log( "constructor");  
+            this.name = 'FirstTestCtrl';
+        }
+
+        public $onInit(): void  {
+          console.log( "onInit");  
+          
+        }
+
     }
-    }
+
     
 }
 
