@@ -1,8 +1,8 @@
 {
   "name": "angularjs-ts-seed",
-  "version": "0.0.0",
+  "version": "1.5.2",
   "description": "AngularJS TypeScript application seed",
-  "repository": "https://github.com/ludohenin/angularjs-ts-seed",
+  "repository": "https://github.com/soulsoftware/angularjs-ts-seed.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +15,9 @@
     "application"
   ],
   "author": "ludohenin <ludovic.henin@yahoo.com>",
+  "contributors": [
+    { "name": "bsorrentino", "email":"bartolomeo.sorrentino@gmail.com" }
+  ],
   "license": "MIT",
   "devDependencies": {
     "connect": "^3.3.5",
@@ -49,10 +52,9 @@
     "typescript": "^1.7.5"
   },
   "dependencies": {
-    "angular": "1.4.1",
-    "angular-mocks": "^1.4.1",
-    "angular-new-router": "0.5.3",
-    "angular-typescript": "0.0.8",
+    "angular": "^1.5.0",
+    "angular-mocks": "^1.5.0",
+    "angular-new-router": "^0.5.3",
     "es6-module-loader": "0.15.0",
     "systemjs": "0.16.0"
   }
