@@ -1,5 +1,5 @@
 
-module at {
+export module at {
 
     'use strict';
 

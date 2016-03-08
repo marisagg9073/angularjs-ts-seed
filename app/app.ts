@@ -1,42 +1,42 @@
 /// <reference path="../typings/browser.d.ts" />
 
-
+import {at} from './at-angular';
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 
 let app = angular.module('app', [
-  'ngNewRouter',
-  components.name,
-  Service.NamesList.moduleName
+    'ngNewRouter',
+    components.name,
+    Service.NamesList.moduleName
 ]);
 
 @at.controller('app', 'AppController')
 class AppController {
 
-  constructor( @at.inject('$router') $router) {
+    constructor( @at.inject('$router') $router) {
 
-    let appRoutes:Array<angular.RouteDefinition> = [
-      { path: '/',          component: 'home'  },
-      { path: '/feature1',  component: 'feature1' },
-      { path: '/about',     component: 'about' }
-    ];
+        let appRoutes: Array<angular.RouteDefinition> = [
+            { path: '/', component: 'home' },
+            { path: '/feature1', component: 'feature1' },
+            { path: '/about', component: 'about' }
+        ];
 
-    $router.config(appRoutes);
-  }
+        $router.config(appRoutes);
+    }
 }
 
-@at.directive( 'app', 'app' )
-class App  {
-    public static restrict =  'E';
-    public static templateUrl =  'app.html?v=<%= VERSION %>';
+@at.directive('app', 'app')
+class App {
+    public static restrict = 'E';
+    public static templateUrl = 'app.html?v=<%= VERSION %>';
     public static controller = AppController;
     public static link: angular.IDirectiveLinkFn = (scope, element, attrs, ctrl: App) => {
-        console.log( "App.directive", "init");
-    };    
+        console.log("App.directive", "init");
+    };
 }
 
 
 export {app}
 
 angular.element(document)
-  .ready(() => angular.bootstrap(document.body, [app.name]));
+    .ready(() => angular.bootstrap(document.body, [app.name]));

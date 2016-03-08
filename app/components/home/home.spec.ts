@@ -1,9 +1,10 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import {HomeController} from './home';
+import {Home} from './home';
 
 let module = angular.mock.module;
 let inject = angular.mock.inject;
+let expect = chai.expect;
 
 describe('# Home Controller', () => {
   let $controller, $scope, controller;
@@ -19,6 +20,6 @@ describe('# Home Controller', () => {
   });
 
   it('should be an instance of HomeController', () => {
-    expect(controller).to.be.an.instanceof(HomeController);
+    expect(controller).to.be.an.instanceof(Home.HomeController);
   });
 });

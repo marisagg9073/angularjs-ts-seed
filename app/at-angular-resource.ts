@@ -1,6 +1,7 @@
 /* istanbul ignore next */
+import {at} from './at-angular';
 
-module at {
+export module atRes {
 
     'use strict';
 
@@ -43,14 +44,14 @@ module at {
     }
 
     export interface IResourceAnnotation {
-        (moduleName: string, className: string): IClassAnnotationDecorator;
+        (moduleName: string, className: string): at.IClassAnnotationDecorator;
     }
 
-    export function resource(moduleName: string, className: string): IClassAnnotationDecorator {
+    export function resource(moduleName: string, className: string): at.IClassAnnotationDecorator {
         return (target: any): void => {
             function resourceClassFactory($resource: ResourceService, ...args: any[]): any {
                 const newResource: ResourceClass = $resource(target.url, target.params, target.actions, target.options);
-                return attachInjects(angular.extend(newResource, angular.extend(target, newResource, {
+                return at.attachInjects(angular.extend(newResource, angular.extend(target, newResource, {
                     prototype: angular.extend(newResource.prototype, angular.extend(target.prototype, {
                         /* tslint:disable:variable-name */
                         $_Resource: newResource
@@ -59,7 +60,7 @@ module at {
                 })), ...args);
             }
             resourceClassFactory.$inject = (['$resource']).concat(target.$inject /* istanbul ignore next */ || []);
-            getOrCreateModule(moduleName).factory(className, resourceClassFactory);
+            at.getOrCreateModule(moduleName).factory(className, resourceClassFactory);
         };
     }
     /* tslint:enable:no-any */

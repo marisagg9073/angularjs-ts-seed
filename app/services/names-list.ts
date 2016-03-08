@@ -1,11 +1,12 @@
+import {at} from '../at-angular';
 
 export module Service {
 
-    @at.service( NamesList.moduleName , NamesList.name)
+    @at.service(NamesList.moduleName, NamesList.myName)
     export class NamesList {
-        public static get moduleName() { return  "app.services"; }
-        public static get name() { return  "NamesList"; }
-        
+        public static get moduleName() { return "app.services"; }
+        public static get myName() { return "NamesList"; }
+
         names: Array<string>;
         constructor() {
             this.names = ['Dijkstra', 'Knuth', 'Turing', 'Hopper'];
@@ -17,5 +18,5 @@ export module Service {
             this.names.push(value);
         }
     }
-    
+
 }

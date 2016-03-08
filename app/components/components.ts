@@ -3,11 +3,11 @@ import {Home}       from './home/home';
 import {About}      from './about/about';
 
 
-let components = angular.module('app.components',[
+let components = angular.module('app.components', [
     Home.moduleName,
     Feature1.moduleName,
     About.moduleName
-  ]);
-;
+]);
+
 
 export {components}

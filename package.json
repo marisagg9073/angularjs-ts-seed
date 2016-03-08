@@ -2,7 +2,10 @@
   "name": "angularjs-ts-seed",
   "version": "1.5.2",
   "description": "AngularJS TypeScript application seed",
-  "repository": "https://github.com/soulsoftware/angularjs-ts-seed.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soulsoftware/angularjs-ts-seed.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +19,10 @@
   ],
   "author": "ludohenin <ludovic.henin@yahoo.com>",
   "contributors": [
-    { "name": "bsorrentino", "email":"bartolomeo.sorrentino@gmail.com" }
+    {
+      "name": "bsorrentino",
+      "email": "bartolomeo.sorrentino@gmail.com"
+    }
   ],
   "license": "MIT",
   "devDependencies": {
@@ -36,6 +42,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-watch": "^4.2.4",
     "karma": "^0.12.37",
+    "karma-chrome-launcher": "^0.2.2",
     "karma-commonjs": "0.0.13",
     "karma-mocha": "^0.2.0",
     "karma-mocha-reporter": "^1.0.2",
