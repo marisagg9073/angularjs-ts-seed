@@ -131,7 +131,7 @@ gulp.task('build.lib.dev', /*['build.ng2.dev'],*/ function() {
     .pipe(gulp.dest(PATH.dest.dev.lib));
 });
 
-gulp.task('build.js.dev', function() {
+gulp.task('build.js.dev', ['lint'], function() {
   var result = gulp.src(PATH.src.app.dev)
     .pipe(plumber())
     .pipe(sourcemaps.init())
