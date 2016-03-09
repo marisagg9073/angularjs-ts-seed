@@ -1,8 +1,11 @@
 {
   "name": "angularjs-ts-seed",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "AngularJS TypeScript application seed",
-  "repository": "https://github.com/soulsoftware/angularjs-ts-seed.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soulsoftware/angularjs-ts-seed.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,10 +19,14 @@
   ],
   "author": "ludohenin <ludovic.henin@yahoo.com>",
   "contributors": [
-    { "name": "bsorrentino", "email":"bartolomeo.sorrentino@gmail.com" }
+    {
+      "name": "bsorrentino",
+      "email": "bartolomeo.sorrentino@gmail.com"
+    }
   ],
   "license": "MIT",
   "devDependencies": {
+    "chai": "^3.5.0",
     "connect": "^3.3.5",
     "del": "^1.1.1",
     "gulp": "^3.9.1",
@@ -32,23 +39,29 @@
     "gulp-plumber": "~1.0.1",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-template": "^3.0.0",
+    "gulp-tslint": "^4.3.3",
     "gulp-typescript": "^2.12.0",
     "gulp-uglify": "^1.2.0",
     "gulp-watch": "^4.2.4",
     "karma": "^0.12.37",
+    "karma-chrome-launcher": "^0.2.2",
     "karma-commonjs": "0.0.13",
     "karma-mocha": "^0.2.0",
     "karma-mocha-reporter": "^1.0.2",
-    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-phantomjs-launcher": "^1.0.0",
     "karma-sinon-chai": "^1.0.0",
+    "lolex": "^1.4.0",
     "mocha": "^2.2.5",
     "open": "0.0.5",
-    "phantomjs": "^1.9.17",
+    "phantomjs-prebuilt": "^2.1.5",
     "run-sequence": "^1.1.0",
     "semver": "^4.3.6",
     "serve-static": "^1.9.2",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "stream-series": "^0.1.1",
     "systemjs-builder": "^0.10.6",
+    "tslint": "^3.5.0",
     "typescript": "^1.7.5"
   },
   "dependencies": {

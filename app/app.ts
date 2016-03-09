@@ -1,5 +1,6 @@
 /// <reference path="../typings/browser.d.ts" />
 
+import {at} from './at-angular';
 
 import {components} from './components/components';
 import {Service}   from './services/names-list';
@@ -15,26 +16,25 @@ class AppController {
 
   constructor( @at.inject('$router') $router) {
 
-    let appRoutes:Array<angular.RouteDefinition> = [
-      { path: '/',          component: 'home'  },
-      { path: '/feature1',  component: 'feature1' },
-      { path: '/about',     component: 'about' }
+    let appRoutes: Array<angular.RouteDefinition> = [
+      { component: 'home', path: '/' },
+      { component: 'feature1', path: '/feature1' },
+      { component: 'about', path: '/about' }
     ];
 
     $router.config(appRoutes);
   }
 }
 
-@at.directive( 'app', 'app' )
-class App  {
-    public static restrict =  'E';
-    public static templateUrl =  'app.html?v=<%= VERSION %>';
-    public static controller = AppController;
-    public static link: angular.IDirectiveLinkFn = (scope, element, attrs, ctrl: App) => {
-        console.log( "App.directive", "init");
-    };    
+@at.directive('app', 'app')
+class App {
+  public static restrict = 'E';
+  public static templateUrl = 'app.html?v=<%= VERSION %>';
+  public static controller = AppController;
+  public static link: angular.IDirectiveLinkFn = (scope, element, attrs, ctrl: App) => {
+    console.log('App.directive', 'init');
+  };
 }
-
 
 export {app}
 

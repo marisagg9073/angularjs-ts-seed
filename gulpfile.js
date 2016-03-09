@@ -10,6 +10,7 @@ var minifyHTML = require('gulp-minify-html');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var template = require('gulp-template');
+var tslint = require("gulp-tslint");
 var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
@@ -43,6 +44,11 @@ var PATH = {
     }
   },
   src: {
+    app: {
+      all: ['./app/**/*.ts'],
+      dev: ['./app/**/*.ts', '!./app/**/*.spec.ts'],
+      test: ['./app/**/*.ts', '!./app/init.ts']
+    },
     // Order is quite important here for the HTML tag injection.
     lib: [
       './node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js',
@@ -65,35 +71,35 @@ var tsProject = tsc.createProject('tsconfig.json', {
 });
 
 var semverReleases = ['major', 'premajor', 'minor', 'preminor', 'patch',
-                      'prepatch', 'prerelease'];
+  'prepatch', 'prerelease'];
 
 var port = 5555;
 
 // --------------
 // Clean.
 
-gulp.task('clean', function (done) {
+gulp.task('clean', function(done) {
   del(PATH.dest.all, done);
 });
 
-gulp.task('clean.dev', function (done) {
+gulp.task('clean.dev', function(done) {
   del(PATH.dest.dev.all, done);
 });
 
-gulp.task('clean.app.dev', function (done) {
+gulp.task('clean.app.dev', function(done) {
   // TODO: rework this part.
   del([join(PATH.dest.dev.all, '**/*'), '!' +
-       PATH.dest.dev.lib, '!' + join(PATH.dest.dev.lib, '*')], done);
+    PATH.dest.dev.lib, '!' + join(PATH.dest.dev.lib, '*')], done);
 });
 
-gulp.task('clean.prod', function (done) {
+gulp.task('clean.prod', function(done) {
   del(PATH.dest.prod.all, done);
 });
 
-gulp.task('clean.app.prod', function (done) {
+gulp.task('clean.app.prod', function(done) {
   // TODO: rework this part.
   del([join(PATH.dest.prod.all, '**/*'), '!' +
-       PATH.dest.prod.lib, '!' + join(PATH.dest.prod.lib, '*')], done);
+    PATH.dest.prod.lib, '!' + join(PATH.dest.prod.lib, '*')], done);
 });
 
 gulp.task('clean.tmp', function(done) {
@@ -105,15 +111,28 @@ gulp.task('clean.test', function(done) {
 });
 
 // --------------
+// Lint dev.
+
+gulp.task("lint", function() {
+  gulp.src(PATH.src.app.all)
+    .pipe(tslint())
+    .pipe(tslint.report("prose"), {
+      emitError: false,
+      reportLimit: 2,
+      summarizeFailureOutput: true
+    });
+});
+
+// --------------
 // Build dev.
 
-gulp.task('build.lib.dev', /*['build.ng2.dev'],*/ function () {
+gulp.task('build.lib.dev', /*['build.ng2.dev'],*/ function() {
   return gulp.src(PATH.src.lib)
     .pipe(gulp.dest(PATH.dest.dev.lib));
 });
 
-gulp.task('build.js.dev', function () {
-  var result = gulp.src(['./app/**/*.ts', '!./app/**/*.spec.ts'])
+gulp.task('build.js.dev', function() {
+  var result = gulp.src(PATH.src.app.dev)
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(tsc(tsProject));
@@ -124,7 +143,7 @@ gulp.task('build.js.dev', function () {
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
 
-gulp.task('build.assets.dev', ['build.js.dev'], function () {
+gulp.task('build.assets.dev', ['build.js.dev'], function() {
   return gulp.src(['./app/**/*.html', './app/**/*.css'])
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
@@ -137,18 +156,18 @@ gulp.task('build.index.dev', function() {
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
 
-gulp.task('build.app.dev', function (done) {
+gulp.task('build.app.dev', function(done) {
   runSequence('clean.app.dev', 'build.assets.dev', 'build.index.dev', done);
 });
 
-gulp.task('build.dev', function (done) {
+gulp.task('build.dev', function(done) {
   runSequence('clean.dev', 'build.lib.dev', 'build.app.dev', done);
 });
 
 // --------------
 // Build prod.
 
-gulp.task('build.lib.prod', /*['build.ng2.prod'],*/ function () {
+gulp.task('build.lib.prod', /*['build.ng2.prod'],*/ function() {
   var jsOnly = filter('**/*.js');
 
   return gulp.src(PATH.src.lib)
@@ -160,9 +179,9 @@ gulp.task('build.lib.prod', /*['build.ng2.prod'],*/ function () {
     .pipe(gulp.dest(PATH.dest.prod.lib));
 });
 
-gulp.task('build.js.tmp', function () {
+gulp.task('build.js.tmp', function() {
   var result = gulp.src(['./app/**/*.ts', '!./app/init.ts',
-                         '!./app/**/*.spec.ts'])
+    '!./app/**/*.spec.ts'])
     .pipe(plumber())
     .pipe(tsc(tsProject));
 
@@ -174,7 +193,7 @@ gulp.task('build.js.tmp', function () {
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
-    { minify: true }).catch(function (e) { console.log(e); });
+    { minify: true }).catch(function(e) { console.log(e); });
 });
 
 gulp.task('build.init.prod', function() {
@@ -190,7 +209,7 @@ gulp.task('build.init.prod', function() {
     .pipe(gulp.dest(PATH.dest.prod.all));
 });
 
-gulp.task('build.assets.prod', ['build.js.prod'], function () {
+gulp.task('build.assets.prod', ['build.js.prod'], function() {
   var filterHTML = filter('**/*.html');
   var filterCSS = filter('**/*.css');
   return gulp.src(['./app/**/*.html', './app/**/*.css'])
@@ -205,29 +224,29 @@ gulp.task('build.assets.prod', ['build.js.prod'], function () {
 
 gulp.task('build.index.prod', function() {
   var target = gulp.src([join(PATH.dest.prod.lib, 'lib.js'),
-                         join(PATH.dest.prod.all, '**/*.css')], { read: false });
+    join(PATH.dest.prod.all, '**/*.css')], { read: false });
   return gulp.src('./app/index.html')
     .pipe(inject(target, { transform: transformPath('prod') }))
     .pipe(template({ VERSION: getVersion() }))
     .pipe(gulp.dest(PATH.dest.prod.all));
 });
 
-gulp.task('build.app.prod', function (done) {
+gulp.task('build.app.prod', function(done) {
   // build.init.prod does not work as sub tasks dependencies so placed it here.
   runSequence('clean.app.prod', 'build.init.prod', 'build.assets.prod',
-              'build.index.prod', 'clean.tmp', done);
+    'build.index.prod', 'clean.tmp', done);
 });
 
-gulp.task('build.prod', function (done) {
+gulp.task('build.prod', function(done) {
   runSequence('clean.prod', 'build.lib.prod', 'clean.tmp', 'build.app.prod',
-              done);
+    done);
 });
 
 // --------------
 // Test.
 
 gulp.task('build.test', ['clean.test'], function(done) {
-  var result = gulp.src(['./app/**/*.ts', '!./app/init.ts'])
+  var result = gulp.src(PATH.src.app.test)
     .pipe(plumber())
     .pipe(tsc(tsProject));
 
@@ -244,7 +263,7 @@ gulp.task('run.karma', ['build.test'], function(done) {
 
 gulp.task('test', ['run.karma'], function() {
   watch('./app/**', function() {
-      gulp.start('run.karma');
+    gulp.start('run.karma');
   });
 });
 
@@ -262,15 +281,15 @@ gulp.task('bump.reset', function() {
 // --------------
 // Serve dev.
 
-gulp.task('serve.dev', ['build.dev'], function () {
+gulp.task('serve.dev', ['build.dev'], function() {
   var app;
 
-  watch('./app/**', function () {
+  watch('./app/**', function() {
     gulp.start('build.app.dev');
   });
 
   app = connect().use(serveStatic(join(__dirname, PATH.dest.dev.all)));
-  http.createServer(app).listen(port, function () {
+  http.createServer(app).listen(port, function() {
     openResource('http://localhost:' + port);
   });
 });
@@ -278,15 +297,15 @@ gulp.task('serve.dev', ['build.dev'], function () {
 // --------------
 // Serve prod.
 
-gulp.task('serve.prod', ['build.prod'], function () {
+gulp.task('serve.prod', ['build.prod'], function() {
   var app;
 
-  watch('./app/**', function () {
+  watch('./app/**', function() {
     gulp.start('build.app.prod');
   });
 
   app = connect().use(serveStatic(join(__dirname, PATH.dest.prod.all)));
-  http.createServer(app).listen(port, function () {
+  http.createServer(app).listen(port, function() {
     openResource('http://localhost:' + port);
   });
 });
@@ -296,7 +315,7 @@ gulp.task('serve.prod', ['build.prod'], function () {
 
 function transformPath(env) {
   var v = '?v=' + getVersion();
-  return function (filepath) {
+  return function(filepath) {
     arguments[0] = filepath.replace('/' + PATH.dest[env].all, '.') + v;
     return inject.transform.apply(inject.transform, arguments);
   };
@@ -310,13 +329,13 @@ function injectableDevAssetsRef() {
   return src;
 }
 
-function getVersion(){
+function getVersion() {
   var pkg = JSON.parse(fs.readFileSync('package.json'));
   return pkg.version;
 }
 
 function registerBumpTasks() {
-  semverReleases.forEach(function (release) {
+  semverReleases.forEach(function(release) {
     var semverTaskName = 'semver.' + release;
     var bumpTaskName = 'bump.' + release;
     gulp.task(semverTaskName, function() {
@@ -326,7 +345,7 @@ function registerBumpTasks() {
         .pipe(gulp.dest('./'));
     });
     gulp.task(bumpTaskName, function(done) {
-        runSequence(semverTaskName, 'build.app.prod', done);
+      runSequence(semverTaskName, 'build.app.prod', done);
     });
   });
 }
