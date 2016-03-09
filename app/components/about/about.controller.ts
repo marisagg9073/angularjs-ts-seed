@@ -1,11 +1,11 @@
 import {at} from '../../at-angular';
 import {Service} from '../../services/names-list';
 
-import {About} from './about';
+import {Definition} from './about';
 
 'use strict';
 
-@at.controller(About.ngModuleName, 'AboutController')
+@at.controller(Definition.ngModuleName, 'AboutController')
 @at.inject('$router', Service.NamesList.myName)
 export default class AboutController {
   private names: Array<string>;
