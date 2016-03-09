@@ -30,3 +30,6 @@ node_modules
 dist
 dev
 lib
+test
+
+.vscode
