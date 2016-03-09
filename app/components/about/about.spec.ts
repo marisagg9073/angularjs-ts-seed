@@ -1,7 +1,9 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
 import {Service} from '../../services/names-list';
-import {About} from './about';
+
+import About from './about.module';
+import AboutController from './about.controller';
 
 'use strict';
 
@@ -15,7 +17,7 @@ describe('# About Controller', () => {
   beforeEach(() => {
     // angular.module('ngNewRouter', []);
     // angular.module(Service.NamesList.moduleName);
-    $module(About.moduleName);
+    $module(About);
 
     $inject(_$controller_ => {
       $controller = _$controller_;
@@ -25,7 +27,7 @@ describe('# About Controller', () => {
   });
 
   it('should be an instance of AboutController', () => {
-    expect(controller).to.be.an.instanceof(About.AboutController);
+    expect(controller).to.be.an.instanceof(AboutController);
   });
   it('should have propertis list, names', () => {
     expect(controller).to.have.property('names');
