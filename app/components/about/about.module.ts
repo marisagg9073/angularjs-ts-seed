@@ -2,7 +2,7 @@ import {at} from '../../at-angular';
 import {Service} from '../../services/names-list';
 
 import {Definition} from './about';
-import AboutController from './about.controller';
+import './about.controller';
 
 'use strict';
 
