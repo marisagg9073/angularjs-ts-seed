@@ -1,31 +1,29 @@
 import {at} from '../../at-angular';
 import {Service} from '../../services/names-list';
 
-
 export module About {
 
-    export const moduleName = "app.about";
+  'use strict';
 
-    export let mod = angular.module(moduleName, ['ngNewRouter', Service.NamesList.moduleName]);
+  export const moduleName = 'app.about';
 
-    @at.controller(moduleName, 'AboutController')
-    @at.inject('$router', Service.NamesList.myName)
-    export class AboutController {
-        names: Array<string>;
+  export let ngModule = angular.module(moduleName, ['ngNewRouter', Service.NamesList.moduleName]);
 
-        constructor(private router: any, private list: Service.NamesList) {
+  @at.controller(moduleName, 'AboutController')
+  @at.inject('$router', Service.NamesList.myName)
+  export class AboutController {
+    private names: Array<string>;
 
-            console.log("router", router);
-            this.names = list.get();
-        }
+    constructor(private router: any, private list: Service.NamesList) {
 
-        addName(newname) {
-            this.list.add(newname);
-            newname = '';
-        }
+      console.log('router', router);
+      this.names = list.get();
     }
 
+    public addName(newname) {
+      this.list.add(newname);
+      newname = '';
+    }
+  }
+
 }
-
-
-

@@ -31,3 +31,5 @@ dist
 dev
 lib
 test
+
+.vscode

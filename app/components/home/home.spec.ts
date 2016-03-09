@@ -2,17 +2,19 @@
 
 import {Home} from './home';
 
-let module = angular.mock.module;
-let inject = angular.mock.inject;
+'use strict';
+
+let $module = angular.mock.module;
+let $inject = angular.mock.inject;
 let expect = chai.expect;
 
 describe('# Home Controller', () => {
   let $controller, $scope, controller;
 
   beforeEach(() => {
-    module('app');
+    $module(Home.moduleName);
 
-    inject(_$controller_ => {
+    $inject(_$controller_ => {
       $controller = _$controller_;
     });
 

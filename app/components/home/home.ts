@@ -2,19 +2,20 @@ import {at} from '../../at-angular';
 
 export module Home {
 
-    export const moduleName = "app.home";
+  'use strict';
 
-    @at.controller(moduleName, 'HomeController')
-    @at.inject('$router')
-    export class HomeController {
+  export const moduleName = 'app.home';
 
+  export let ngModule = angular.module(moduleName, ['ngNewRouter']);
 
-        constructor(private router: any) {
-            console.log("childRouter", router);
-        }
+  @at.controller(moduleName, 'HomeController')
+  @at.inject('$router')
+  export class HomeController {
 
+    constructor(private router: any) {
+      console.log('childRouter', router);
     }
 
+  }
+
 }
-
-

@@ -2,17 +2,19 @@
 
 import {Service} from './names-list';
 
-let module = angular.mock.module;
-let inject = angular.mock.inject;
+'use strict';
+
+let $module = angular.mock.module;
+let $inject = angular.mock.inject;
 let expect = chai.expect;
 
 describe('# Names List Service', () => {
   let namesList;
 
   beforeEach(() => {
-    module(Service.NamesList.moduleName);
+    $module(Service.NamesList.moduleName);
 
-    inject(_NamesList_ => {
+    $inject(_NamesList_ => {
       namesList = _NamesList_;
     });
   });
