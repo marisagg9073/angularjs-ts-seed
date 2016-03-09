@@ -1,17 +1,23 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../typings/browser.d.ts" />
 
-import {AboutController} from './about';
+import {Service} from '../../services/names-list';
+import {About} from './about';
 
-let module = angular.mock.module;
-let inject = angular.mock.inject;
+'use strict';
+
+let $module = angular.mock.module;
+let $inject = angular.mock.inject;
+let expect = chai.expect;
 
 describe('# About Controller', () => {
-  let $controller, $scope, controller;
+  let $controller, controller;
 
   beforeEach(() => {
-    module('app');
+    // angular.module('ngNewRouter', []);
+    // angular.module(Service.NamesList.moduleName);
+    $module(About.moduleName);
 
-    inject(_$controller_ => {
+    $inject(_$controller_ => {
       $controller = _$controller_;
     });
 
@@ -19,7 +25,7 @@ describe('# About Controller', () => {
   });
 
   it('should be an instance of AboutController', () => {
-    expect(controller).to.be.an.instanceof(AboutController);
+    expect(controller).to.be.an.instanceof(About.AboutController);
   });
   it('should have propertis list, names', () => {
     expect(controller).to.have.property('names');
@@ -30,5 +36,5 @@ describe('# About Controller', () => {
     controller.addName('test');
     lastValue = controller.names.pop();
     expect(lastValue).to.equal('test');
-  })
+  });
 });

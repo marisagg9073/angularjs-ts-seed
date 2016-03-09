@@ -1,25 +1,28 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import {AboutController} from './feature1';
+import {Feature1} from './feature1';
 
-let module = angular.mock.module;
-let inject = angular.mock.inject;
+'use strict';
 
-describe('# About Controller', () => {
+let $module = angular.mock.module;
+let $inject = angular.mock.inject;
+let expect = chai.expect;
+
+describe('# Feature1 Controller', () => {
   let $controller, $scope, controller;
 
   beforeEach(() => {
-    module('app');
+    $module(Feature1.moduleName);
 
-    inject(_$controller_ => {
+    $inject(_$controller_ => {
       $controller = _$controller_;
     });
 
-    controller = $controller('AboutController', { $scope: {} });
+    controller = $controller('Feature1Controller', { $scope: {} });
   });
 
-  it('should be an instance of AboutController', () => {
-    expect(controller).to.be.an.instanceof(AboutController);
+  it('should be an instance of Feature1Controller', () => {
+    expect(controller).to.be.an.instanceof(Feature1.Feature1Controller);
   });
   it('should have propertis list, names', () => {
     expect(controller).to.have.property('names');
@@ -30,5 +33,5 @@ describe('# About Controller', () => {
     controller.addName('test');
     lastValue = controller.names.pop();
     expect(lastValue).to.equal('test');
-  })
+  });
 });
