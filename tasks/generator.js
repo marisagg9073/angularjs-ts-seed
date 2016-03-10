@@ -6,16 +6,43 @@ var gulp = require('gulp');
 var notify = require('gulp-notify');
 var rename = require('gulp-rename');
 var template = require('gulp-template');
+var gutil = require('gulp-util');
 
 var join = require('path').join;
+var exists = require('path-exists');
 var yargs = require('yargs');
 
-gulp.task('component', () => {
+function component() {
   var cap = function(val) {
     return val.charAt(0).toUpperCase() + val.slice(1);
   };
-  var name = yargs.argv.name;
-  var parentPath = yargs.argv.parent || '';
+  var argv = yargs.reset()
+    .usage('Usage: gulp component -n [string] -p [string]')
+    .alias('n', 'name')
+    .demand('n')
+    .string('n')
+    .describe('n', 'Component name')
+    .alias('p', 'parent')
+    .string('p')
+    .default('p', '')
+    .describe('p', 'Parent path from Components folder')
+
+    .alias('s', 'support')
+    .help('s')
+    .check(function(args) {
+      if (!/^[a-z]+$/.test(args.name)) {
+        gutil.log(gutil.colors.red('Invalid name: only lowercase letters are allowed.'));
+        return false;
+      }
+      if (!exists.sync(join(resolveToComponents(), args.parent))) {
+        gutil.log(gutil.colors.red('Invalid parent path: it does not exists.'));
+        return false;
+      }
+      return true;
+    })
+    .argv;
+  var name = argv.name;
+  var parentPath = argv.parent || '';
   var destPath = join(resolveToComponents(), parentPath, name);
 
   return gulp.src(PATH.src.blankTemplates)
@@ -40,7 +67,17 @@ gulp.task('component', () => {
       },
       onLast: true
     }));
-});
+}
+
+component.description = 'Generate Component template';
+
+component.flags = {
+  '-n, --name': 'Component name',
+  '-p, --parent': 'Parent path from Components folder',
+  '-s, --support': 'Show help'
+};
+
+gulp.task('component', component);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');
