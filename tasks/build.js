@@ -11,7 +11,6 @@ var minifyHTML = require('gulp-minify-html');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var template = require('gulp-template');
-var tslint = require('gulp-tslint');
 var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 
@@ -19,6 +18,7 @@ var fs = require('fs');
 var join = require('path').join;
 var runSequence = require('run-sequence');
 var Builder = require('systemjs-builder');
+var yargs = require('yargs');
 
 var appProdBuilder = new Builder({
   baseURL: 'file:./tmp',
@@ -28,19 +28,6 @@ var HTMLMinifierOpts = { conditionals: true };
 
 var tsProject = tsc.createProject('tsconfig.json', {
   typescript: require('typescript')
-});
-
-// --------------
-// Lint.
-
-gulp.task("lint", function() {
-  gulp.src(PATH.src.app.all)
-    .pipe(tslint())
-    .pipe(tslint.report("prose"), {
-      emitError: false,
-      reportLimit: 2,
-      summarizeFailureOutput: true
-    });
 });
 
 // --------------
