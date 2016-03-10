@@ -42,7 +42,7 @@ function component() {
     })
     .argv;
   var name = argv.name;
-  var parentPath = argv.parent || '';
+  var parentPath = argv.parent;
   var destPath = join(resolveToComponents(), parentPath, name);
 
   return gulp.src(PATH.src.blankTemplates)
