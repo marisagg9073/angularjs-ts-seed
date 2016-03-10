@@ -169,3 +169,30 @@ function injectableDevAssetsRef() {
   src.push(join(PATH.dest.dev.all, '**/*.css'));
   return src;
 }
+
+function build() {
+  var argv = yargs.reset()
+    .usage('Usage: gulp build -p')
+    .alias('p', 'prod')
+    .boolean('p')
+    .describe('p', 'Build for Production Environment')
+
+    .alias('s', 'support')
+    .help('s')
+    .argv;
+
+  if (argv.prod)
+    gulp.start('build.prod');
+  else
+    gulp.start('build.dev');
+}
+
+build.description = 'Build for either Development or the requested environment';
+
+build.flags = {
+  '-p, --prod': 'Build for Production Environment',
+  '-s, --support': 'Show help'
+};
+
+
+gulp.task('build', build);

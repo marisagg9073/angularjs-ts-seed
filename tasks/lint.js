@@ -29,7 +29,7 @@ function lintHtml() {
     .pipe(htmllint({}, htmllintReporter));
 }
 
-lintHtml.description = 'Ensures HTML coding standards and best practices are applied using htmllint';
+lintHtml.description = 'Ensure HTML coding standards and best practices are applied using htmllint';
 
 lintHtml.flags = {};
 
@@ -55,7 +55,7 @@ function lintTs() {
     });
 }
 
-lintTs.description = 'Ensures TypeScript coding standards and best practices are applied using tslint';
+lintTs.description = 'Ensure TypeScript coding standards and best practices are applied using tslint';
 
 lintTs.flags = {
   '-r, --report': 'Report for gulp-tslint',
@@ -66,6 +66,6 @@ gulp.task('lint.ts', lintTs);
 
 function lint() { }
 
-lint.description = 'Ensures coding standards and best practices are applied using linters';
+lint.description = 'Ensure coding standards and best practices are applied using linters';
 
 gulp.task('lint', ['lint.html', 'lint.ts'], lint);
