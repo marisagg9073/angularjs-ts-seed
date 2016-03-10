@@ -26,7 +26,7 @@ gulp.task('build.test', ['clean.test'], function(done) {
 gulp.task('run.karma', ['build.test'], function(done) {
   karma.start({
     configFile: join(__dirname, 'karma.conf.js'),
-    singleRun: true
+    singleRun: false
   }, done);
 });
 

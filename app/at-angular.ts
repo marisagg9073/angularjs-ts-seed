@@ -1,4 +1,4 @@
-export module at {
+module at {
 
   'use strict';
 
