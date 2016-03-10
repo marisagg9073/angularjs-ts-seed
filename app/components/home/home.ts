@@ -1,4 +1,3 @@
-import {at} from '../../at-angular';
 
 export module Home {
 

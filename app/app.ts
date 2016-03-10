@@ -1,7 +1,5 @@
 /// <reference path="../typings/browser.d.ts" />
 
-import {at} from './at-angular';
-
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 
@@ -17,7 +15,7 @@ class AppController {
   constructor( @at.inject('$router') $router) {
 
     let appRoutes: Array<angular.RouteDefinition> = [
-      { component: 'home', path: '/' },
+      { component: 'home', path: '/', useAsDefault: true },
       { component: 'feature1', path: '/feature1' },
       { component: 'about', path: '/about' }
     ];

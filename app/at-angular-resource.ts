@@ -1,6 +1,5 @@
-import {at} from './at-angular';
 
-export module atResource {
+module at {
 
   'use strict';
 

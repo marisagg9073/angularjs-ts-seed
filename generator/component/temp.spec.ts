@@ -1,9 +1,7 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import {Service} from '../../services/names-list';
-
-import About from './about.module';
-import AboutController from './about.controller';
+import <%= upCaseName %> from './<%= name %>.module';
+import <%= upCaseName %>Controller from './<%= name %>.controller';
 
 'use strict';
 
@@ -11,23 +9,23 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let expect = chai.expect;
 
-describe('# About Controller', () => {
+describe('# <%= upCaseName %> Controller', () => {
   let $controller, controller;
 
   beforeEach(() => {
     // angular.module('ngNewRouter', []);
     // angular.module(Service.NamesList.moduleName);
-    $module(About);
+    $module(<%= upCaseName %>);
 
     $inject(_$controller_ => {
       $controller = _$controller_;
     });
 
-    controller = $controller('AboutController', { $scope: {} });
+    controller = $controller('<%= upCaseName %>Controller', { $scope: {} });
   });
 
-  it('should be an instance of AboutController', () => {
-    expect(controller).to.be.an.instanceof(AboutController);
+  it('should be an instance of <%= upCaseName %>Controller', () => {
+    expect(controller).to.be.an.instanceof(<%= upCaseName %>Controller);
   });
   it('should have propertis list, names', () => {
     expect(controller).to.have.property('names');
