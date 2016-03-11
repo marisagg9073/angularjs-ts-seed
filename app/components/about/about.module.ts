@@ -5,4 +5,4 @@ import {Service} from '../../services/names-list';
 const ngModuleName = 'app.about';
 
 export default angular.module(ngModuleName, ['ngNewRouter', Service.NamesList.moduleName])
-  .run($log => $log.debug(['ngModule', ngModuleName, 'loaded'].join (' '))).name;
+  .run(['$log', $log => $log.debug(['ngModule', ngModuleName, 'loaded'].join(' '))]).name;

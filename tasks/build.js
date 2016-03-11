@@ -99,6 +99,7 @@ gulp.task('build.js.tmp', function() {
 
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
+  gulp.src('./tmp/at-angular*.js').pipe(gulp.dest(PATH.dest.prod.all));
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
     { minify: true }).catch(function(e) { console.log(e); });
 });
