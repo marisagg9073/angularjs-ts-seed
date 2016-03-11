@@ -24,7 +24,7 @@ export default class ExampleController {
 
     // Note: we should always have this code in place, to ensure we don't leak intervals.
     // Ensure that we always close any running intervals when a controller instance is un-loaded.
-    // scope.$on('$destroy', () => this.cancelIntervals());
+    scope.$on('$destroy', () => this.cancelIntervals());
   }
 
   public addName(newName: string) {

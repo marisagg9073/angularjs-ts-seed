@@ -12,18 +12,19 @@ let expect = chai.expect;
 let spy = sinon.spy;
 
 describe('# Example Controller', () => {
-  let $controller, $log;
+  let $controller, $log, $rootScope;
   let controller: ExampleController;
 
   beforeEach(() => {
     $module(Example);
 
-    $inject((_$controller_, _$log_) => {
+    $inject((_$controller_, _$log_, _$rootScope_) => {
       $controller = _$controller_;
       $log = _$log_;
+      $rootScope = _$rootScope_;
     });
 
-    controller = $controller('ExampleController', { $scope: {} });
+    controller = $controller('ExampleController', { $scope: $rootScope.$new() });
   });
 
   describe('## Existence', () => {
