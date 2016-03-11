@@ -1,7 +1,5 @@
 /// <reference path="../typings/browser.d.ts" />
 
-import {at} from './at-angular';
-
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 

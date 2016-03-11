@@ -1,4 +1,3 @@
-import {at} from '../../at-angular';
 import {Service} from '../../services/names-list';
 
 export module Feature1 {

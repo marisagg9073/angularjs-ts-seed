@@ -1,5 +1,3 @@
-import {at} from '../at-angular';
-
 export module Service {
 
   'use strict';
