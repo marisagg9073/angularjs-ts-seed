@@ -2,7 +2,8 @@
 
 import {Service} from '../../services/names-list';
 
-import About from './about.module';
+import About from './about';
+
 import AboutController from './about.controller';
 
 'use strict';

@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import <%= upCaseName %> from './<%= name %>.module';
+import <%= upCaseName %> from './<%= name %>';
+
 import <%= upCaseName %>Controller from './<%= name %>.controller';
 
 'use strict';

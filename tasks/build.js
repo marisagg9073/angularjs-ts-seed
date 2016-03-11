@@ -11,7 +11,6 @@ var minifyHTML = require('gulp-minify-html');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var template = require('gulp-template');
-var tslint = require('gulp-tslint');
 var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 
@@ -19,6 +18,7 @@ var fs = require('fs');
 var join = require('path').join;
 var runSequence = require('run-sequence');
 var Builder = require('systemjs-builder');
+var yargs = require('yargs');
 
 var appProdBuilder = new Builder({
   baseURL: 'file:./tmp',
@@ -28,19 +28,6 @@ var HTMLMinifierOpts = { conditionals: true };
 
 var tsProject = tsc.createProject('tsconfig.json', {
   typescript: require('typescript')
-});
-
-// --------------
-// Lint.
-
-gulp.task("lint", function() {
-  gulp.src(PATH.src.app.all)
-    .pipe(tslint())
-    .pipe(tslint.report("prose"), {
-      emitError: false,
-      reportLimit: 2,
-      summarizeFailureOutput: true
-    });
 });
 
 // --------------
@@ -112,6 +99,7 @@ gulp.task('build.js.tmp', function() {
 
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
+  gulp.src('./tmp/at-angular*.js').pipe(gulp.dest(PATH.dest.prod.all));
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
     { minify: true }).catch(function(e) { console.log(e); });
 });
@@ -182,3 +170,30 @@ function injectableDevAssetsRef() {
   src.push(join(PATH.dest.dev.all, '**/*.css'));
   return src;
 }
+
+function build() {
+  var argv = yargs.reset()
+    .usage('Usage: gulp build -p')
+    .alias('p', 'prod')
+    .boolean('p')
+    .describe('p', 'Build for Production Environment')
+
+    .alias('s', 'support')
+    .help('s')
+    .argv;
+
+  if (argv.prod)
+    gulp.start('build.prod');
+  else
+    gulp.start('build.dev');
+}
+
+build.description = 'Build for either Development or the requested environment';
+
+build.flags = {
+  '-p, --prod': 'Build for Production Environment',
+  '-s, --support': 'Show help'
+};
+
+
+gulp.task('build', build);
