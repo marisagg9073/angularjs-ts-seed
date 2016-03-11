@@ -5,7 +5,7 @@ A seed project for AngularJS apps written in *TypeScript*.
 _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/angular2-seed)_
 
 # Features
-* AngularJS 1.5.x
+* AngularJS **1.5.x**
 * Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
 * SystemJS
 
@@ -23,7 +23,7 @@ npm install
 ```
 
 Node should automatically install:
-* [typings](https://github.com/typings/typings) with TS definitions
+* [typings](https://github.com/typings/typings) with TypeScript definitions
 * [gulp-cli](https://github.com/gulpjs/gulp-cli) that should show the list of the
 available tasks, with the description of the main ones
 
@@ -42,7 +42,7 @@ gulp -T
 
 ## Main tasks
 
-If you need support for using the afore-mentioned tasks, you can run:
+If you need support for using the afore mentioned tasks, you can run:
 
 ```bash
 # shorthand
@@ -76,12 +76,35 @@ gulp serve
 
 # Prod run
 gulp serve --prod
+# ... or
 gulp serve -p
 ```
 
 ## Scaffolding
 
-TBD
+The new component generator:
+
+```bash
+gulp component --name about
+```
+
+will create the following structure:
+
+```bash
+ app
+ |-- components
+     |-- about
+         |-- about.css            # styles
+         |-- about.html           # main template
+         |-- about.ts             # entry point for imports / main definition
+         |-- about.controller.ts  # main controller
+         |-- about.module.ts      # angular module
+         |-- about.spec.ts        # unit test specs
+
+         components.ts            # *update manually* to register the module
+```
+
+Then, you can link this component to a specific route, by using it in `app.ts`.
 
 # Conventions
 
