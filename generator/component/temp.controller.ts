@@ -1,10 +1,8 @@
-import {at} from '../../at-angular';
-
-import {Definition} from './<%= name %>';
+import ngModuleName from './<%= name %>.module';
 
 'use strict';
 
-@at.controller(Definition.ngModuleName, '<%= upCaseName %>Controller')
+@at.controller(ngModuleName, '<%= upCaseName %>Controller')
 @at.inject('$router')
 export default class <%= upCaseName %>Controller {
   private myName: string;

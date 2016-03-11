@@ -1,12 +1,4 @@
-import {at} from '../../at-angular';
+const ngModuleName = 'app.<%= name %>';
 
-import {Definition} from './<%= name %>';
-import './<%= name %>.controller';
-
-'use strict';
-
-let ngModule = at.getOrCreateModule(Definition.ngModuleName);
-
-ngModule.requires.push('ngNewRouter');
-
-export default ngModule.name;
+export default angular.module(ngModuleName, ['ngNewRouter'])
+  .run($log => $log.debug(['ngModule', ngModuleName, 'loaded'])).name;

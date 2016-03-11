@@ -1,12 +1,8 @@
 import {Service} from '../../services/names-list';
 
-import {Definition} from './about';
-import './about.controller';
-
 'use strict';
 
-let ngModule = at.getOrCreateModule(Definition.ngModuleName);
+const ngModuleName = 'app.about';
 
-ngModule.requires.push('ngNewRouter', Service.NamesList.moduleName);
-
-export default ngModule.name;
+export default angular.module(ngModuleName, ['ngNewRouter', Service.NamesList.moduleName])
+  .run($log => $log.debug(['ngModule', ngModuleName, 'loaded'])).name;
