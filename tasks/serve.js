@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var watch = require('gulp-watch');
 
 var join = require('path').join;
+var yargs = require('yargs');
 
 var http = require('http');
 var connect = require('connect');
@@ -45,3 +46,30 @@ gulp.task('serve.prod', ['build.prod'], function() {
     openResource('http://localhost:' + port);
   });
 });
+
+function serve() {
+  var argv = yargs.reset()
+    .usage('Usage: gulp serve -p')
+    .alias('p', 'prod')
+    .boolean('p')
+    .describe('p', 'Build for Production Environment and serve')
+
+    .alias('s', 'support')
+    .help('s')
+    .argv;
+
+  if (argv.prod)
+    gulp.start('serve.prod');
+  else
+    gulp.start('serve.dev');
+}
+
+serve.description = 'Build for either Development or the requested environment and serve';
+
+serve.flags = {
+  '-p, --prod': 'Build for Production Environment',
+  '-s, --support': 'Show help'
+};
+
+
+gulp.task('serve', serve);

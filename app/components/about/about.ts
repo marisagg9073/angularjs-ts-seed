@@ -1,5 +1,4 @@
-export module Definition {
-  'use strict';
+import ngModuleName from './about.module';
+import './about.controller';
 
-  export const ngModuleName = 'app.about';
-}
+export default ngModuleName;
