@@ -12,7 +12,7 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 # Unit tests
 * [mocha](https://mochajs.org/)
 * [chai](http://chaijs.com/)
-* sinon
+* [sinon](http://sinonjs.org/) for [spies](https://github.com/mochajs/mocha/wiki/Spies)
 
 # How to start
 
