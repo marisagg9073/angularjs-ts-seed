@@ -10,8 +10,8 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 * SystemJS
 
 # Unit tests
-* mocha
-* chai
+* [mocha](https://mochajs.org/)
+* [chai](http://chaijs.com/)
 * sinon
 
 # How to start
