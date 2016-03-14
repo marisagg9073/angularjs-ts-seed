@@ -8,6 +8,14 @@ module at {
     (t: any, key: string, index: number): void;
   }
 
+  export interface IPropertyAnnotationDecorator {
+    (target: any, key: string): void;
+  }
+
+  export interface IMethodAnnotationDecorator {
+    (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void;
+  }
+
   export function attachInjects(target: any, ...args: any[]): any {
     (target.$inject || []).forEach((item: string, index: number) => {
       target.prototype[(item.charAt(0) === '$' ? '$' : '$$') + item] = args[index];
@@ -50,6 +58,7 @@ module at {
       }
     };
   }
+
   ///////////////////////////////////////////////////////////////////////////////
   // SERVICE ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
@@ -66,6 +75,58 @@ module at {
       getOrCreateModule(moduleName).service(serviceName, target);
     };
 
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // VALUE ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IValueAnnotation {
+    (moduleName: string, valueName: string): IClassAnnotationDecorator;
+  }
+
+  export function valueObj(moduleName: string, valueName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      getOrCreateModule(moduleName).value(valueName, target);
+    };
+  }
+
+  export function valueProp(moduleName: string, valueName?: string): at.IPropertyAnnotationDecorator {
+    return (target: any, key: string): void => {
+      getOrCreateModule(moduleName).value(valueName || key, target[key]);
+    };
+  }
+
+  export function valueFunc(moduleName: string, valueName?: string): at.IMethodAnnotationDecorator {
+    return (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void => {
+      getOrCreateModule(moduleName).value(valueName || key, target[key]);
+    };
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // CONSTANT ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IConstantAnnotation {
+    (moduleName: string, valueName: string): IClassAnnotationDecorator;
+  }
+
+  export function constantObj(moduleName: string, valueName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      getOrCreateModule(moduleName).constant(valueName, target);
+    };
+  }
+
+  export function constantProp(moduleName: string, valueName?: string): at.IPropertyAnnotationDecorator {
+    return (target: any, key: string): void => {
+      getOrCreateModule(moduleName).constant(valueName || key, target[key]);
+    };
+  }
+
+  export function constantFunc(moduleName: string, valueName?: string): at.IMethodAnnotationDecorator {
+    return (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void => {
+      getOrCreateModule(moduleName).constant(valueName || key, target[key]);
+    };
   }
 
   ///////////////////////////////////////////////////////////////////////////////
