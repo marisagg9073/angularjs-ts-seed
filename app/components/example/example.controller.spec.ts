@@ -100,11 +100,33 @@ describe('# Example Controller', () => {
   });
 
   describe('## Intervals', () => {
-    it('should register the intervals', $inject(($interval, $rootScope) => {
-      let $intervalSpy = spy($interval);
+    let $intervalSpy;
+
+    it('should register the intervals', $inject($interval => {
+      $intervalSpy = spy($interval);
       controller = $controller('ExampleController', { $interval: $intervalSpy, $scope: $rootScope.$new() });
+
       expect($intervalSpy.called).to.be.true;
       expect($intervalSpy.callCount).to.equals(2);
+    }));
+
+    it('should cancel the intervals', $inject($interval => {
+      debugger;
+      $intervalSpy = spy($interval);
+      controller = $controller('ExampleController', { $interval: $intervalSpy, $scope: $rootScope.$new() });
+
+      // Note that we've added .and.callThough();
+      // var $intervalSpy = jasmine.createSpy('$interval', $interval).and.callThrough();
+
+      // execute the cancel method
+      controller.cancelIntervals();
+
+      expect($intervalSpy.callCount).to.equals(2);
+
+      // how do we assert that cancel is called with the correct interval instances?
+      // expect($intervalSpy.cancel.calls.argsFor(0)[0].$$intervalId).toBe(0);
+      // expect($intervalSpy.cancel.calls.argsFor(1)[0].$$intervalId).toBe(1);
+
     }));
   });
 });
