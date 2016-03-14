@@ -121,7 +121,7 @@ describe('# Example Controller', () => {
 
       expect($intervalSpy.cancel.calls.count()).toBe(2);
 
-      // Assert that cancel is called with the correct interval instances
+      // assert that cancel is called with the correct interval instances
       expect($intervalSpy.cancel.calls.argsFor(0)[0].$$intervalId).toBe(2);
       expect($intervalSpy.cancel.calls.argsFor(1)[0].$$intervalId).toBe(3);
     });
@@ -139,6 +139,54 @@ describe('# Example Controller', () => {
       controller.cancelIntervals();
       controller.destroy();
       expect($intervalSpy.cancel.calls.count()).toBe(2);
+    });
+  });
+
+  describe('## Interval Counter', () => {
+    let $interval;
+
+    beforeEach($inject(_$interval_ => {
+      $interval = _$interval_;
+    }));
+
+    afterEach(() => controller.destroy);
+
+    it('should start the interval using defaults', () => {
+      controller.counterStart();
+
+      expect(controller.counterFrom).toBe(0);
+      expect(controller.counterStep).toBe(1);
+      expect(controller.counterTicker).toBe(0);
+
+      // advance in time by 4 seconds
+      $interval.flush(4000);
+
+      expect(controller.counterTicker).toBe(4);
+    });
+
+    it('should start the interval with user values', () => {
+      controller.counterFrom = 5;
+      controller.counterStep = 2;
+      controller.counterTimes = 10;
+
+      controller.counterStart();
+
+      expect(controller.counterFrom).toBe(5);
+      expect(controller.counterStep).toBe(2);
+      expect(controller.counterTicker).toBe(0);
+
+      $interval.flush(1100);
+      expect(controller.counterTicker).toBe(7);
+
+      $interval.flush(1100);
+      expect(controller.counterTicker).toBe(9);
+
+      // this interval stops after 10 iterations, and therefore should not pass 25!
+      $interval.flush(10000);
+      expect(controller.counterTicker).toBe(25);
+
+      $interval.flush(10000);
+      expect(controller.counterTicker).toBe(25);
     });
   });
 });
