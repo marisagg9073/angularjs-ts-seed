@@ -8,8 +8,6 @@ import ExampleController from './example.controller';
 let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
-let expect = chai.expect;
-let spy = sinon.spy;
 
 describe('# Example Controller', () => {
   let $controller, $log, $rootScope;
@@ -29,38 +27,38 @@ describe('# Example Controller', () => {
 
   describe('## Existence', () => {
     it('should exist', () => {
-      expect(controller).not.to.be.undefined;
-      expect(controller).not.to.be.null;
+      expect(controller).not.toBeUndefined();
+      expect(controller).not.toBeNull();
     });
 
     it('should be an instance of ExampleController', () => {
-      expect(controller).to.be.an.instanceof(ExampleController);
+      expect(controller).toEqual(jasmine.any(ExampleController));
     });
   });
 
   describe('## Log enabled', () => {
     it('should log registration', () => {
       let loaded = ['ngController', 'ExampleController', 'loaded'].join(' ');
-      expect($log.debug.logs[1]).to.contain(loaded);
+      expect($log.debug.logs[1]).toContain(loaded);
     });
   });
 
   describe('## Names property', () => {
     it('should be empty', () => {
-      expect(controller.listNames()).to.be.empty;
-      expect(controller.readNames()).to.be.empty;
+      expect(controller.listNames()).toBeEmptyString();
+      expect(controller.readNames()).toBeEmptyArray();
     });
 
     it('should be populated', () => {
       let elementX = 'x';
       controller.addName(elementX);
-      expect(controller.listNames()).to.equals(elementX);
-      expect(controller.readNames()).to.eql([elementX]);
+      expect(controller.listNames()).toEqual(elementX);
+      expect(controller.readNames()).toEqual([elementX]);
 
       let elementY = 'y';
       controller.addName(elementY);
-      expect(controller.listNames(':')).to.equals([elementX, elementY].join(':'));
-      expect(controller.readNames()).to.eql([elementX, elementY]);
+      expect(controller.listNames(':')).toEqual([elementX, elementY].join(':'));
+      expect(controller.readNames()).toEqual([elementX, elementY]);
     });
 
     describe('### Async', () => {
@@ -74,8 +72,8 @@ describe('# Example Controller', () => {
         // this will throw an exception if there are any pending timeouts.
         $timeout.verifyNoPendingTasks();
 
-        expect(controller.listNames()).to.equals(elementX);
-        expect(controller.readNames()).to.eql([elementX]);
+        expect(controller.listNames()).toEqual(elementX);
+        expect(controller.readNames()).toEqual([elementX]);
       }));
 
       it('should be populated with delay - complex', $inject($timeout => {
@@ -85,20 +83,20 @@ describe('# Example Controller', () => {
         controller.addNameAsync(elementY, 2000);
 
         $timeout.flush(501);
-        expect($timeout.verifyNoPendingTasks).to.throw();
+        expect($timeout.verifyNoPendingTasks).toThrow();
 
-        expect(controller.listNames()).to.equals(elementX);
-        expect(controller.readNames()).to.eql([elementX]);
+        expect(controller.listNames()).toEqual(elementX);
+        expect(controller.readNames()).toEqual([elementX]);
 
         $timeout.flush(1500);
         $timeout.verifyNoPendingTasks();
 
-        expect(controller.listNames(':')).to.equals([elementX, elementY].join(':'));
-        expect(controller.readNames()).to.eql([elementX, elementY]);
+        expect(controller.listNames(':')).toEqual([elementX, elementY].join(':'));
+        expect(controller.readNames()).toEqual([elementX, elementY]);
       }));
     });
   });
-
+/*
   describe('## Intervals', () => {
     let $intervalSpy;
 
@@ -129,4 +127,5 @@ describe('# Example Controller', () => {
 
     }));
   });
+  */
 });

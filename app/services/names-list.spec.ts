@@ -6,7 +6,6 @@ import {Service} from './names-list';
 
 let $module = angular.mock.module;
 let $inject = angular.mock.inject;
-let expect = chai.expect;
 
 describe('# Names List Service', () => {
   let namesList;
@@ -20,15 +19,15 @@ describe('# Names List Service', () => {
   });
 
   it('should be an instance of NameList', () => {
-    expect(namesList).to.be.an.instanceof(Service.NamesList);
+    expect(namesList).toEqual(jasmine.any(Service.NamesList));
   });
   it('should have a property names', () => {
-    expect(namesList).to.have.property('names');
+    expect(namesList).toHaveArray('names');
   });
   it('should add() a name', () => {
     let lastValue;
     namesList.add('test');
     lastValue = namesList.names.pop();
-    expect(lastValue).to.equal('test');
+    expect(lastValue).toEqual('test');
   });
 });

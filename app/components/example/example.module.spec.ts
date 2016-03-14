@@ -7,7 +7,6 @@ import Example from './example';
 let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
-let expect = chai.expect;
 
 describe('# Example Module', () => {
   beforeEach($module(Example));
@@ -18,19 +17,19 @@ describe('# Example Module', () => {
     beforeEach(() => mod = angular.module(Example));
 
     it('should exist', () => {
-      expect(mod).not.to.be.undefined;
-      expect(mod).not.to.be.null;
+      expect(mod).not.toBeUndefined();
+      expect(mod).not.toBeNull;
     });
 
     it('should have deps', () => {
-      expect(mod.requires).to.contain('ngNewRouter');
+      expect(mod.requires).toContain('ngNewRouter');
     });
   });
 
   describe('## Log enabled', () => {
     let $log;
 
-    beforeEach('registering log', () => {
+    beforeEach(() => {
       $inject(_$log_ => {
         $log = _$log_;
       });
@@ -38,7 +37,7 @@ describe('# Example Module', () => {
 
     it('should log registration', () => {
       let loaded = ['ngModule', Example, 'loaded'].join(' ');
-      expect($log.debug.logs[0][0]).to.contain([loaded]);
+      expect($log.debug.logs[0][0]).toContain([loaded]);
     });
   });
 
@@ -56,7 +55,7 @@ describe('# Example Module', () => {
     });
 
     it('should not log registration', () => {
-      expect($log.assertEmpty).not.to.throw();
+      expect($log.assertEmpty).not.toThrow();
     });
   });
 });

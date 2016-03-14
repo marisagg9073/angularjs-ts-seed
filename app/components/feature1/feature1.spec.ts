@@ -6,7 +6,6 @@ import {Feature1} from './feature1';
 
 let $module = angular.mock.module;
 let $inject = angular.mock.inject;
-let expect = chai.expect;
 
 describe('# Feature1 Controller', () => {
   let $controller, $scope, controller;
@@ -22,16 +21,16 @@ describe('# Feature1 Controller', () => {
   });
 
   it('should be an instance of Feature1Controller', () => {
-    expect(controller).to.be.an.instanceof(Feature1.Feature1Controller);
+    expect(controller).toEqual(jasmine.any(Feature1.Feature1Controller));
   });
   it('should have propertis list, names', () => {
-    expect(controller).to.have.property('names');
-    expect(controller).to.have.property('list');
+    expect(controller).toHaveArray('names');
+    expect(controller).toHaveNonEmptyObject('list');
   });
   it('should add() a name and update the names list', () => {
     let lastValue;
     controller.addName('test');
     lastValue = controller.names.pop();
-    expect(lastValue).to.equal('test');
+    expect(lastValue).toEqual('test');
   });
 });
