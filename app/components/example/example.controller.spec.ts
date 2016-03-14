@@ -96,36 +96,49 @@ describe('# Example Controller', () => {
       }));
     });
   });
-/*
+
   describe('## Intervals', () => {
     let $intervalSpy;
 
-    it('should register the intervals', $inject($interval => {
-      $intervalSpy = spy($interval);
+    beforeEach($inject(_$interval_ => {
+      $intervalSpy = jasmine.createSpy('$interval', _$interval_).and.callThrough();
       controller = $controller('ExampleController', { $interval: $intervalSpy, $scope: $rootScope.$new() });
-
-      expect($intervalSpy.called).to.be.true;
-      expect($intervalSpy.callCount).to.equals(2);
     }));
 
-    it('should cancel the intervals', $inject($interval => {
-      debugger;
-      $intervalSpy = spy($interval);
-      controller = $controller('ExampleController', { $interval: $intervalSpy, $scope: $rootScope.$new() });
+    it('should register the intervals', $inject($interval => {
+      expect($intervalSpy).toHaveBeenCalled();
+      expect($intervalSpy.calls.count()).toBe(2);
 
-      // Note that we've added .and.callThough();
-      // var $intervalSpy = jasmine.createSpy('$interval', $interval).and.callThrough();
+      expect($intervalSpy).toHaveBeenCalledWith(controller.increment1, 1000);
+      expect($intervalSpy).toHaveBeenCalledWith(controller.increment2, 1000, 10);
+    }));
+
+    it('should cancel the intervals', () => {
+      spyOn($intervalSpy, 'cancel');
 
       // execute the cancel method
       controller.cancelIntervals();
 
-      expect($intervalSpy.callCount).to.equals(2);
+      expect($intervalSpy.cancel.calls.count()).toBe(2);
 
-      // how do we assert that cancel is called with the correct interval instances?
-      // expect($intervalSpy.cancel.calls.argsFor(0)[0].$$intervalId).toBe(0);
-      // expect($intervalSpy.cancel.calls.argsFor(1)[0].$$intervalId).toBe(1);
+      // Assert that cancel is called with the correct interval instances
+      expect($intervalSpy.cancel.calls.argsFor(0)[0].$$intervalId).toBe(2);
+      expect($intervalSpy.cancel.calls.argsFor(1)[0].$$intervalId).toBe(3);
+    });
 
-    }));
+    it('should cancel the intervals on destroy', () => {
+      spyOn(controller, 'cancelIntervals');
+
+      controller.destroy();
+      expect(controller.cancelIntervals).toHaveBeenCalled();
+    });
+
+    it('should not cancel the already cancelled intervals on destroy', () => {
+      spyOn($intervalSpy, 'cancel');
+
+      controller.cancelIntervals();
+      controller.destroy();
+      expect($intervalSpy.cancel.calls.count()).toBe(2);
+    });
   });
-  */
 });

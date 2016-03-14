@@ -12,8 +12,8 @@ export default class ExampleController {
   private int1: number = Math.random();
   private int2: number = Math.random();
 
-  private incrementInterval = this.interval(this.increment1, 1000);
-  private incrementIntervalTenTimes = this.interval(this.increment2, 1000, 10);
+  private incrementInterval = undefined;
+  private incrementIntervalTenTimes = undefined;
 
   constructor(private interval: angular.IIntervalService,
     private log: angular.ILogService,
@@ -22,6 +22,8 @@ export default class ExampleController {
     private router: any) {
     log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
 
+    this.incrementInterval = this.interval(this.increment1, 1000);
+    this.incrementIntervalTenTimes = this.interval(this.increment2, 1000, 10);
     // Note: we should always have this code in place, to ensure we don't leak intervals.
     // Ensure that we always close any running intervals when a controller instance is un-loaded.
     scope.$on('$destroy', () => this.cancelIntervals());
@@ -48,7 +50,9 @@ export default class ExampleController {
     }
   };
 
-  private increment1 = () => this.int1 += 1;
+  public destroy = () => this.scope.$destroy();
 
-  private increment2 = () => this.int2 += 1;
+  public increment1 = () => this.int1 += 1;
+
+  public increment2 = () => this.int2 += 1;
 }
