@@ -8,11 +8,11 @@ export module Home {
   export let ngModule = angular.module(moduleName, ['ngNewRouter']);
 
   @at.controller(moduleName, 'HomeController')
-  @at.inject('$router')
+  @at.inject('$log', '$router')
   export class HomeController {
 
-    constructor(private router: any) {
-      console.log('childRouter', router);
+    constructor(private log: angular.ILogService, private router: any) {
+      log.debug('childRouter', router);
     }
 
   }

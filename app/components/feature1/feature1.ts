@@ -18,14 +18,14 @@ export module Feature1 {
       this.names = list.get();
     }
 
-    public addName(newname) {
-      this.list.add(newname);
-      newname = '';
+    public addName(newName: string) {
+      this.list.add(newName);
     }
 
   }
 
   @at.component(moduleName, 'featureTest')
+  @at.inject('$log')
   export class Feature1Component {
 
     // public static transclude = true;
@@ -38,13 +38,13 @@ export module Feature1 {
       return '<span>{{ $ctrl.name }}</span>';
     };
 
-    constructor() {
-      console.log('constructor');
+    constructor(private log: angular.ILogService) {
+      log.debug('Feature1 constructor');
       this.name = 'FirstTestCtrl';
     }
 
     public $onInit(): void {
-      console.log('onInit');
+      this.log.debug('Feature1 $onInit');
     }
 
   }

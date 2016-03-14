@@ -5,17 +5,18 @@ import ngModuleName from './about.module';
 'use strict';
 
 @at.controller(ngModuleName, 'AboutController')
-@at.inject('$router', Service.NamesList.myName)
+@at.inject('$log', '$router', Service.NamesList.myName)
 export default class AboutController {
   private names: Array<string>;
 
-  constructor(private router: any, private list: Service.NamesList) {
-    console.log('router', router);
+  constructor(private log: angular.ILogService,
+    private router: any,
+    private list: Service.NamesList) {
+    log.debug('router', router);
     this.names = list.get();
   }
 
-  public addName(newname) {
-    this.list.add(newname);
-    newname = '';
+  public addName(newName: string) {
+    this.list.add(newName);
   }
 }
