@@ -10,9 +10,8 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 * SystemJS
 
 # Unit tests
-* [mocha](https://mochajs.org/)
-* [chai](http://chaijs.com/)
-* [sinon](http://sinonjs.org/) for [spies](https://github.com/mochajs/mocha/wiki/Spies)
+* [jasmine](http://jasmine.github.io/2.4/introduction.html)
+* [jasmine-matchers](https://github.com/JamieMason/Jasmine-Matchers) for handful extra matchers
 
 # How to start
 
