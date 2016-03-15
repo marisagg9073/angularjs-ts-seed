@@ -102,6 +102,33 @@ module at {
   }
 
   ///////////////////////////////////////////////////////////////////////////////
+  // FILTER ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IFilter {
+    filter(input: any, ...args: any[]): any;
+  }
+
+  export interface IFilterAnnotation {
+    (moduleName: string, filterName: string): IClassAnnotationDecorator;
+  }
+
+  /**
+   * inject a provider
+   */
+  export function filter(moduleName: string, filterName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      class Provider {
+        constructor() {
+          this.$get.$inject = (target.$inject || []).slice();
+        }
+        public $get = (...deps) => new target(...deps).filter;
+      }
+      getOrCreateModule(moduleName).provider(filterName + 'Filter', Provider);
+    };
+
+  }
+  ///////////////////////////////////////////////////////////////////////////////
   // VALUE ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
 
