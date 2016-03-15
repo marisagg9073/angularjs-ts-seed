@@ -230,7 +230,7 @@ module at {
       getOrCreateModule(moduleName).directive(directiveName, () => (config));
     };
   }
-
+/*
   ///////////////////////////////////////////////////////////////////////////////
   // CLASSFACTORY ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ module at {
       function factory(...args: any[]): any {
         return at.attachInjects(target, ...args);
       }
-      /* istanbul ignore else */
+      /* istanbul ignore else *//*
       if (target.$inject && target.$inject.length > 0) {
         factory.$inject = target.$inject.slice(0);
       }

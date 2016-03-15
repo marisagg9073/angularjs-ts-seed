@@ -125,6 +125,8 @@ To enforce the adoption of best practices, every build begins with *lint* tasks.
 
 In addition, you are encouraged to format your code `[Shift+Alt+F]` before any commit.
 
+The use of **factories** is **deprecated**, because of the Object Oriented paradigm adopted.
+
 # Git Flow
 
 TBD
