@@ -59,6 +59,12 @@ module at {
     };
   }
 
+  export function injectMethod(...args: string[]): at.IMethodAnnotationDecorator {
+    return (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void => {
+      target[key].$inject = args;
+    };
+  }
+
   ///////////////////////////////////////////////////////////////////////////////
   // SERVICE ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
@@ -73,6 +79,24 @@ module at {
   export function service(moduleName: string, serviceName: string): at.IClassAnnotationDecorator {
     return (target: any): void => {
       getOrCreateModule(moduleName).service(serviceName, target);
+    };
+
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // PROVIDER ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IProviderAnnotation {
+    (moduleName: string, providerName: string): IClassAnnotationDecorator;
+  }
+
+  /**
+   * inject a provider
+   */
+  export function provider(moduleName: string, providerName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      getOrCreateModule(moduleName).provider(providerName, target);
     };
 
   }
@@ -230,27 +254,27 @@ module at {
       getOrCreateModule(moduleName).directive(directiveName, () => (config));
     };
   }
-/*
-  ///////////////////////////////////////////////////////////////////////////////
-  // CLASSFACTORY ANNOTATION
-  ///////////////////////////////////////////////////////////////////////////////
+  /*
+    ///////////////////////////////////////////////////////////////////////////////
+    // CLASSFACTORY ANNOTATION
+    ///////////////////////////////////////////////////////////////////////////////
 
-  export interface IClassFactoryAnnotation {
-    (moduleName: string, className: string): IClassAnnotationDecorator;
-  }
+    export interface IClassFactoryAnnotation {
+      (moduleName: string, className: string): IClassAnnotationDecorator;
+    }
 
-  export function classFactory(moduleName: string, className: string): at.IClassAnnotationDecorator {
-    return (target: any): void => {
-      function factory(...args: any[]): any {
-        return at.attachInjects(target, ...args);
-      }
-      /* istanbul ignore else *//*
-      if (target.$inject && target.$inject.length > 0) {
-        factory.$inject = target.$inject.slice(0);
-      }
-      getOrCreateModule(moduleName).factory(className, factory);
-    };
-  }
-  /* tslint:enable:no-any */
+    export function classFactory(moduleName: string, className: string): at.IClassAnnotationDecorator {
+      return (target: any): void => {
+        function factory(...args: any[]): any {
+          return at.attachInjects(target, ...args);
+        }
+        /* istanbul ignore else *//*
+if (target.$inject && target.$inject.length > 0) {
+factory.$inject = target.$inject.slice(0);
+}
+getOrCreateModule(moduleName).factory(className, factory);
+};
+}
+/* tslint:enable:no-any */
 
 }

@@ -45,7 +45,7 @@ describe('# Example Module', () => {
     let $log;
 
     beforeEach(() => {
-      $module(function($logProvider) {
+      $module($logProvider => {
         $logProvider.debugEnabled(false);
       });
 
