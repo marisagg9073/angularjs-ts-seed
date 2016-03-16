@@ -12,6 +12,6 @@ export default class ExampleFilter implements at.IFilter {
     log.debug(['ngFilter', ngFilterName, 'loaded'].join(' '));
   }
 
-  public filter = (input: string | Array<any>): number => !input ? 0 : input.length;
+  public transform = (input: string | Array<any>): number => !input ? 0 : input.length;
 
 }

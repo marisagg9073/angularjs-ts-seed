@@ -106,7 +106,7 @@ module at {
   ///////////////////////////////////////////////////////////////////////////////
 
   export interface IFilter {
-    filter(input: any, ...args: any[]): any;
+    transform(input: any, ...args: any[]): any;
   }
 
   export interface IFilterAnnotation {
@@ -122,7 +122,7 @@ module at {
         constructor() {
           this.$get.$inject = (target.$inject || []).slice();
         }
-        public $get = (...deps) => new target(...deps).filter;
+        public $get = (...deps) => new target(...deps).transform;
       }
       getOrCreateModule(moduleName).provider(filterName + 'Filter', Provider);
     };
