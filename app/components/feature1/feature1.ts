@@ -10,7 +10,7 @@ export module Feature1 {
 
   @at.controller(moduleName, 'Feature1Controller')
   @at.inject(Service.NamesList.myName)
-  export class Feature1Controller {
+  export class Feature1Controller implements at.IController {
 
     private names: Array<string>;
 
@@ -28,7 +28,7 @@ export module Feature1 {
     template: () => '<span>{{ $ctrl.test }}</span>'
   })
   @at.inject('$log')
-  export class Feature1Component {
+  export class Feature1Component implements at.IComponent {
 
     // public static transclude = true;
     // public static templateUrl = "components/feature1/feature-test.html";

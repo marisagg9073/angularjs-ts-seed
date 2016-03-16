@@ -184,6 +184,16 @@ module at {
   // CONTROLLER ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * @link http://angular.github.io/router/lifecycle
+   */
+  export interface IController {
+    canActivate?(): boolean | angular.IPromise<boolean>;
+    activate?(): any;
+    canDeactivate?(): boolean | angular.IPromise<boolean>;
+    deactivate?(): any;
+  }
+
   export interface IControllerAnnotation {
     (moduleName: string, ctrlName: string): IClassAnnotationDecorator;
   }
@@ -201,6 +211,11 @@ module at {
   ///////////////////////////////////////////////////////////////////////////////
   // COMPONENT ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IComponent {
+    $onInit?(): void;
+  }
+
   const componentProperties: string[] = [
     'controller',
     'controllerAs',

@@ -6,7 +6,7 @@ import ngModuleName from './about.module';
 
 @at.controller(ngModuleName, 'AboutController')
 @at.inject('$log', '$router', Service.NamesList.myName)
-export default class AboutController {
+export default class AboutController implements at.IController {
   private names: Array<string>;
 
   constructor(private log: angular.ILogService,

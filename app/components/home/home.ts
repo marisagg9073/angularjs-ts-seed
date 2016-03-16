@@ -9,7 +9,7 @@ export module Home {
 
   @at.controller(moduleName, 'HomeController')
   @at.inject('$log', '$router')
-  export class HomeController {
+  export class HomeController implements at.IController {
 
     constructor(private log: angular.ILogService, private router: any) {
       log.debug('childRouter', router);
