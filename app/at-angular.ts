@@ -262,46 +262,31 @@ module at {
   /**
    * inject a directive
    */
-  export function directive(moduleName: string, directiveName: string): at.IClassAnnotationDecorator {
+  export function directive(moduleName: string, directiveName: string, directiveConfig?: angular.IDirective): at.IClassAnnotationDecorator {
     return (target: any): void => {
-      let config: angular.IDirective;
-      const ctrlName: string = angular.isString(target.controller) ? target.controller.split(' ').shift() : null;
+      const ctrlCfg = directiveConfig ? directiveConfig.controller : target.controller;
+      const ctrlName: string = angular.isString(ctrlCfg) ? ctrlCfg.split(' ').shift() : null;
       /* istanbul ignore else */
       if (ctrlName) {
         controller(moduleName, ctrlName)(target);
       }
-      config = directiveProperties.reduce((
-        config: angular.IDirective,
-        property: string
-      ) => {
-        return angular.isDefined(target[property]) ? angular.extend(config, { [property]: target[property] }) :
-          config; /* istanbul ignore next */
-      }, { controller: target, scope: Boolean(target.templateUrl) });
+
+      let config: angular.IDirective;
+      if (directiveConfig) {
+        config = directiveConfig;
+      } else {
+        config = directiveProperties.reduce((
+          config: angular.IDirective,
+          property: string
+        ) => {
+          return angular.isDefined(target[property]) ? angular.extend(config, { [property]: target[property] }) :
+            config; /* istanbul ignore next */
+        }, { controller: target, scope: Boolean(target.templateUrl) });
+      }
 
       getOrCreateModule(moduleName).directive(directiveName, () => (config));
     };
   }
-  /*
-    ///////////////////////////////////////////////////////////////////////////////
-    // CLASSFACTORY ANNOTATION
-    ///////////////////////////////////////////////////////////////////////////////
-
-    export interface IClassFactoryAnnotation {
-      (moduleName: string, className: string): IClassAnnotationDecorator;
-    }
-
-    export function classFactory(moduleName: string, className: string): at.IClassAnnotationDecorator {
-      return (target: any): void => {
-        function factory(...args: any[]): any {
-          return at.attachInjects(target, ...args);
-        }
-        /* istanbul ignore else *//*
-if (target.$inject && target.$inject.length > 0) {
-factory.$inject = target.$inject.slice(0);
-}
-getOrCreateModule(moduleName).factory(className, factory);
-};
-}
-/* tslint:enable:no-any */
+  /* tslint:enable:no-any */
 
 }

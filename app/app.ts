@@ -9,7 +9,15 @@ let app = angular.module('app', [
   Service.NamesList.moduleName
 ]);
 
-@at.controller('app', 'AppController')
+// @at.controller('app', 'AppController')
+@at.directive('app', 'app', {
+  controller: 'AppController',
+  link: (scope, element, attrs, ctrl) => {
+    console.log('App.directive', 'init');
+  },
+  restrict: 'E',
+  templateUrl: 'app.html?v=<%= VERSION %>'
+})
 class AppController {
 
   constructor( @at.inject('$router') $router) {
@@ -23,7 +31,7 @@ class AppController {
     $router.config(appRoutes);
   }
 }
-
+/*
 @at.directive('app', 'app')
 class App {
   public static restrict = 'E';
@@ -33,6 +41,7 @@ class App {
     console.log('App.directive', 'init');
   };
 }
+*/
 
 export {app}
 
