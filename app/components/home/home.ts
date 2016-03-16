@@ -3,7 +3,7 @@ export module Home {
 
   'use strict';
 
-  export const moduleName = 'app.home';
+  export const moduleName = 'app.components.home';
 
   export let ngModule = angular.module(moduleName, ['ngNewRouter']);
 

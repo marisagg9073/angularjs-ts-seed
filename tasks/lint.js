@@ -25,7 +25,7 @@ function htmllintReporter(filepath, issues) {
 }
 
 function lintHtml() {
-  return gulp.src(PATH.src.html)
+  return gulp.src(PATH.src.html.all)
     .pipe(htmllint({}, htmllintReporter));
 }
 

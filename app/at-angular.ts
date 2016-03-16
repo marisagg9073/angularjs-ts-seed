@@ -265,6 +265,7 @@ module at {
   export function directive(moduleName: string, directiveName: string, directiveConfig?: angular.IDirective): at.IClassAnnotationDecorator {
     return (target: any): void => {
       const ctrlCfg = directiveConfig ? directiveConfig.controller : target.controller;
+      let ctrlAs: string = directiveConfig ? directiveConfig.controllerAs : target.controllerAs;
       if (ctrlCfg) {
         const ctrlName: string = angular.isString(ctrlCfg) ? ctrlCfg.split(' ').shift() : null;
         /* istanbul ignore else */
@@ -273,6 +274,15 @@ module at {
         }
       } else {
         directiveConfig && (directiveConfig.controller = target);
+      }
+      if (!ctrlAs) {
+        ctrlAs = angular.isString(ctrlCfg) ? ctrlCfg.split(' ').pop() : null;
+        if (!ctrlAs) {
+          if (directiveConfig)
+            directiveConfig.controllerAs = 'vm';
+          else
+            target.controllerAs = 'vm';
+        }
       }
 
       let config: angular.IDirective;

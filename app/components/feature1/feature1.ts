@@ -4,7 +4,7 @@ export module Feature1 {
 
   'use strict';
 
-  export const moduleName = 'app.feature1';
+  export const moduleName = 'app.components.feature1';
 
   export let ngModule = angular.module(moduleName, [Service.NamesList.moduleName]);
 

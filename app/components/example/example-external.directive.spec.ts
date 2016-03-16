@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
 import Example from './example';
-import ExampleDirective from './example-simple.directive';
+import ExampleDirective from './example-external.directive';
 
 'use strict';
 
@@ -9,7 +9,7 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Example Simple Directive', () => {
+describe('# Example External Directive', () => {
   let $log, $compile, $rootScope;
 
   beforeEach(() => {
@@ -23,20 +23,20 @@ describe('# Example Simple Directive', () => {
   });
 
   it('should log registration', () => {
-    let loaded = ['ngDirective', 'exampleSimple', 'loaded'].join(' ');
-    let element = $compile('<example-simple></example-simple>')($rootScope);
+    let loaded = ['ngDirective', 'exampleExternal', 'loaded'].join(' ');
+    let element = $compile('<example-external></example-external>')($rootScope);
     $rootScope.$digest();
     expect($log.debug.logs[1]).toContain(loaded);
   });
 
   it('should replace the element with the appropriate content', () => {
     // compile a piece of HTML containing the directive
-    let element = $compile('<example-simple></example-simple>')($rootScope);
+    let element = $compile('<example-external></example-external>')($rootScope);
 
-    // fire all the watches, so the scope expression {{1 + 1}} will be evaluated
+    // fire all the watches
     $rootScope.$digest();
 
     // check that the compiled element contains the templated content
-    expect(element.html()).toContain('Title written, less than 2 times');
+    expect(element.html()).toEqual('true');
   });
 });
