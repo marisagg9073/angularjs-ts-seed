@@ -24,15 +24,16 @@ export module Feature1 {
 
   }
 
-  @at.component(moduleName, 'featureTest')
+  @at.component(moduleName, 'featureTest', {
+    template: () => '<span>{{ $ctrl.test }}</span>'
+  })
   @at.inject('$log')
   export class Feature1Component {
 
     // public static transclude = true;
     // public static templateUrl = "components/feature1/feature-test.html";
 
-    // And the rest are simple Ctrl instance members
-    public name: string;
+    public test = 'Feature1Component';
 
     public static template: angular.IComponentTemplateFn = () => {
       return '<span>{{ $ctrl.name }}</span>';
@@ -40,7 +41,6 @@ export module Feature1 {
 
     constructor(private log: angular.ILogService) {
       log.debug('Feature1 constructor');
-      this.name = 'FirstTestCtrl';
     }
 
     public $onInit(): void {

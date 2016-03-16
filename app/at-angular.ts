@@ -218,18 +218,23 @@ module at {
   /**
    * inject a component
    */
-  export function component(moduleName: string, componentName: string): at.IClassAnnotationDecorator {
+  export function component(moduleName: string, componentName: string, componentConfig?: angular.IComponentOptions): at.IClassAnnotationDecorator {
     return (target: any): void => {
       let config: angular.IComponentOptions;
 
-      config = componentProperties.reduce((
-        config: angular.IComponentOptions,
-        property: string
-      ) => {
-        return angular.isDefined(target[property]) ?
-          angular.extend(config, { [property]: target[property] }) :
-          config;
-      }, { controller: target });
+      if (componentConfig) {
+        componentConfig.controller || (componentConfig.controller = target);
+        config = componentConfig;
+      } else {
+        config = componentProperties.reduce((
+          config: angular.IComponentOptions,
+          property: string
+        ) => {
+          return angular.isDefined(target[property]) ?
+            angular.extend(config, { [property]: target[property] }) :
+            config;
+        }, { controller: target });
+      }
 
       getOrCreateModule(moduleName).component(componentName, config);
     };
