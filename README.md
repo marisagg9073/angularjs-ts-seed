@@ -10,9 +10,22 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 * SystemJS
 
 # Unit tests
-* [mocha](https://mochajs.org/)
-* [chai](http://chaijs.com/)
-* [sinon](http://sinonjs.org/) for [spies](https://github.com/mochajs/mocha/wiki/Spies)
+* [jasmine](http://jasmine.github.io/2.4/introduction.html)
+* [jasmine-matchers](https://github.com/JamieMason/Jasmine-Matchers) for handful extra matchers
+
+## Recipes
+You can find some useful recipes (eg. how to test $timeout and $interval) here:
+
+```bash
+ app
+ |-- components
+     |-- common
+         |-- common.config.spec.ts       # angular values and constants
+     |-- example
+         |-- example.controller.spec.ts  # $interval and $timeout with jasmine spies
+         |-- example.module.spec.ts      # injection and logs
+         |-- example.service.spec.ts     # angular services and Date
+```
 
 # How to start
 
@@ -111,6 +124,8 @@ Then, you can link this component to a specific route, by using it in `app.ts`.
 To enforce the adoption of best practices, every build begins with *lint* tasks.
 
 In addition, you are encouraged to format your code `[Shift+Alt+F]` before any commit.
+
+The use of **factories** is **deprecated**, because of the Object Oriented paradigm adopted.
 
 # Git Flow
 
