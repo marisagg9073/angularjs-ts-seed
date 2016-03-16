@@ -11,7 +11,7 @@ let app = angular.module('app', [
 
 // @at.controller('app', 'AppController')
 @at.directive('app', 'app', {
-  controller: 'AppController',
+  // controller: 'AppController',
   link: (scope, element, attrs, ctrl) => {
     console.log('App.directive', 'init');
   },
