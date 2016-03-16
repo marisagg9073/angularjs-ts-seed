@@ -8,6 +8,7 @@ var filter = require('gulp-filter');
 var inject = require('gulp-inject');
 var minifyCSS = require('gulp-minify-css');
 var minifyHTML = require('gulp-minify-html');
+var ngHtml2Js = require("gulp-ng-html2js");
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var template = require('gulp-template');
@@ -15,7 +16,8 @@ var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 
 var fs = require('fs');
-var join = require('path').join;
+var path = require('path');
+var join = path.join;
 var runSequence = require('run-sequence');
 var Builder = require('systemjs-builder');
 var yargs = require('yargs');
@@ -24,7 +26,16 @@ var appProdBuilder = new Builder({
   baseURL: 'file:./tmp',
 });
 
-var HTMLMinifierOpts = { conditionals: true };
+var HTMLMinifierOpts = {
+  collapseBooleanAttributes: true,
+  collapseWhitespace: true,
+  conditionals: true,
+  conservativeCollapse: true,
+  customAttrCollapse: /ng\-class/,
+  lint: true,
+  // removeComments: true,
+  removeTagWhitespace: true,
+};
 
 var tsProject = tsc.createProject('tsconfig.json', {
   typescript: require('typescript')
@@ -38,7 +49,7 @@ gulp.task('build.lib.dev', /*['build.ng2.dev'],*/ function() {
     .pipe(gulp.dest(PATH.dest.dev.lib));
 });
 
-gulp.task('build.js.dev', ['lint'], function() {
+gulp.task('build.js.dev', ['lint.ts'], function() {
   var result = gulp.src(PATH.src.app.dev)
     .pipe(plumber())
     .pipe(sourcemaps.init())
@@ -50,8 +61,25 @@ gulp.task('build.js.dev', ['lint'], function() {
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
 
-gulp.task('build.assets.dev', ['build.js.dev'], function() {
-  return gulp.src(['./app/**/*.html', './app/**/*.css'])
+gulp.task('build.html.dev', ['lint.html'], function() {
+  return gulp.src(PATH.src.html.directive)
+    .pipe(ngHtml2Js({
+      moduleName: function(file) {
+        var pathParts = file.path.split(path.sep),
+          root = pathParts.indexOf('components');
+        return 'app.' + pathParts.slice(root, -1).map(function(folder) {
+          return folder.replace(/-[a-z]/g, function(match) {
+            return match.substr(1).toUpperCase();
+          });
+        }).join('.');
+      }
+    }))
+    .pipe(concat('partials.js'))
+    .pipe(gulp.dest(PATH.dest.dev.all));
+});
+
+gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev'], function() {
+  return gulp.src(['./app/**/!(*.directive).html', './app/**/!(*.tpl).html', './app/**/*.css'])
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
 
@@ -86,7 +114,26 @@ gulp.task('build.lib.prod', /*['build.ng2.prod'],*/ function() {
     .pipe(gulp.dest(PATH.dest.prod.lib));
 });
 
-gulp.task('build.js.tmp', function() {
+gulp.task('build.html.tmp', function() {
+  return gulp.src(PATH.src.html.directive)
+    .pipe(minifyHTML(HTMLMinifierOpts))
+    .pipe(ngHtml2Js({
+      moduleName: function(file) {
+        var pathParts = file.path.split(path.sep),
+          root = pathParts.indexOf('components');
+        return 'app.' + pathParts.slice(root, -1).map(function(folder) {
+          return folder.replace(/-[a-z]/g, function(match) {
+            return match.substr(1).toUpperCase();
+          });
+        }).join('.');
+      }
+    }))
+    .pipe(concat('partials.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('tmp'));
+});
+
+gulp.task('build.js.tmp', ['build.html.tmp'], function() {
   var result = gulp.src(['./app/**/*.ts', '!./app/init.ts',
     '!./app/**/*.spec.ts'])
     .pipe(plumber())
@@ -99,7 +146,7 @@ gulp.task('build.js.tmp', function() {
 
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
-  gulp.src('./tmp/at-angular*.js').pipe(gulp.dest(PATH.dest.prod.all));
+  gulp.src(['./tmp/at-angular*.js', './tmp/partials*.js']).pipe(gulp.dest(PATH.dest.prod.all));
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
     { minify: true }).catch(function(e) { console.log(e); });
 });
@@ -118,9 +165,9 @@ gulp.task('build.init.prod', function() {
 });
 
 gulp.task('build.assets.prod', ['build.js.prod'], function() {
-  var filterHTML = filter('**/*.html');
-  var filterCSS = filter('**/*.css');
-  return gulp.src(['./app/**/*.html', './app/**/*.css'])
+  var filterHTML = filter('*.html');
+  var filterCSS = filter('*.css');
+  return gulp.src(['./app/**/!(*.directive|*.tpl).html', './app/**/*.css'])
     .pipe(filterHTML)
     .pipe(minifyHTML(HTMLMinifierOpts))
     .pipe(filterHTML.restore())

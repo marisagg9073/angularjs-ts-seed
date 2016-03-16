@@ -4,13 +4,13 @@ export module Feature1 {
 
   'use strict';
 
-  export const moduleName = 'app.feature1';
+  export const moduleName = 'app.components.feature1';
 
   export let ngModule = angular.module(moduleName, [Service.NamesList.moduleName]);
 
   @at.controller(moduleName, 'Feature1Controller')
   @at.inject(Service.NamesList.myName)
-  export class Feature1Controller {
+  export class Feature1Controller implements at.IController {
 
     private names: Array<string>;
 
@@ -18,33 +18,33 @@ export module Feature1 {
       this.names = list.get();
     }
 
-    public addName(newname) {
-      this.list.add(newname);
-      newname = '';
+    public addName(newName: string) {
+      this.list.add(newName);
     }
 
   }
 
-  @at.component(moduleName, 'featureTest')
-  export class Feature1Component {
+  @at.component(moduleName, 'featureTest', {
+    template: () => '<span>{{ $ctrl.test }}</span>'
+  })
+  @at.inject('$log')
+  export class Feature1Component implements at.IComponent {
 
     // public static transclude = true;
     // public static templateUrl = "components/feature1/feature-test.html";
 
-    // And the rest are simple Ctrl instance members
-    public name: string;
+    public test = 'Feature1Component';
 
     public static template: angular.IComponentTemplateFn = () => {
       return '<span>{{ $ctrl.name }}</span>';
     };
 
-    constructor() {
-      console.log('constructor');
-      this.name = 'FirstTestCtrl';
+    constructor(private log: angular.ILogService) {
+      log.debug('Feature1 constructor');
     }
 
     public $onInit(): void {
-      console.log('onInit');
+      this.log.debug('Feature1 $onInit');
     }
 
   }

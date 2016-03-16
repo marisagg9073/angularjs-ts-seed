@@ -7,13 +7,21 @@ const ngControllerName = 'ExampleController';
 @at.controller(ngModuleName, ngControllerName)
 @at.inject('$interval', '$log', '$scope', '$timeout', '$router')
 export default class ExampleController {
+
+  public counterTicker: number = 0;
+  public counterFrom: number = 0;
+  public counterStep: number = 1;
+  public counterTimes: number = 0;
+
+  private counterInterval: angular.IPromise<number> = undefined;
+
   private names: Array<string> = [];
 
   private int1: number = Math.random();
   private int2: number = Math.random();
 
-  private incrementInterval = this.interval(this.increment1, 1000);
-  private incrementIntervalTenTimes = this.interval(this.increment2, 1000, 10);
+  private incrementInterval: angular.IPromise<number> = undefined;
+  private incrementIntervalTenTimes: angular.IPromise<number> = undefined;
 
   constructor(private interval: angular.IIntervalService,
     private log: angular.ILogService,
@@ -22,6 +30,8 @@ export default class ExampleController {
     private router: any) {
     log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
 
+    this.incrementInterval = this.interval(this.increment1, 1000);
+    this.incrementIntervalTenTimes = this.interval(this.increment2, 1000, 10);
     // Note: we should always have this code in place, to ensure we don't leak intervals.
     // Ensure that we always close any running intervals when a controller instance is un-loaded.
     scope.$on('$destroy', () => this.cancelIntervals());
@@ -40,15 +50,29 @@ export default class ExampleController {
   public listNames = (glue: string = ','): string => this.names.join(glue);
 
   public cancelIntervals = () => {
-    if (angular.isDefined(this.incrementInterval) || angular.isDefined(this.incrementIntervalTenTimes)) {
+    if (angular.isDefined(this.incrementInterval)) {
       this.interval.cancel(this.incrementInterval);
-      this.interval.cancel(this.incrementIntervalTenTimes);
       this.incrementInterval = undefined;
+    }
+    if (angular.isDefined(this.incrementIntervalTenTimes)) {
+      this.interval.cancel(this.incrementIntervalTenTimes);
       this.incrementIntervalTenTimes = undefined;
+    }
+    if (angular.isDefined(this.counterInterval)) {
+      this.interval.cancel(this.counterInterval);
+      this.counterInterval = undefined;
     }
   };
 
-  private increment1 = () => this.int1 += 1;
+  public destroy = () => this.scope.$destroy();
 
-  private increment2 = () => this.int2 += 1;
+  public increment1 = () => this.int1 += 1;
+
+  public increment2 = () => this.int2 += 1;
+
+  public counterLogic = (start: number = 0, step: number = 1) =>
+    this.counterTicker = (this.counterTicker === 0 ? start : this.counterTicker) + step;
+
+  public counterStart = () =>
+    this.counterInterval = this.interval(this.counterLogic, 1000, this.counterTimes, true, this.counterFrom, this.counterStep);
 }

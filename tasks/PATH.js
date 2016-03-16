@@ -7,6 +7,9 @@ module.exports = {
       all: 'dist/dev',
       lib: 'dist/dev/lib'
     },
+    test: {
+      all: 'test'
+    },
     prod: {
       all: 'dist/prod',
       lib: 'dist/prod/lib'
@@ -27,6 +30,9 @@ module.exports = {
       './node_modules/angular-new-router/dist/router.es5.js'
     ],
     blankTemplates: join(__dirname, '..', 'generator', 'component/**/*.**'),
-    html: ['./app/**/*.html']
+    html: {
+      all: ['./app/**/*.html'],
+      directive: ['./app/components/**/*.{directive,tpl}.html']
+    }
   }
 };

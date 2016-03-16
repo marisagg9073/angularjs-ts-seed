@@ -8,6 +8,14 @@ module at {
     (t: any, key: string, index: number): void;
   }
 
+  export interface IPropertyAnnotationDecorator {
+    (target: any, key: string): void;
+  }
+
+  export interface IMethodAnnotationDecorator {
+    (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void;
+  }
+
   export function attachInjects(target: any, ...args: any[]): any {
     (target.$inject || []).forEach((item: string, index: number) => {
       target.prototype[(item.charAt(0) === '$' ? '$' : '$$') + item] = args[index];
@@ -50,6 +58,13 @@ module at {
       }
     };
   }
+
+  export function injectMethod(...args: string[]): at.IMethodAnnotationDecorator {
+    return (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void => {
+      target[key].$inject = args;
+    };
+  }
+
   ///////////////////////////////////////////////////////////////////////////////
   // SERVICE ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
@@ -69,8 +84,115 @@ module at {
   }
 
   ///////////////////////////////////////////////////////////////////////////////
+  // PROVIDER ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IProviderAnnotation {
+    (moduleName: string, providerName: string): IClassAnnotationDecorator;
+  }
+
+  /**
+   * inject a provider
+   */
+  export function provider(moduleName: string, providerName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      getOrCreateModule(moduleName).provider(providerName, target);
+    };
+
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // FILTER ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IFilter {
+    transform(input: any, ...args: any[]): any;
+  }
+
+  export interface IFilterAnnotation {
+    (moduleName: string, filterName: string): IClassAnnotationDecorator;
+  }
+
+  /**
+   * inject a provider
+   */
+  export function filter(moduleName: string, filterName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      class Provider {
+        constructor() {
+          this.$get.$inject = (target.$inject || []).slice();
+        }
+        public $get = (...deps) => new target(...deps).transform;
+      }
+      getOrCreateModule(moduleName).provider(filterName + 'Filter', Provider);
+    };
+
+  }
+  ///////////////////////////////////////////////////////////////////////////////
+  // VALUE ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IValueAnnotation {
+    (moduleName: string, valueName: string): IClassAnnotationDecorator;
+  }
+
+  export function valueObj(moduleName: string, valueName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      getOrCreateModule(moduleName).value(valueName, target);
+    };
+  }
+
+  export function valueProp(moduleName: string, valueName?: string): at.IPropertyAnnotationDecorator {
+    return (target: any, key: string): void => {
+      getOrCreateModule(moduleName).value(valueName || key, target[key]);
+    };
+  }
+
+  export function valueFunc(moduleName: string, valueName?: string): at.IMethodAnnotationDecorator {
+    return (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void => {
+      getOrCreateModule(moduleName).value(valueName || key, target[key]);
+    };
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // CONSTANT ANNOTATION
+  ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IConstantAnnotation {
+    (moduleName: string, valueName: string): IClassAnnotationDecorator;
+  }
+
+  export function constantObj(moduleName: string, valueName: string): at.IClassAnnotationDecorator {
+    return (target: any): void => {
+      getOrCreateModule(moduleName).constant(valueName, target);
+    };
+  }
+
+  export function constantProp(moduleName: string, valueName?: string): at.IPropertyAnnotationDecorator {
+    return (target: any, key: string): void => {
+      getOrCreateModule(moduleName).constant(valueName || key, target[key]);
+    };
+  }
+
+  export function constantFunc(moduleName: string, valueName?: string): at.IMethodAnnotationDecorator {
+    return (target: any, key: string, descriptor: TypedPropertyDescriptor<any>): void => {
+      getOrCreateModule(moduleName).constant(valueName || key, target[key]);
+    };
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
   // CONTROLLER ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * @link http://angular.github.io/router/lifecycle
+   */
+  export interface IController {
+    canActivate?(): boolean | angular.IPromise<boolean>;
+    activate?(): any;
+    canDeactivate?(): boolean | angular.IPromise<boolean>;
+    deactivate?(): any;
+  }
 
   export interface IControllerAnnotation {
     (moduleName: string, ctrlName: string): IClassAnnotationDecorator;
@@ -89,6 +211,11 @@ module at {
   ///////////////////////////////////////////////////////////////////////////////
   // COMPONENT ANNOTATION
   ///////////////////////////////////////////////////////////////////////////////
+
+  export interface IComponent {
+    $onInit?(): void;
+  }
+
   const componentProperties: string[] = [
     'controller',
     'controllerAs',
@@ -106,18 +233,23 @@ module at {
   /**
    * inject a component
    */
-  export function component(moduleName: string, componentName: string): at.IClassAnnotationDecorator {
+  export function component(moduleName: string, componentName: string, componentConfig?: angular.IComponentOptions): at.IClassAnnotationDecorator {
     return (target: any): void => {
       let config: angular.IComponentOptions;
 
-      config = componentProperties.reduce((
-        config: angular.IComponentOptions,
-        property: string
-      ) => {
-        return angular.isDefined(target[property]) ?
-          angular.extend(config, { [property]: target[property] }) :
-          config;
-      }, { controller: target });
+      if (componentConfig) {
+        componentConfig.controller || (componentConfig.controller = target);
+        config = componentConfig;
+      } else {
+        config = componentProperties.reduce((
+          config: angular.IComponentOptions,
+          property: string
+        ) => {
+          return angular.isDefined(target[property]) ?
+            angular.extend(config, { [property]: target[property] }) :
+            config;
+        }, { controller: target });
+      }
 
       getOrCreateModule(moduleName).component(componentName, config);
     };
@@ -150,44 +282,43 @@ module at {
   /**
    * inject a directive
    */
-  export function directive(moduleName: string, directiveName: string): at.IClassAnnotationDecorator {
+  export function directive(moduleName: string, directiveName: string, directiveConfig?: angular.IDirective): at.IClassAnnotationDecorator {
     return (target: any): void => {
-      let config: angular.IDirective;
-      const ctrlName: string = angular.isString(target.controller) ? target.controller.split(' ').shift() : null;
-      /* istanbul ignore else */
-      if (ctrlName) {
-        controller(moduleName, ctrlName)(target);
+      const ctrlCfg = directiveConfig ? directiveConfig.controller : target.controller;
+      let ctrlAs: string = directiveConfig ? directiveConfig.controllerAs : target.controllerAs;
+      if (ctrlCfg) {
+        const ctrlName: string = angular.isString(ctrlCfg) ? ctrlCfg.split(' ').shift() : null;
+        /* istanbul ignore else */
+        if (ctrlName) {
+          controller(moduleName, ctrlName)(target);
+        }
+      } else {
+        directiveConfig && (directiveConfig.controller = target);
       }
-      config = directiveProperties.reduce((
-        config: angular.IDirective,
-        property: string
-      ) => {
-        return angular.isDefined(target[property]) ? angular.extend(config, { [property]: target[property] }) :
-          config; /* istanbul ignore next */
-      }, { controller: target, scope: Boolean(target.templateUrl) });
+      if (!ctrlAs) {
+        ctrlAs = angular.isString(ctrlCfg) ? ctrlCfg.split(' ').pop() : null;
+        if (!ctrlAs) {
+          if (directiveConfig)
+            directiveConfig.controllerAs = 'vm';
+          else
+            target.controllerAs = 'vm';
+        }
+      }
+
+      let config: angular.IDirective;
+      if (directiveConfig) {
+        config = directiveConfig;
+      } else {
+        config = directiveProperties.reduce((
+          config: angular.IDirective,
+          property: string
+        ) => {
+          return angular.isDefined(target[property]) ? angular.extend(config, { [property]: target[property] }) :
+            config; /* istanbul ignore next */
+        }, { controller: target, scope: Boolean(target.templateUrl) });
+      }
 
       getOrCreateModule(moduleName).directive(directiveName, () => (config));
-    };
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // CLASSFACTORY ANNOTATION
-  ///////////////////////////////////////////////////////////////////////////////
-
-  export interface IClassFactoryAnnotation {
-    (moduleName: string, className: string): IClassAnnotationDecorator;
-  }
-
-  export function classFactory(moduleName: string, className: string): at.IClassAnnotationDecorator {
-    return (target: any): void => {
-      function factory(...args: any[]): any {
-        return at.attachInjects(target, ...args);
-      }
-      /* istanbul ignore else */
-      if (target.$inject && target.$inject.length > 0) {
-        factory.$inject = target.$inject.slice(0);
-      }
-      getOrCreateModule(moduleName).factory(className, factory);
     };
   }
   /* tslint:enable:no-any */

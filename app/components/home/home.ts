@@ -3,16 +3,16 @@ export module Home {
 
   'use strict';
 
-  export const moduleName = 'app.home';
+  export const moduleName = 'app.components.home';
 
   export let ngModule = angular.module(moduleName, ['ngNewRouter']);
 
   @at.controller(moduleName, 'HomeController')
-  @at.inject('$router')
-  export class HomeController {
+  @at.inject('$log', '$router')
+  export class HomeController implements at.IController {
 
-    constructor(private router: any) {
-      console.log('childRouter', router);
+    constructor(private log: angular.ILogService, private router: any) {
+      log.debug('childRouter', router);
     }
 
   }
