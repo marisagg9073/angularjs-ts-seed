@@ -124,7 +124,7 @@ gulp.task('build.html.tmp', function() {
   return gulp.src(PATH.src.html.directive)
     .pipe(minifyHTML(HTMLMinifierOpts))
     .pipe(ngHtml2Js({
-      moduleName: function(file) {
+      moduleName: 'tpl' || function(file) {
         var pathParts = file.path.split(path.sep),
           root = pathParts.indexOf('components');
         return 'app.' + pathParts.slice(root, -1).map(function(folder) {
@@ -152,9 +152,9 @@ gulp.task('build.js.tmp', ['build.html.tmp'], function() {
 
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
-  gulp.src(['./tmp/at-angular*.js', './tmp/{partials,bootstrap}*.js']).pipe(gulp.dest(PATH.dest.prod.all));
+  gulp.src(['./tmp/at-angular*.js', './tmp/partials*.js']).pipe(gulp.dest(PATH.dest.prod.all));
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
-    { minify: true }).catch(function(e) { console.log(e); });
+    { minify: true }).catch(console.error.bind(console));
 });
 
 gulp.task('build.init.prod', function() {
