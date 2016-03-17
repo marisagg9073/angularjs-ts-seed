@@ -3,7 +3,9 @@
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 
-let routing = ($locationProvider, $stateProvider, $urlRouterProvider) => {
+let routing = ($locationProvider: angular.ILocationProvider,
+  $stateProvider: angular.ui.IStateProvider,
+  $urlRouterProvider: angular.ui.IUrlRouterProvider) => {
   // $locationProvider.html5Mode(true).hashPrefix('!');
 
   $stateProvider
@@ -46,7 +48,7 @@ let routing = ($locationProvider, $stateProvider, $urlRouterProvider) => {
 routing.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
 
 let app = angular.module('app', [
-  'ngNewRouter',
+  // 'ngNewRouter',
   'ui.router',
   'ngAnimate',
   'ngCookies',
