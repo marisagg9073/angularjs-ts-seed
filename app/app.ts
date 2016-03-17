@@ -7,7 +7,7 @@ let routing = ($stateProvider, $urlRouterProvider) => {
   $stateProvider
     .state('home', {
       url: '',
-      templateUrl: 'app/views/main.html',
+      templateUrl: 'main/main.tpl.html',
       controller: 'MainController',
       controllerAs: 'vm',
       abstract: true
@@ -40,13 +40,19 @@ let routing = ($stateProvider, $urlRouterProvider) => {
 
   $urlRouterProvider.otherwise('/dashboard');
 };
+
 routing.$inject = ['$stateProvider', '$urlRouterProvider'];
 
 let app = angular.module('app', [
-  // 'ngNewRouter',
+  'ngNewRouter',
   'ui.router',
+  'ngAnimate',
+  'ngCookies',
+  'ngSanitize',
+  // 'ngTouch',
+  'nvd3',
   components.name,
-  Service.NamesList.moduleName
+  Service.NamesList.moduleName,
 ]).config(routing);
 
 // @at.controller('app', 'AppController')
