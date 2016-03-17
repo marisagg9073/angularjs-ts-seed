@@ -64,7 +64,7 @@ gulp.task('build.js.dev', ['lint.ts'], function() {
 gulp.task('build.html.dev', ['lint.html'], function() {
   return gulp.src(PATH.src.html.directive)
     .pipe(ngHtml2Js({
-      moduleName: function(file) {
+      moduleName: 'tpl' || function(file) {
         var pathParts = file.path.split(path.sep),
           root = pathParts.indexOf('components');
         return 'app.' + pathParts.slice(root, -1).map(function(folder) {
@@ -79,7 +79,7 @@ gulp.task('build.html.dev', ['lint.html'], function() {
 });
 
 gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev'], function() {
-  return gulp.src(['./app/**/!(*.directive).html', './app/**/!(*.tpl).html', './app/**/*.css'])
+  return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
 
@@ -152,7 +152,7 @@ gulp.task('build.js.tmp', ['build.html.tmp'], function() {
 
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
-  gulp.src(['./tmp/at-angular*.js', './tmp/partials*.js']).pipe(gulp.dest(PATH.dest.prod.all));
+  gulp.src(['./tmp/at-angular*.js', './tmp/{partials,bootstrap}*.js']).pipe(gulp.dest(PATH.dest.prod.all));
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
     { minify: true }).catch(function(e) { console.log(e); });
 });
@@ -173,7 +173,7 @@ gulp.task('build.init.prod', function() {
 gulp.task('build.assets.prod', ['build.js.prod'], function() {
   var filterHTML = filter('*.html');
   var filterCSS = filter('*.css');
-  return gulp.src(['./app/**/!(*.directive|*.tpl).html', './app/**/*.css'])
+  return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
     .pipe(filterHTML)
     .pipe(minifyHTML(HTMLMinifierOpts))
     .pipe(filterHTML.restore())

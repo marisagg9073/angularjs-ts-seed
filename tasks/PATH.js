@@ -41,7 +41,7 @@ module.exports = {
     blankTemplates: join(__dirname, '..', 'generator', 'component/**/*.**'),
     html: {
       all: ['./app/**/*.html'],
-      directive: ['./app/components/**/*.{directive,tpl}.html']
+      directive: ['./app/components/**/*.{directive,component,tpl}.html']
     }
   }
 };

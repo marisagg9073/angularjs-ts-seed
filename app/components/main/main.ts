@@ -1,6 +1,6 @@
 import ngModuleName from './main.module';
 
 // import angular objects in alphabetical order
-// import './main.service';
+import './main-toolbar.component';
 
 export default ngModuleName;

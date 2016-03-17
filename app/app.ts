@@ -43,7 +43,25 @@ class App {
 }
 */
 
-export {app}
+const ngComponentName = 'tsfnApp';
 
-angular.element(document)
-  .ready(() => angular.bootstrap(document.body, [app.name]));
+@at.component('app', ngComponentName, {
+  templateUrl: 'app.html?v=<%= VERSION %>'
+})
+@at.inject('$log', '$router')
+class App {
+  constructor(private log: angular.ILogService, private router: any) {
+    log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
+
+    let appRoutes: Array<angular.RouteDefinition> = [
+      { component: 'home', path: '/', useAsDefault: true },
+    ];
+
+    router.config(appRoutes);
+  }
+}
+
+export default app;
+
+// angular.element(document)
+//   .ready(() => angular.bootstrap(document.body, [app.name]));
