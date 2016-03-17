@@ -3,9 +3,11 @@ import {Feature1}   from './feature1/feature1';
 import {Home}       from './home/home';
 import About        from './about/about';
 import Example      from './example/example';
+import Material      from './material/material';
 
 let components = angular.module('app.components', [
   Common,
+  Material,
   Home.moduleName,
   Feature1.moduleName,
   About,

@@ -44,8 +44,8 @@ var tsProject = tsc.createProject('tsconfig.json', {
 // --------------
 // Build dev.
 
-gulp.task('build.lib.dev', /*['build.ng2.dev'],*/ function() {
-  return gulp.src(PATH.src.lib)
+gulp.task('build.lib.dev', function() {
+  return gulp.src(PATH.src.lib.js.concat(PATH.src.lib.css))
     .pipe(gulp.dest(PATH.dest.dev.lib));
 });
 
@@ -102,15 +102,21 @@ gulp.task('build.dev', function(done) {
 // --------------
 // Build prod.
 
-gulp.task('build.lib.prod', /*['build.ng2.prod'],*/ function() {
-  var jsOnly = filter('**/*.js');
+gulp.task('build.lib.prod', function() {
+  var jsOnly = filter('**/*.js'),
+    cssOnly = filter('**/*.css');
 
-  return gulp.src(PATH.src.lib)
+  return gulp.src(PATH.src.lib.js.concat(PATH.src.lib.css))
     .pipe(jsOnly)
     .pipe(sourcemaps.init())
     .pipe(concat('lib.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write())
+    .pipe(jsOnly.restore())
+    .pipe(cssOnly)
+    .pipe(concat('lib.css'))
+    .pipe(minifyCSS())
+    .pipe(cssOnly.restore())
     .pipe(gulp.dest(PATH.dest.prod.lib));
 });
 
@@ -211,7 +217,7 @@ function transformPath(env) {
 }
 
 function injectableDevAssetsRef() {
-  var src = PATH.src.lib.map(function(path) {
+  var src = PATH.src.lib.js.concat(PATH.src.lib.css).map(function(path) {
     return join(PATH.dest.dev.lib, path.split('/').pop());
   });
   src.push(join(PATH.dest.dev.all, '**/*.css'));
