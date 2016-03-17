@@ -5,11 +5,13 @@ import About        from './about/about';
 import Example      from './example/example';
 import Material      from './material/material';
 import Main      from './main/main';
+import Dashboard from './dashboard/dashboard';
 
 let components = angular.module('app.components', [
   Common,
   Material,
   Main,
+  Dashboard,
   Home.moduleName,
   Feature1.moduleName,
   About,

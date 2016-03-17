@@ -78,9 +78,14 @@ gulp.task('build.html.dev', ['lint.html'], function() {
     .pipe(gulp.dest(PATH.dest.dev.all));
 });
 
-gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev'], function() {
+gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev', 'build.copy.assets.dev'], function() {
   return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
     .pipe(gulp.dest(PATH.dest.dev.all));
+});
+
+gulp.task('build.copy.assets.dev', function() {
+  return gulp.src(['./app/assets/**/*'])
+    .pipe(gulp.dest(join(PATH.dest.dev.all, 'assets')));
 });
 
 gulp.task('build.index.dev', function() {

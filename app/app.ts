@@ -14,7 +14,7 @@ let routing = ($stateProvider, $urlRouterProvider) => {
     })
     .state('home.dashboard', {
       url: '/dashboard',
-      templateUrl: 'app/views/dashboard.html',
+      templateUrl: 'dashboard/dashboard.tpl.html',
       data: {
         title: 'Dashboard'
       }

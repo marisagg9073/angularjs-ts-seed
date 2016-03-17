@@ -2,7 +2,7 @@ import Material from '../material/material';
 
 'use strict';
 
-const ngModuleName = 'app.components.main';
+const ngModuleName = 'app.components.dashboard';
 
 export default angular.module(ngModuleName, ['ui.router', Material])
   .run(['$log', $log => $log.debug(['ngModule', ngModuleName, 'loaded'].join(' '))]).name;

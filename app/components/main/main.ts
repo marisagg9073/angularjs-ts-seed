@@ -1,7 +1,9 @@
 import ngModuleName from './main.module';
 
 // import angular objects in alphabetical order
-import './main-left-sidenav.component';
-import './main-toolbar.component';
+import './main-left-sidenav.directive';
+import './main-right-sidenav.directive';
+import './main-toolbar.directive';
+import './main.controller';
 
 export default ngModuleName;

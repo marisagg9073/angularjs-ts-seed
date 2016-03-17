@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import Main from './main';
+import Dashboard from './dashboard';
 
 'use strict';
 
@@ -8,13 +8,13 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Main Module', () => {
-  beforeEach($module(Main));
+describe('# Dashboard Module', () => {
+  beforeEach($module(Dashboard));
 
   describe('## Existence', () => {
     let mod;
 
-    beforeEach(() => mod = angular.module(Main));
+    beforeEach(() => mod = angular.module(Dashboard));
 
     it('should exist', () => {
       expect(mod).not.toBeUndefined();
@@ -37,7 +37,7 @@ describe('# Main Module', () => {
     });
 
     it('should log registration', () => {
-      let loaded = ['ngModule', Main, 'loaded'].join(' ');
+      let loaded = ['ngModule', Dashboard, 'loaded'].join(' ');
       expect($log.debug.logs[1]).toContain(loaded);
     });
   });
