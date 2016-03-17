@@ -7,6 +7,7 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 # Features
 * AngularJS **1.5.x**
 * Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
+* Angular Material **1.0.6** ([doc](https://material.angularjs.org/1.0.6/))
 * SystemJS
 
 # Unit tests

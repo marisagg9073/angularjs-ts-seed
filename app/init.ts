@@ -5,5 +5,4 @@ System.config({
 });
 
 System.import('./app').then(System.import('./partials'))
-  .catch(e => console.error(e,
-    'Report this error at https://github.com/ludohenin/angularjs-ts-seed/issues'));
+  .catch(console.error.bind(console));
