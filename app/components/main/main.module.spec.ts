@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import Material from './material';
+import Main from './main';
 
 'use strict';
 
@@ -8,13 +8,13 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Material Module', () => {
-  beforeEach($module(Material));
+describe('# Main Module', () => {
+  beforeEach($module(Main));
 
   describe('## Existence', () => {
     let mod;
 
-    beforeEach(() => mod = angular.module(Material));
+    beforeEach(() => mod = angular.module(Main));
 
     it('should exist', () => {
       expect(mod).not.toBeUndefined();
@@ -23,7 +23,7 @@ describe('# Material Module', () => {
 
     it('should have deps', () => {
       expect(mod.requires).toContain('ngNewRouter');
-      expect(mod.requires).toContain('ngMaterial');
+      expect(mod.requires).toContain('app.components.material');
     });
   });
 
@@ -37,8 +37,8 @@ describe('# Material Module', () => {
     });
 
     it('should log registration', () => {
-      let loaded = ['ngModule', Material, 'loaded'].join(' ');
-      expect($log.debug.logs[0][0]).toContain([loaded]);
+      let loaded = ['ngModule', Main, 'loaded'].join(' ');
+      expect($log.debug.logs[1]).toContain(loaded);
     });
   });
 

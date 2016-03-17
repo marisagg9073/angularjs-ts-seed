@@ -1,3 +1,4 @@
+<!--
 <section class="sample-app-content">
 
   <a ng-link="home">Home</a>
@@ -5,4 +6,21 @@
   <a ng-link="about">About</a>
 
   <ng-viewport></ng-viewport>
+</section>
+-->
+
+<section layout="column" flex tabindex="-1" role="main">
+
+  <tsfn-app-toolbar flex layout="column"></tsfn-app-toolbar>
+
+  <div flex layout="row" layout-fill>
+
+    <tsfn-app-left-sidenav layout="column"></tsfn-app-left-sidenav>
+
+    <tsfn-app-main-content flex></tsfn-app-main-content>
+
+    <tsfn-app-right-sidenav layout="column"></tsfn-app-right-sidenav>
+
+  </div>
+
 </section>
