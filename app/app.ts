@@ -3,11 +3,51 @@
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 
+let routing = ($stateProvider, $urlRouterProvider) => {
+  $stateProvider
+    .state('home', {
+      url: '',
+      templateUrl: 'app/views/main.html',
+      controller: 'MainController',
+      controllerAs: 'vm',
+      abstract: true
+    })
+    .state('home.dashboard', {
+      url: '/dashboard',
+      templateUrl: 'app/views/dashboard.html',
+      data: {
+        title: 'Dashboard'
+      }
+    })
+    .state('home.profile', {
+      url: '/profile',
+      templateUrl: 'app/views/profile.html',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
+      data: {
+        title: 'Profile'
+      }
+    })
+    .state('home.table', {
+      url: '/table',
+      controller: 'TableController',
+      controllerAs: 'vm',
+      templateUrl: 'app/views/table.html',
+      data: {
+        title: 'Table'
+      }
+    });
+
+  $urlRouterProvider.otherwise('/dashboard');
+};
+routing.$inject = ['$stateProvider', '$urlRouterProvider'];
+
 let app = angular.module('app', [
-  'ngNewRouter',
+  // 'ngNewRouter',
+  'ui.router',
   components.name,
   Service.NamesList.moduleName
-]);
+]).config(routing);
 
 // @at.controller('app', 'AppController')
 @at.directive('app', 'app', {
@@ -20,16 +60,16 @@ let app = angular.module('app', [
 })
 class AppController {
 
-  constructor( @at.inject('$router') $router) {
+  // constructor( @at.inject('$router') $router) {
 
-    let appRoutes: Array<angular.RouteDefinition> = [
-      { component: 'home', path: '/', useAsDefault: true },
-      { component: 'feature1', path: '/feature1' },
-      { component: 'about', path: '/about' }
-    ];
+  //   let appRoutes: Array<angular.RouteDefinition> = [
+  //     { component: 'home', path: '/', useAsDefault: true },
+  //     { component: 'feature1', path: '/feature1' },
+  //     { component: 'about', path: '/about' }
+  //   ];
 
-    $router.config(appRoutes);
-  }
+  //   $router.config(appRoutes);
+  // }
 }
 /*
 @at.directive('app', 'app')
@@ -48,16 +88,10 @@ const ngComponentName = 'tsfnApp';
 @at.component('app', ngComponentName, {
   templateUrl: 'app.html?v=<%= VERSION %>'
 })
-@at.inject('$log', '$router')
+@at.inject('$log')
 class App {
-  constructor(private log: angular.ILogService, private router: any) {
+  constructor(private log: angular.ILogService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
-
-    let appRoutes: Array<angular.RouteDefinition> = [
-      { component: 'home', path: '/', useAsDefault: true },
-    ];
-
-    router.config(appRoutes);
   }
 }
 

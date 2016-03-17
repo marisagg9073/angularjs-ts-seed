@@ -32,7 +32,8 @@ module.exports = {
         './node_modules/angular-aria/angular-aria.js',
         './node_modules/angular-animate/angular-animate.js',
         './node_modules/angular-messages/angular-messages.js',
-        './node_modules/angular-material/angular-material.js'
+        './node_modules/angular-material/angular-material.js',
+        './node_modules/angular-ui-router/release/angular-ui-router.js'
       ],
       css: [
         './node_modules/angular-material/angular-material.css'
