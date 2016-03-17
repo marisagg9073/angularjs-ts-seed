@@ -2,6 +2,7 @@
   <md-toolbar>
     <md-toolbar class="md-warn" layout="row" layout-align="center center">
       <img class="img-circle" ng-src="assets/images/feynman.jpg" alt="Logged in user's avatar">
+
       <md-menu md-offset="0 20">
         <md-button class="capitalize" ng-click="$mdOpenMenu()" aria-label="Open menu">
           <span>Richard Feynman</span>
@@ -25,6 +26,6 @@
         <h3>Messages</h3>
       </div>
     </md-toolbar>
-    <div ng-include src="'app/views/partials/messages.html'"></div>
+    <tsfn-message-list></tsfn-message-list>
   </section>
 </md-sidenav>

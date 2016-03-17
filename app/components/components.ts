@@ -6,12 +6,15 @@ import Example      from './example/example';
 import Material      from './material/material';
 import Main      from './main/main';
 import Dashboard from './dashboard/dashboard';
+import Message from './message/message';
 
 let components = angular.module('app.components', [
   Common,
   Material,
   Main,
   Dashboard,
+  Message,
+
   Home.moduleName,
   Feature1.moduleName,
   About,

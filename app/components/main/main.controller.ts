@@ -23,7 +23,7 @@ export default class MainController {
     log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
 
     this.title = state.current.data.title;
-    navService.loadAllItems().then(menuItems => this.menuItems = menuItems);
+    navService.loadAllItems().then(menuItems => this.menuItems = [].concat(menuItems));
   }
 
   public selectItem(item) {

@@ -3,7 +3,9 @@
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 
-let routing = ($stateProvider, $urlRouterProvider) => {
+let routing = ($locationProvider, $stateProvider, $urlRouterProvider) => {
+  // $locationProvider.html5Mode(true).hashPrefix('!');
+
   $stateProvider
     .state('home', {
       url: '',
@@ -41,7 +43,7 @@ let routing = ($stateProvider, $urlRouterProvider) => {
   $urlRouterProvider.otherwise('/dashboard');
 };
 
-routing.$inject = ['$stateProvider', '$urlRouterProvider'];
+routing.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
 
 let app = angular.module('app', [
   'ngNewRouter',
