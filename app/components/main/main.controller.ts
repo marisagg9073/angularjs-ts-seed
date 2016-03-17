@@ -35,7 +35,7 @@ export default class MainController {
   public showActions($event: MouseEvent) {
     this.mdBottomSheet.show({
       parent: angular.element(document.getElementById('content')),
-      templateUrl: 'app/views/partials/bottomSheet.html',
+      templateUrl: 'bottom-sheet/bottom-sheet.tpl.html',
       controller: BottomSheetController,
       controllerAs: 'vm',
       bindToController: true,
