@@ -6,7 +6,7 @@ const ngControllerName = 'ControlPanelController';
 
 @at.controller(ngModuleName, ngControllerName)
 @at.inject('$log', '$interval', '$mdDialog')
-export default class AutocompleteController {
+export default class ControlPanelController {
   public buttonEnabled = false;
   public determinateValue = 10;
   public reloadServer = 'Staging';

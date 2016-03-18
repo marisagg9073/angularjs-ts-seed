@@ -4,5 +4,5 @@ import Material from '../../../material/material';
 
 const ngModuleName = 'app.components.dashboard.panel.widget';
 
-export default angular.module(ngModuleName, ['ui.router', Material])
+export default angular.module(ngModuleName, ['ui.router', Material, 'nvd3'])
   .run(['$log', $log => $log.debug(['ngModule', ngModuleName, 'loaded'].join(' '))]).name;
