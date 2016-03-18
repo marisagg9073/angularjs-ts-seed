@@ -36,7 +36,7 @@ let routing = ($locationProvider: angular.ILocationProvider,
       url: '/table',
       controller: 'TableController',
       controllerAs: 'vm',
-      templateUrl: 'app/views/table.html',
+      templateUrl: 'table/table.tpl.html',
       data: {
         title: 'Table'
       }

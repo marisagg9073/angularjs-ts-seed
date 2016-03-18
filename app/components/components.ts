@@ -8,6 +8,7 @@ import Main      from './main/main';
 import Dashboard from './dashboard/dashboard';
 import Message from './message/message';
 import Profile from './profile/profile';
+import Table from './table/table';
 
 let components = angular.module('app.components', [
   Common,
@@ -16,6 +17,7 @@ let components = angular.module('app.components', [
   Dashboard,
   Message,
   Profile,
+  Table,
 
   Home.moduleName,
   Feature1.moduleName,

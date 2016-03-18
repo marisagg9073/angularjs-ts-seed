@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import Profile from './profile';
+import Table from './table';
 
 'use strict';
 
@@ -8,13 +8,13 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Profile Module', () => {
-  beforeEach($module(Profile));
+describe('# Table Module', () => {
+  beforeEach($module(Table));
 
   describe('## Existence', () => {
     let mod;
 
-    beforeEach(() => mod = angular.module(Profile));
+    beforeEach(() => mod = angular.module(Table));
 
     it('should exist', () => {
       expect(mod).not.toBeUndefined();
@@ -37,7 +37,7 @@ describe('# Profile Module', () => {
     });
 
     it('should log registration', () => {
-      let loaded = ['ngModule', Profile, 'loaded'].join(' ');
+      let loaded = ['ngModule', Table, 'loaded'].join(' ');
       expect($log.debug.logs[1]).toContain(loaded);
     });
   });
