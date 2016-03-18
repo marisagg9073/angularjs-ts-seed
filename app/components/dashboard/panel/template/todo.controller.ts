@@ -27,4 +27,19 @@ export default class TodoController {
     this.todoText = '';
   }
 
+  public get remaining() {
+    return this.todos.reduce((count, todo) => count += todo.done ? 0 : 1, 0);
+  }
+
+  public archive(event: Event) {
+    // prevent from submitting
+    event.preventDefault();
+    this.todos = this.todos.filter(todo => !todo.done);
+  }
+
+  public toggleAll() {
+    let done = this.remaining > 0;
+    angular.forEach(this.todos, todo => todo.done = done);
+  }
+
 }
