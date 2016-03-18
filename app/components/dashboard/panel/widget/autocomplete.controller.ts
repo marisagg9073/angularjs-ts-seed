@@ -1,4 +1,4 @@
-import ngModuleName from '../panel.module';
+import ngModuleName from './widget.module';
 
 import {ITodo} from '../../../common/country.model';
 import CountryService from '../../../common/country.service';

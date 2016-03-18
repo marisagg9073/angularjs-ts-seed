@@ -24,6 +24,7 @@ describe('# Panel Module', () => {
     it('should have deps', () => {
       expect(mod.requires).toContain('ui.router');
       expect(mod.requires).toContain('app.components.material');
+      expect(mod.requires).toContain('app.components.dashboard.panel.widget');
     });
   });
 

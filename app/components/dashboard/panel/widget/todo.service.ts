@@ -1,4 +1,4 @@
-import ngModuleName from '../panel.module';
+import ngModuleName from './widget.module';
 import {ITodo} from './todo.model';
 
 'use strict';
