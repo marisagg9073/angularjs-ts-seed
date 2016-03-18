@@ -19,14 +19,15 @@ var port = 5555;
 // Serve dev.
 
 gulp.task('serve.dev', ['build.dev'], function() {
-  var app;
+  var app = connect();
 
   watch('./app/**', function() {
     gulp.start('build.app.dev');
   });
 
-  app = connect().use(serveStatic(join(__dirname, '..', PATH.dest.dev.all)));
-  http.createServer(app).listen(port, function() {
+  app.use(serveStatic(join(__dirname, '..', PATH.dest.dev.all)));
+  app.use(serveStatic(join(__dirname, '..', 'app')));
+  app.listen(port, function() {
     openResource('http://localhost:' + port);
   });
 });
