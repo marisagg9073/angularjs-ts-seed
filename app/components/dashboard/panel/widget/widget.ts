@@ -6,9 +6,11 @@ import './control-panel.controller';
 import './memory.controller';
 import './performance.controller';
 import './performance.service';
-import './usage.controller';
-import './usage.service';
 import './todo.controller';
 import './todo.service';
+import './usage.controller';
+import './usage.service';
+import './visitor.controller';
+import './visitor.service';
 
 export default ngModuleName;
