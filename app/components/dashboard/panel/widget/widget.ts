@@ -12,5 +12,6 @@ import './usage.controller';
 import './usage.service';
 import './visitor.controller';
 import './visitor.service';
+import './warning.controller';
 
 export default ngModuleName;
