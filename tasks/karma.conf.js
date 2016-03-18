@@ -28,7 +28,11 @@ module.exports = function(config) {
       '../node_modules/angular-cookies/angular-cookies.js',
       // '../node_modules/angular-touch/angular-touch.js',
       '../node_modules/angular-sanitize/angular-sanitize.js',
+
+      '../node_modules/d3/d3.js',
+      '../node_modules/nvd3/build/nv.d3.js',
       '../node_modules/angular-nvd3/dist/angular-nvd3.js',
+
       '../test/**/*.js',
       '../test/**/*.spec.js'
     ],
