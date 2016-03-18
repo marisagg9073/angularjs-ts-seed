@@ -8,7 +8,7 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-fdescribe('# Material Module', () => {
+describe('# Material Module', () => {
   beforeEach($module(Material));
 
   describe('## Existence', () => {
