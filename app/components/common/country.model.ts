@@ -5,7 +5,7 @@ export interface ICountry {
   name: string;
 }
 
-export interface ICountryListItem {
+export interface ITodo {
   code: string;
   display: string;
   value: string;
