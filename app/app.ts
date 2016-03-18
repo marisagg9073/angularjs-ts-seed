@@ -25,7 +25,7 @@ let routing = ($locationProvider: angular.ILocationProvider,
     })
     .state('home.profile', {
       url: '/profile',
-      templateUrl: 'app/views/profile.html',
+      templateUrl: 'profile/profile.tpl.html',
       controller: 'ProfileController',
       controllerAs: 'vm',
       data: {
