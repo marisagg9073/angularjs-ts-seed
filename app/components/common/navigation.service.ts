@@ -1,18 +1,13 @@
 import ngModuleName from './common.module';
+import {IMenuItem} from './navigation-menu.model';
 
 'use strict';
 
-const ngServiceName = 'navService';
-
-export interface IMenuItem {
-  name: string;
-  icon: string;
-  sref: string;
-}
+const ngServiceName = 'navigationService';
 
 @at.service(ngModuleName, ngServiceName)
 @at.inject('$log', '$q')
-export default class NavService {
+export default class NavigationService {
   private menuItems: Array<IMenuItem> = [
     {
       name: 'Dashboard',

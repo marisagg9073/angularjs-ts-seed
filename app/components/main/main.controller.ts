@@ -1,19 +1,19 @@
 import ngModuleName from './main.module';
-import {IMenuItem} from '../common/common-nav.service';
-import NavService from '../common/common-nav.service';
+import {IMenuItem} from '../common/navigation-menu.model';
+import NavigationService from '../common/navigation.service';
 
 'use strict';
 
 const ngControllerName = 'MainController';
 
 @at.controller(ngModuleName, ngControllerName)
-@at.inject('navService', '$log', '$q', '$state', '$mdSidenav', '$mdBottomSheet', '$mdToast')
+@at.inject('navigationService', '$log', '$q', '$state', '$mdSidenav', '$mdBottomSheet', '$mdToast')
 export default class MainController {
 
   public menuItems: Array<IMenuItem> = [];
   public title: string;
 
-  constructor(private navService: NavService,
+  constructor(private navigationService: NavigationService,
     private log: angular.ILogService,
     private q: angular.IQService,
     private state: angular.ui.IStateService,
@@ -23,7 +23,7 @@ export default class MainController {
     log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
 
     this.title = state.current.data.title;
-    navService.loadAllItems().then(menuItems => this.menuItems = [].concat(menuItems));
+    navigationService.loadAllItems().then(menuItems => this.menuItems = [].concat(menuItems));
   }
 
   public selectItem(item) {

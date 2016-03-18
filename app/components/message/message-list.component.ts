@@ -18,7 +18,6 @@ export default class MessageComponent implements at.IComponent {
   }
 
   public $onInit() {
-    this.log.debug(['ngComponent', ngComponentName, '$onInit'].join(' '));
     this.messageService.loadAllItems().then(
       messages => this.messages = [].concat(messages),
       console.error.bind(console));

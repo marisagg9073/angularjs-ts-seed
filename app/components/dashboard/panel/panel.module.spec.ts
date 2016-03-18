@@ -1,6 +1,6 @@
-/// <reference path="../../../typings/browser.d.ts" />
+/// <reference path="../../../../typings/browser.d.ts" />
 
-import Dashboard from './dashboard';
+import Panel from './panel';
 
 'use strict';
 
@@ -8,13 +8,13 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Dashboard Module', () => {
-  beforeEach($module(Dashboard));
+describe('# Panel Module', () => {
+  beforeEach($module(Panel));
 
   describe('## Existence', () => {
     let mod;
 
-    beforeEach(() => mod = angular.module(Dashboard));
+    beforeEach(() => mod = angular.module(Panel));
 
     it('should exist', () => {
       expect(mod).not.toBeUndefined();
@@ -24,7 +24,6 @@ describe('# Dashboard Module', () => {
     it('should have deps', () => {
       expect(mod.requires).toContain('ui.router');
       expect(mod.requires).toContain('app.components.material');
-      expect(mod.requires).toContain('app.components.dashboard.panel');
     });
   });
 
@@ -38,7 +37,7 @@ describe('# Dashboard Module', () => {
     });
 
     it('should log registration', () => {
-      let loaded = ['ngModule', Dashboard, 'loaded'].join(' ');
+      let loaded = ['ngModule', Panel, 'loaded'].join(' ');
       expect($log.debug.logs[1]).toContain(loaded);
     });
   });
