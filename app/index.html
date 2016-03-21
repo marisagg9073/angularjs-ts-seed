@@ -2,13 +2,16 @@
 <html lang="en">
 
 <head>
+  <base href="http://localhost:5555/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS TypeScript App</title>
-  <meta name="description" content="">
+  <title>Angular Material Dashboard</title>
+  <meta name="description" content="Angular admin dashboard with material design">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
     /* Hide when Angular is not yet loaded and initialized */
+
     [ng-cloak] {
       display: none;
     }
@@ -17,15 +20,20 @@
   <!-- endinject -->
 </head>
 
-<body ng-cloak>
+<body>
+  <!--[if lt IE 10]>
+      <p>You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.</p>
+    <![endif]-->
 
-  <app>Loading...</app>
+  <tsfn-app>Loading...</tsfn-app>
 
   <!-- inject:js -->
   <!-- endinject -->
 
-  <script src="at-angular.js"></script>
-  <script src="at-angular-resource.js"></script>
+  <script src="at-angular.js?v=<%= VERSION %>"></script>
+  <script src="at-angular-resource.js?v=<%= VERSION %>"></script>
 
   <script src="./init.js?v=<%= VERSION %>"></script>
 
