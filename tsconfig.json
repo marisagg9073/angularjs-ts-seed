@@ -12,10 +12,14 @@
     "removeComments": true,
     "noLib": false,
     "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "sourceMap": true
   },
   "exclude": [
+    "generator",
     "node_modules",
+    "typings/browser",
+    "typings/browser.d.ts",
     "typings/main",
     "typings/main.d.ts"
   ],

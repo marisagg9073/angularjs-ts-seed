@@ -6,4 +6,4 @@ var requireDir = require('require-dir');
 
 var cfg = requireDir('./tasks');
 
-gulp.task('default', ['serve']);
+// gulp.task('default', ['serve']);
