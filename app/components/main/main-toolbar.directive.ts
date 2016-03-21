@@ -7,6 +7,7 @@ const ngDirectiveName = 'tsfnMainToolbar';
 
 @at.directive(ngModuleName, ngDirectiveName, {
   restrict: 'E',
+  replace: true,
   templateUrl: 'main/main-toolbar.directive.html'
 })
 export default class MainToolbarDirective extends MainController {

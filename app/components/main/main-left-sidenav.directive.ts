@@ -7,6 +7,7 @@ const ngDirectiveName = 'tsfnMainLeftSidenav';
 
 @at.directive(ngModuleName, ngDirectiveName, {
   restrict: 'E',
+  replace: true,
   templateUrl: 'main/main-left-sidenav.directive.html'
 })
 export default class MainLeftSidenavDirective extends MainController {

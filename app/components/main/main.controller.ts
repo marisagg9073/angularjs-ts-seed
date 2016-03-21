@@ -28,7 +28,7 @@ export default class MainController {
 
   public selectItem(item) {
     this.title = item.name;
-    this.toggleItemsList();
+    this.clearSidebars();
     this.showSimpleToast(this.title);
   }
 
@@ -56,13 +56,18 @@ export default class MainController {
 
   public toggleItemsList() {
     this.mdBottomSheet.hide();
-    this.mdSidenav('left').toggle();
+    this.mdSidenav('left').toggle().then(() => this.log.debug('Left sidenav toggled'));
   }
 
   public toggleRightSidebar() {
-    this.mdSidenav('right').toggle();
+    this.mdSidenav('right').toggle().then(() => this.log.debug('Left sidenav toggled'));
   }
 
+  private clearSidebars() {
+    this.mdBottomSheet.hide();
+    this.mdSidenav('left').close().then(() => this.log.debug('Left sidenav closed'));
+    this.mdSidenav('right').close().then(() => this.log.debug('Left sidenav closed'));
+  }
 }
 
 @at.inject('$mdBottomSheet')
