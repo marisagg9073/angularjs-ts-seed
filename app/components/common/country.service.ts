@@ -1,5 +1,5 @@
 import ngModuleName from './common.module';
-import {ICountry, ITodo} from './country.model';
+import {ICountry, ICountryItem} from './country.model';
 
 'use strict';
 
@@ -258,7 +258,7 @@ export default class CountryService {
     log.debug(['ngService', ngServiceName, 'loaded'].join(' '));
   }
 
-  public loadAllItems(): angular.IPromise<Array<ITodo>> {
+  public loadAllItems(): angular.IPromise<Array<ICountryItem>> {
     return this.q.when(this.countries.map(country => ({
       value: country.name.toLowerCase(),
       display: country.name,

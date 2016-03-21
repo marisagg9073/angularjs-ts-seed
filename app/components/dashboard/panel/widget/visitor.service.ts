@@ -7,7 +7,7 @@ const ngServiceName = 'visitorService';
 
 @at.service(ngModuleName, ngServiceName)
 @at.inject('$log', '$q')
-export default class UsageService {
+export default class VisitorService {
 
   constructor(private log: angular.ILogService, private q: angular.IQService) {
     log.debug(['ngService', ngServiceName, 'loaded'].join(' '));

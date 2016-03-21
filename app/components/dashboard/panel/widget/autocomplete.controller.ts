@@ -1,6 +1,6 @@
 import ngModuleName from './widget.module';
 
-import {ITodo} from '../../../common/country.model';
+import {ICountryItem} from '../../../common/country.model';
 import CountryService from '../../../common/country.service';
 
 'use strict';
@@ -11,8 +11,8 @@ const ngControllerName = 'AutocompleteController';
 @at.inject('countryService', '$log', '$q', '$timeout')
 export default class AutocompleteController {
 
-  public countries: Array<ITodo> = [];
-  public selectedCountry: ITodo;
+  public countries: Array<ICountryItem> = [];
+  public selectedCountry: ICountryItem;
   public searchText: string;
   public disableCaching = true;
 

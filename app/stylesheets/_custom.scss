@@ -142,6 +142,15 @@ md-backdrop.md-sidenav-backdrop {
   position: fixed;
 }
 
+md-content.md-dark-theme {
+    background-color: rgb(66,66,66);
+}
+
+md-content.md-default-theme, md-content {
+    color: rgba(0,0,0,0.87);
+    background-color: rgb(255,255,255);
+}
+
 // libs overrides
 .material-icons {
   vertical-align: middle;
