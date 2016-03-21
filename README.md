@@ -9,6 +9,7 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 * Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
 * Angular Material **1.0.6** ([doc](https://material.angularjs.org/1.0.6/))
 * SystemJS
+* Livereload (install [Chrome Plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) to enable this feature)
 
 # Unit tests
 * [jasmine](http://jasmine.github.io/2.4/introduction.html)
