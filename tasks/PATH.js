@@ -32,16 +32,26 @@ module.exports = {
         './node_modules/angular-aria/angular-aria.js',
         './node_modules/angular-animate/angular-animate.js',
         './node_modules/angular-messages/angular-messages.js',
-        './node_modules/angular-material/angular-material.js'
+        './node_modules/angular-material/angular-material.js',
+        './node_modules/angular-ui-router/release/angular-ui-router.js',
+        './node_modules/angular-cookies/angular-cookies.js',
+        // './node_modules/angular-touch/angular-touch.js',
+        './node_modules/angular-sanitize/angular-sanitize.js',
+
+        './node_modules/d3/d3.js',
+        './node_modules/nvd3/build/nv.d3.js',
+        './node_modules/angular-nvd3/dist/angular-nvd3.js'
       ],
       css: [
-        './node_modules/angular-material/angular-material.css'
+        './node_modules/angular-material/angular-material.css',
+        './node_modules/nvd3/build/nv.d3.css',
       ]
     },
+    scss: ['./{app,components}/**/*.scss', '!' + './app/index.scss', '!' + './app/vendor.scss'],
     blankTemplates: join(__dirname, '..', 'generator', 'component/**/*.**'),
     html: {
       all: ['./app/**/*.html'],
-      directive: ['./app/components/**/*.{directive,tpl}.html']
+      directive: ['./app/components/**/*.{directive,component,tpl}.html']
     }
   }
 };

@@ -3,11 +3,61 @@
 import {components} from './components/components';
 import {Service}   from './services/names-list';
 
+let routing = ($locationProvider: angular.ILocationProvider,
+  $stateProvider: angular.ui.IStateProvider,
+  $urlRouterProvider: angular.ui.IUrlRouterProvider) => {
+  // $locationProvider.html5Mode(true).hashPrefix('!');
+
+  $stateProvider
+    .state('home', {
+      url: '',
+      templateUrl: 'main/main.tpl.html',
+      controller: 'MainController',
+      controllerAs: 'vm',
+      abstract: true
+    })
+    .state('home.dashboard', {
+      url: '/dashboard',
+      templateUrl: 'dashboard/dashboard.tpl.html',
+      data: {
+        title: 'Dashboard'
+      }
+    })
+    .state('home.profile', {
+      url: '/profile',
+      templateUrl: 'profile/profile.tpl.html',
+      controller: 'ProfileController',
+      controllerAs: 'vm',
+      data: {
+        title: 'Profile'
+      }
+    })
+    .state('home.table', {
+      url: '/table',
+      controller: 'TableController',
+      controllerAs: 'vm',
+      templateUrl: 'table/table.tpl.html',
+      data: {
+        title: 'Table'
+      }
+    });
+
+  $urlRouterProvider.otherwise('/dashboard');
+};
+
+routing.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+
 let app = angular.module('app', [
-  'ngNewRouter',
+  // 'ngNewRouter',
+  'ui.router',
+  'ngAnimate',
+  'ngCookies',
+  'ngSanitize',
+  // 'ngTouch',
+  'nvd3',
   components.name,
-  Service.NamesList.moduleName
-]);
+  Service.NamesList.moduleName,
+]).config(routing);
 
 // @at.controller('app', 'AppController')
 @at.directive('app', 'app', {
@@ -20,16 +70,16 @@ let app = angular.module('app', [
 })
 class AppController {
 
-  constructor( @at.inject('$router') $router) {
+  // constructor( @at.inject('$router') $router) {
 
-    let appRoutes: Array<angular.RouteDefinition> = [
-      { component: 'home', path: '/', useAsDefault: true },
-      { component: 'feature1', path: '/feature1' },
-      { component: 'about', path: '/about' }
-    ];
+  //   let appRoutes: Array<angular.RouteDefinition> = [
+  //     { component: 'home', path: '/', useAsDefault: true },
+  //     { component: 'feature1', path: '/feature1' },
+  //     { component: 'about', path: '/about' }
+  //   ];
 
-    $router.config(appRoutes);
-  }
+  //   $router.config(appRoutes);
+  // }
 }
 /*
 @at.directive('app', 'app')
@@ -43,7 +93,19 @@ class App {
 }
 */
 
-export {app}
+const ngComponentName = 'tsfnApp';
 
-angular.element(document)
-  .ready(() => angular.bootstrap(document.body, [app.name]));
+@at.component('app', ngComponentName, {
+  templateUrl: 'app.html?v=<%= VERSION %>'
+})
+@at.inject('$log')
+class App {
+  constructor(private log: angular.ILogService) {
+    log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
+  }
+}
+
+export default app;
+
+// angular.element(document)
+//   .ready(() => angular.bootstrap(document.body, [app.name]));

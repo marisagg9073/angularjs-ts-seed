@@ -25,7 +25,7 @@
     ],
     "no-require-imports": true,
     "no-trailing-whitespace": true,
-    "object-literal-sort-keys": true,
+    "object-literal-sort-keys": false,
     "trailing-comma": [
       false,
       {
@@ -42,7 +42,7 @@
       true,
       "check-space"
     ],
-    "interface-name": false,
+    "interface-name": true,
     "jsdoc-format": true,
     "no-consecutive-blank-lines": true,
     "no-constructor-vars": false,
