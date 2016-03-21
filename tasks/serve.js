@@ -3,6 +3,7 @@
 var PATH = require('./PATH');
 
 var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 var watch = require('gulp-watch');
 
 var join = require('path').join;
@@ -21,6 +22,7 @@ var port = 5555;
 gulp.task('serve.dev', ['build.dev'], function() {
   var app = connect();
 
+  $.livereload.listen();
   watch('./app/**', function() {
     gulp.start('build.app.dev');
   });

@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
 var inject = require('gulp-inject');
+var $ = require('gulp-load-plugins')();
 var minifyCSS = require('gulp-minify-css');
 var minifyHTML = require('gulp-minify-html');
 var ngHtml2Js = require("gulp-ng-html2js");
@@ -58,7 +59,8 @@ gulp.task('build.js.dev', ['lint.ts'], function() {
   return result.js
     .pipe(sourcemaps.write())
     .pipe(template({ VERSION: getVersion() }))
-    .pipe(gulp.dest(PATH.dest.dev.all));
+    .pipe(gulp.dest(PATH.dest.dev.all))
+    .pipe($.livereload());
 });
 
 gulp.task('build.html.dev', ['lint.html'], function() {
@@ -75,17 +77,20 @@ gulp.task('build.html.dev', ['lint.html'], function() {
       }
     }))
     .pipe(concat('partials.js'))
-    .pipe(gulp.dest(PATH.dest.dev.all));
+    .pipe(gulp.dest(PATH.dest.dev.all))
+    .pipe($.livereload());
 });
 
 gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev', 'build.copy.assets.dev', 'build.styles.dev'], function() {
   return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
-    .pipe(gulp.dest(PATH.dest.dev.all));
+    .pipe(gulp.dest(PATH.dest.dev.all))
+    .pipe($.livereload());
 });
 
 gulp.task('build.copy.assets.dev', function() {
   return gulp.src(['./app/assets/**/*'])
-    .pipe(gulp.dest(join(PATH.dest.dev.all, 'assets')));
+    .pipe(gulp.dest(join(PATH.dest.dev.all, 'assets')))
+    .pipe($.livereload());
 });
 
 gulp.task('build.index.dev', function() {
@@ -93,7 +98,8 @@ gulp.task('build.index.dev', function() {
   return gulp.src('./app/index.html')
     .pipe(inject(target, { transform: transformPath('dev') }))
     .pipe(template({ VERSION: getVersion() }))
-    .pipe(gulp.dest(PATH.dest.dev.all));
+    .pipe(gulp.dest(PATH.dest.dev.all))
+    .pipe($.livereload());
 });
 
 gulp.task('build.app.dev', function(done) {
