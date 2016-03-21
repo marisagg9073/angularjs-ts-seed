@@ -47,6 +47,7 @@ module.exports = {
         './node_modules/nvd3/build/nv.d3.css',
       ]
     },
+    scss: ['./{app,components}/**/*.scss', '!' + './app/index.scss', '!' + './app/vendor.scss'],
     blankTemplates: join(__dirname, '..', 'generator', 'component/**/*.**'),
     html: {
       all: ['./app/**/*.html'],

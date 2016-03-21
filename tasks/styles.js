@@ -14,11 +14,7 @@ gulp.task('build.styles.dev', function() {
     style: 'expanded'
   };
 
-  var injectFiles = gulp.src([
-    './{app,components}/**/*.scss',
-    '!' + './app/index.scss',
-    '!' + './app/vendor.scss'
-  ], { read: false });
+  var injectFiles = gulp.src(PATH.src.scss, { read: false });
 
   var injectOptions = {
     transform: function(filePath) {
@@ -44,5 +40,6 @@ gulp.task('build.styles.dev', function() {
       console.error(err.toString());
       this.emit('end');
     })
-    .pipe(gulp.dest(PATH.dest.dev.all));
+    .pipe(gulp.dest(PATH.dest.dev.all))
+    .pipe($.livereload());
 });

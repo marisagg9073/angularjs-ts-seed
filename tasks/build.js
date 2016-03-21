@@ -47,7 +47,8 @@ var tsProject = tsc.createProject('tsconfig.json', {
 
 gulp.task('build.lib.dev', function() {
   return gulp.src(PATH.src.lib.js.concat(PATH.src.lib.css))
-    .pipe(gulp.dest(PATH.dest.dev.lib));
+    .pipe(gulp.dest(PATH.dest.dev.lib))
+    .pipe($.livereload());
 });
 
 gulp.task('build.js.dev', ['lint.ts'], function() {
