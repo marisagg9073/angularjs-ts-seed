@@ -7,7 +7,7 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 # Features
 * AngularJS **1.5.x**
 * Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
-* Angular Material **1.0.6** ([doc](https://material.angularjs.org/1.0.6/))
+* Angular Material **1.1.0-RC1** ([doc](https://material.angularjs.org/latest/))
 * SystemJS
 * Livereload (install [Chrome Plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) to enable this feature)
 
@@ -97,6 +97,12 @@ You can generate a new angular *service* by using the following command:
 
 ```bash
 gulp gen:service --name <snakeCasedServiceName> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
+You can generate a new angular *provider* by using the following command:
+
+```bash
+gulp gen:provider --name <snakeCasedProviderName> --path <existingPathFromComponents> [--module <moduleName>]
 ```
 
 ### Build, test and run
