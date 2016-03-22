@@ -98,10 +98,13 @@ class App {
 */
 
 @at.component('app', ngMainComponentName, {
-  templateUrl: 'app.html?v=<%= VERSION %>'
+  templateUrl: 'app.html?v=<%= VERSION %>',
+  $routeConfig: [
+    {path: '/...', name: 'Main', component: 'tsfnMain'},
+  ]
 })
 @at.inject('$log')
-class App {
+class App implements at.IComponent {
   constructor(private log: angular.ILogService) {
     log.debug(['ngComponent', ngMainComponentName, 'loaded'].join(' '));
   }

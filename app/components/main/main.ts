@@ -4,6 +4,6 @@ import ngModuleName from './main.module';
 import './main-left-sidenav.directive';
 import './main-right-sidenav.directive';
 import './main-toolbar.directive';
-import './main.controller';
+import './main.component';
 
 export default ngModuleName;
