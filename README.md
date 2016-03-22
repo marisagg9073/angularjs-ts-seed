@@ -69,7 +69,7 @@ gulp <task> --support
 
 ### Accelerator
 
-You can generate a scaffolded component by using the following command:
+You can generate a **scaffolded component** by using the following command:
 
 ```bash
 gulp gen:component --name <componentName>
@@ -91,6 +91,12 @@ You can generate a new angular *filter* by using the following command:
 
 ```bash
 gulp gen:filter --name <snakeCasedFilterName> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
+You can generate a new angular *service* by using the following command:
+
+```bash
+gulp gen:service --name <snakeCasedServiceName> --path <existingPathFromComponents> [--module <moduleName>]
 ```
 
 ### Build, test and run
