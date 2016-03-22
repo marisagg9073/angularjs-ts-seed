@@ -22,7 +22,7 @@ describe('# BottomSheet Module', () => {
     });
 
     it('should have deps', () => {
-      expect(mod.requires).toContain('ui.router');
+      expect(mod.requires).toContain('ngComponentRouter');
       expect(mod.requires).toContain('app.components.material');
     });
   });

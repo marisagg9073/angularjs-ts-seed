@@ -12,17 +12,20 @@ export default class NavigationService {
     {
       name: 'Dashboard',
       icon: 'dashboard',
-      sref: '.dashboard'
+      sref: '.dashboard',
+      link: ['Dashboard']
     },
     {
       name: 'Profile',
       icon: 'person',
-      sref: '.profile'
+      sref: '.profile',
+      link: ['Profile']
     },
     {
       name: 'Table',
       icon: 'view_module',
-      sref: '.table'
+      sref: '.table',
+      link: ['Table']
     }
   ];
 

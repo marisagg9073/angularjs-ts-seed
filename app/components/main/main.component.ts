@@ -4,11 +4,18 @@ import NavigationService from '../common/navigation.service';
 
 'use strict';
 
-const ngControllerName = 'MainController';
+const ngComponentName = 'tsfnMain';
 
-@at.controller(ngModuleName, ngControllerName)
-@at.inject('navigationService', '$log', '$q', '$state', '$mdSidenav', '$mdBottomSheet', '$mdToast')
-export default class MainController {
+@at.component(ngModuleName, ngComponentName, {
+  templateUrl: 'main/main.component.html',
+  $routeConfig: [
+    { path: '/dashboard', name: 'Dashboard', component: 'tsfnDashboard', data: { title: 'Dashboard' }, useAsDefault: true },
+    { path: '/profile', name: 'Profile', component: 'tsfnProfile', data: { title: 'Profile' } },
+    { path: '/table', name: 'Table', component: 'tsfnTable', data: { title: 'Table' } }
+  ]
+})
+@at.inject('navigationService', '$log', '$q', '$mdSidenav', '$mdBottomSheet', '$mdToast')
+export default class MainComponent implements at.OnInit {
 
   public menuItems: Array<IMenuItem> = [];
   public title: string;
@@ -16,14 +23,15 @@ export default class MainController {
   constructor(private navigationService: NavigationService,
     private log: angular.ILogService,
     private q: angular.IQService,
-    private state: angular.ui.IStateService,
     private mdSidenav: angular.material.ISidenavService,
     private mdBottomSheet: angular.material.IBottomSheetService,
     private mdToast: angular.material.IToastService) {
-    log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
+    log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
+  }
 
-    this.title = state.current.data.title;
-    navigationService.loadAllItems().then(menuItems => this.menuItems = [].concat(menuItems));
+  public $onInit() {
+    this.navigationService.loadAllItems()
+      .then(menuItems => this.menuItems = [].concat(menuItems));
   }
 
   public selectItem(item) {
