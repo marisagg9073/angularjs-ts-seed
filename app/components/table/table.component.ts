@@ -17,9 +17,6 @@ export default class TableComponent implements at.IComponent {
   constructor(private tableService: TableService,
     private log: angular.ILogService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
-
-    tableService.loadAllItems()
-      .then(data => this.tableData = [].concat(data));
   }
 
   public $onInit() {

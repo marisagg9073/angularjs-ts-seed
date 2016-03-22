@@ -2,11 +2,13 @@ import ngModuleName from './profile.module';
 
 'use strict';
 
-const ngControllerName = 'ProfileController';
+const ngComponentName = 'tsfnProfile';
 
-@at.controller(ngModuleName, ngControllerName)
+@at.component(ngModuleName, ngComponentName, {
+  templateUrl: 'profile/profile.component.html',
+})
 @at.inject('$log')
-export default class ProfileController {
+export default class ProfileComponent implements at.IComponent {
 
   public user = {
     title: 'Admin',
@@ -23,6 +25,6 @@ export default class ProfileController {
   };
 
   constructor(private log: angular.ILogService) {
-    log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
+    log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
 }
