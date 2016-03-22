@@ -24,10 +24,13 @@ function generator() {
     }).join('');
   };
   var argv = yargs.reset()
-    .usage('Usage: gulp gen:module -n [string] -p [string]')
+    .usage('Usage: gulp gen:controller -n [string] -p [string]')
     .alias('n', 'name')
     .string('n')
-    .describe('n', 'Module name')
+    .describe('n', 'Controller name')
+    .alias('m', 'module')
+    .string('m')
+    .describe('m', 'Module name')
     .alias('p', 'path')
     .string('p')
     .describe('p', 'Path from Components folder')
@@ -52,18 +55,18 @@ function generator() {
   var destPath = join(resolveToComponents(), parentPath);
 
   var modName = (function() {
-    var parts = parentPath.split('/');
-    gutil.log('Parts of path', parts);
-    if (parts[parts.length - 1] !== name)
-      parts.push(name);
-    parts = parts.map(camel);
-    gutil.log('Parts camelCased', parts);
-    return parts.join('.');
+    var mod = argv.module && argv.module.length > 0 ? argv.module : null;
+    if (!mod) {
+      var parts = parentPath.split('/');
+      mod = parts[parts.length - 1];
+    }
+    gutil.log('Module file chosen:', mod);
+    return mod;
   })();
 
   var toComponents = parentPath.split('/').map(function() { return '..'; });
 
-  return gulp.src(PATH.src.blankTemplates.mod)
+  return gulp.src(PATH.src.blankTemplates.ctrl)
     .pipe(template({
       name: name,
       upCaseName: cap(camel(name)),
@@ -75,29 +78,29 @@ function generator() {
     }))
     .pipe(gulp.dest(destPath))
     .pipe(notify({
-      message: 'Module files generated in <%= options.folder %>.',
+      message: 'Controller files generated in <%= options.folder %>.',
       templateOptions: {
         folder: destPath
       },
       onLast: true
     })).pipe(notify({
-      message: 'Remember to register the new ngModule in <%= options.collector %>.',
+      message: 'Remember to register the new ngController in <%= options.collector %>.',
       templateOptions: {
-        collector: resolveToComponents() + ' > components.ts'
+        collector: destPath + ' > ' + modName + '.ts'
       },
       onLast: true
     }));
 }
 
-generator.description = 'Generate Module template';
+generator.description = 'Generate Controller template';
 
 generator.flags = {
-  '-n, --name': 'Module name',
+  '-n, --name': 'Controller name',
   '-p, --path': 'Path from Components folder',
   '-s, --support': 'Show help'
 };
 
-gulp.task('gen:module', generator);
+gulp.task('gen:controller', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');

@@ -81,6 +81,12 @@ You can generate a new angular module by using the following command:
 gulp gen:module --name <snakeCasedModuleName> --path <existingPathFromComponents>
 ```
 
+You can generate a new angular controller by using the following command:
+
+```bash
+gulp gen:controller --name <snakeCasedControllerName> --path <existingPathFromComponents>
+```
+
 ### Build, test and run
 
 If you are ready to test and run the application:
