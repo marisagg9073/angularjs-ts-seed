@@ -54,7 +54,8 @@ module.exports = {
       mod: [join(generator, 'temp.ts'), join(generator, 'temp.module*.ts')],
       ctrl: [join(generator, 'temp.controller*.ts')],
       filter: [join(generator, 'temp.filter*.ts')],
-      service: [join(generator, 'temp.service*.ts')]
+      service: [join(generator, 'temp.service*.ts')],
+      provider: [join(generator, 'temp.provider*.ts')]
     },
     html: {
       all: ['./app/**/*.html'],

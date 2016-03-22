@@ -4,5 +4,6 @@ import ngModuleName from './<%= name %>.module';
 // import './<%= name %>.controller';
 // import './<%= name %>.filter';
 // import './<%= name %>.service';
+// import './<%= name %>.provider';
 
 export default ngModuleName;
