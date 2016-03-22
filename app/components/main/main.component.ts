@@ -9,19 +9,13 @@ const ngComponentName = 'tsfnMain';
 @at.component(ngModuleName, ngComponentName, {
   templateUrl: 'main/main.component.html',
   $routeConfig: [
-    { path: '/dashboard', name: 'Dashboard', component: 'tsfnDashboard', data: {
-        title: 'Dashboard'
-      }, useAsDefault: true },
-    { path: '/profile', name: 'Profile', component: 'tsfnProfile', data: {
-        title: 'Profile'
-      } },
-    { path: '/table', name: 'Table', component: 'tsfnTable', data: {
-        title: 'Table'
-      } }
+    { path: '/dashboard', name: 'Dashboard', component: 'tsfnDashboard', data: { title: 'Dashboard' }, useAsDefault: true },
+    { path: '/profile', name: 'Profile', component: 'tsfnProfile', data: { title: 'Profile' } },
+    { path: '/table', name: 'Table', component: 'tsfnTable', data: { title: 'Table' } }
   ]
 })
 @at.inject('navigationService', '$log', '$q', '$mdSidenav', '$mdBottomSheet', '$mdToast')
-export default class MainComponent implements at.IComponent {
+export default class MainComponent implements at.OnInit {
 
   public menuItems: Array<IMenuItem> = [];
   public title: string;
@@ -38,11 +32,6 @@ export default class MainComponent implements at.IComponent {
   public $onInit() {
     this.navigationService.loadAllItems()
       .then(menuItems => this.menuItems = [].concat(menuItems));
-  }
-
-  public $routerOnActivate(next) {
-    console.log(next);
-    // this.title = next.data.title;
   }
 
   public selectItem(item) {

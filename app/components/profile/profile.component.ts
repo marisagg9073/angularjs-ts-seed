@@ -8,7 +8,7 @@ const ngComponentName = 'tsfnProfile';
   templateUrl: 'profile/profile.component.html',
 })
 @at.inject('$log')
-export default class ProfileComponent implements at.IComponent {
+export default class ProfileComponent {
 
   public user = {
     title: 'Admin',

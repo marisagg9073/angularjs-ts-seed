@@ -10,7 +10,7 @@ const ngComponentName = 'tsfnTable';
   templateUrl: 'table/table.component.html',
 })
 @at.inject('tableService', '$log')
-export default class TableComponent implements at.IComponent {
+export default class TableComponent implements at.OnInit {
 
   public tableData = [];
 
