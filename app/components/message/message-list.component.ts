@@ -10,7 +10,7 @@ const ngComponentName = 'tsfnMessageList';
   templateUrl: 'message/message-list.component.html'
 })
 @at.inject('messageService', '$log')
-export default class MessageComponent implements at.IComponent {
+export default class MessageComponent implements at.OnInit {
   public messages: Array<IMessage> = [];
 
   constructor(private messageService: MessageService, private log: angular.ILogService) {

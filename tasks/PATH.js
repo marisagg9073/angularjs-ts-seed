@@ -1,4 +1,5 @@
 var join = require('path').join;
+var generator = join(__dirname, '..', 'generator', 'component');
 
 module.exports = {
   dest: {
@@ -13,6 +14,9 @@ module.exports = {
     prod: {
       all: 'dist/prod',
       lib: 'dist/prod/lib'
+    },
+    pkg: {
+      prod: 'dist/pkg/prod'
     }
   },
   src: {
@@ -28,7 +32,7 @@ module.exports = {
         './node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js.map',
         './node_modules/systemjs/dist/system.src.js',
         './node_modules/angular/angular.js',
-        './node_modules/angular-new-router/dist/router.es5.js',
+        './node_modules/@angular/router/angular1/angular_1_router.js',
         './node_modules/angular-aria/angular-aria.js',
         './node_modules/angular-animate/angular-animate.js',
         './node_modules/angular-messages/angular-messages.js',
@@ -48,7 +52,14 @@ module.exports = {
       ]
     },
     scss: ['./{app,components}/**/*.scss', '!' + './app/index.scss', '!' + './app/vendor.scss'],
-    blankTemplates: join(__dirname, '..', 'generator', 'component/**/*.**'),
+    blankTemplates: {
+      all: join(generator, '**/*.**'),
+      mod: [join(generator, 'temp.ts'), join(generator, 'temp.module*.ts')],
+      ctrl: [join(generator, 'temp.controller*.ts')],
+      filter: [join(generator, 'temp.filter*.ts')],
+      service: [join(generator, 'temp.service*.ts')],
+      provider: [join(generator, 'temp.provider*.ts')]
+    },
     html: {
       all: ['./app/**/*.html'],
       directive: ['./app/components/**/*.{directive,component,tpl}.html']

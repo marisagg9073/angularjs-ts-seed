@@ -5,5 +5,5 @@ import Widget from './widget/widget';
 
 const ngModuleName = 'app.components.dashboard.panel';
 
-export default angular.module(ngModuleName, ['ui.router', Material, Widget])
+export default angular.module(ngModuleName, ['ngComponentRouter', Material, Widget])
   .run(['$log', $log => $log.debug(['ngModule', ngModuleName, 'loaded'].join(' '))]).name;

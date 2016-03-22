@@ -1,15 +1,15 @@
-import ngModuleName from './<%= name %>.module';
+import ngModuleName from './<%= modName %>.module';
 
 'use strict';
 
-@at.controller(ngModuleName, '<%= upCaseName %>Controller')
-@at.inject('$router')
-export default class <%= upCaseName %>Controller {
-  private myName: string;
+const ngControllerName = '<%= upCaseName %>Controller';
 
-  constructor(private router: any) {
-    console.log('router', router);
-    this.myName = '<%= name %>';
+@at.controller(ngModuleName, ngControllerName)
+@at.inject('$log')
+export default class <%= upCaseName %>Controller {
+
+  constructor(private log: angular.ILogService) {
+    log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
   }
 
 }

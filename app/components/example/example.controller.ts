@@ -5,7 +5,7 @@ import ngModuleName from './example.module';
 const ngControllerName = 'ExampleController';
 
 @at.controller(ngModuleName, ngControllerName)
-@at.inject('$interval', '$log', '$scope', '$timeout', '$router')
+@at.inject('$interval', '$log', '$scope', '$timeout')
 export default class ExampleController {
 
   public counterTicker: number = 0;
@@ -26,8 +26,7 @@ export default class ExampleController {
   constructor(private interval: angular.IIntervalService,
     private log: angular.ILogService,
     private scope: angular.IScope,
-    private timeout: angular.ITimeoutService,
-    private router: any) {
+    private timeout: angular.ITimeoutService) {
     log.debug(['ngController', ngControllerName, 'loaded'].join(' '));
 
     this.incrementInterval = this.interval(this.increment1, 1000);
