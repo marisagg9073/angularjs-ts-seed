@@ -42,7 +42,7 @@ export default class MainComponent implements at.IComponent {
 
   public $routerOnActivate(next) {
     console.log(next);
-    this.title = next.data.title;
+    // this.title = next.data.title;
   }
 
   public selectItem(item) {
