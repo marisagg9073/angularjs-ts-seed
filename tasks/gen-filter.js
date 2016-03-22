@@ -24,10 +24,10 @@ function generator() {
     }).join('');
   };
   var argv = yargs.reset()
-    .usage('Usage: gulp gen:controller -n [string] -p [string] -m [string]')
+    .usage('Usage: gulp gen:filter -n [string] -p [string] -m [string]')
     .alias('n', 'name')
     .string('n')
-    .describe('n', 'Controller name')
+    .describe('n', 'Filter name')
     .alias('m', 'module')
     .string('m')
     .describe('m', 'Module name')
@@ -66,7 +66,7 @@ function generator() {
 
   var toComponents = parentPath.split('/').map(function() { return '..'; });
 
-  return gulp.src(PATH.src.blankTemplates.ctrl)
+  return gulp.src(PATH.src.blankTemplates.filter)
     .pipe(template({
       name: name,
       upCaseName: cap(camel(name)),
@@ -78,13 +78,13 @@ function generator() {
     }))
     .pipe(gulp.dest(destPath))
     .pipe(notify({
-      message: 'Controller files generated in <%= options.folder %>.',
+      message: 'Filter files generated in <%= options.folder %>.',
       templateOptions: {
         folder: destPath
       },
       onLast: true
     })).pipe(notify({
-      message: 'Remember to register the new ngController in <%= options.collector %>.',
+      message: 'Remember to register the new ngFilter in <%= options.collector %>.',
       templateOptions: {
         collector: destPath + ' > ' + modName + '.ts'
       },
@@ -92,16 +92,16 @@ function generator() {
     }));
 }
 
-generator.description = 'Generate Controller template';
+generator.description = 'Generate Filter template';
 
 generator.flags = {
-  '-n, --name': 'Controller name',
+  '-n, --name': 'Filter name',
   '-p, --path': 'Path from Components folder',
   '-m, --module': 'Module name (optional)',
   '-s, --support': 'Show help'
 };
 
-gulp.task('gen:controller', generator);
+gulp.task('gen:filter', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');

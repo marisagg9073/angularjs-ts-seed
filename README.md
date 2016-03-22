@@ -75,16 +75,22 @@ You can generate a scaffolded component by using the following command:
 gulp gen:component --name <componentName>
 ```
 
-You can generate a new angular module by using the following command:
+You can generate a new angular *module* by using the following command:
 
 ```bash
 gulp gen:module --name <snakeCasedModuleName> --path <existingPathFromComponents>
 ```
 
-You can generate a new angular controller by using the following command:
+You can generate a new angular *controller* by using the following command:
 
 ```bash
-gulp gen:controller --name <snakeCasedControllerName> --path <existingPathFromComponents>
+gulp gen:controller --name <snakeCasedControllerName> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
+You can generate a new angular *filter* by using the following command:
+
+```bash
+gulp gen:filter --name <snakeCasedFilterName> --path <existingPathFromComponents> [--module <moduleName>]
 ```
 
 ### Build, test and run

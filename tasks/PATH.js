@@ -52,7 +52,8 @@ module.exports = {
     blankTemplates: {
       all: join(generator, '**/*.**'),
       mod: [join(generator, 'temp.ts'), join(generator, 'temp.module*.ts')],
-      ctrl: [join(generator, 'temp.controller*.ts')]
+      ctrl: [join(generator, 'temp.controller*.ts')],
+      filter: [join(generator, 'temp.filter*.ts')]
     },
     html: {
       all: ['./app/**/*.html'],
