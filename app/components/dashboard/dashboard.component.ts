@@ -14,7 +14,7 @@ export default class DashboardComponent implements at.OnActivate {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
 
-  public $routerOnActivate(next: angular.ComponentInstruction) {
+  public $routerOnActivate(next: at.ComponentInstruction) {
     this.log.debug(next.routeData.data);
   }
 }
