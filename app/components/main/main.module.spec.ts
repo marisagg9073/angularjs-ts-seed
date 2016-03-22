@@ -22,7 +22,7 @@ describe('# Main Module', () => {
     });
 
     it('should have deps', () => {
-      expect(mod.requires).toContain('ui.router');
+      expect(mod.requires).toContain('ngComponentRouter');
       expect(mod.requires).toContain('app.components.material');
     });
   });
@@ -38,7 +38,7 @@ describe('# Main Module', () => {
 
     it('should log registration', () => {
       let loaded = ['ngModule', Main, 'loaded'].join(' ');
-      expect($log.debug.logs[1]).toContain(loaded);
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 

@@ -4,6 +4,6 @@ import cfg from './material.config';
 
 const ngModuleName = 'app.components.material';
 
-export default angular.module(ngModuleName, ['ngNewRouter', 'ngMaterial'])
+export default angular.module(ngModuleName, ['ngComponentRouter', 'ngMaterial'])
   .config(cfg)
   .run(['$log', $log => $log.debug(['ngModule', ngModuleName, 'loaded'].join(' '))]).name;

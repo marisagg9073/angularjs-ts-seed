@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="data in vm.tableData track by $index">
+      <tr ng-repeat="data in $ctrl.tableData track by $index">
         <td data-title="ID">{{$index + 1}}</td>
         <td data-title="Issue">{{data.issue}}</td>
         <td data-title="Status">{{data.status}}</td>

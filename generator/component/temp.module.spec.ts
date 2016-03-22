@@ -1,6 +1,6 @@
-/// <reference path="../../../typings/browser.d.ts" />
+/// <reference path="<%= toComponents %>/../../typings/browser.d.ts" />
 
-import Common from './common';
+import <%= upCaseName %> from './<%= name %>';
 
 'use strict';
 
@@ -8,13 +8,13 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Common Module', () => {
-  beforeEach($module(Common));
+describe('# <%= upCaseName %> Module', () => {
+  beforeEach($module(<%= upCaseName %>));
 
   describe('## Existence', () => {
     let mod;
 
-    beforeEach(() => mod = angular.module(Common));
+    beforeEach(() => mod = angular.module(<%= upCaseName %>));
 
     it('should exist', () => {
       expect(mod).not.toBeUndefined();
@@ -23,6 +23,7 @@ describe('# Common Module', () => {
 
     it('should have deps', () => {
       expect(mod.requires).toContain('ngComponentRouter');
+      expect(mod.requires).toContain('app.components.material');
     });
   });
 
@@ -36,8 +37,8 @@ describe('# Common Module', () => {
     });
 
     it('should log registration', () => {
-      let loaded = ['ngModule', Common, 'loaded'].join(' ');
-      expect($log.debug.logs[0][0]).toContain([loaded]);
+      let loaded = ['ngModule', <%= upCaseName %>, 'loaded'].join(' ');
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 
@@ -45,7 +46,7 @@ describe('# Common Module', () => {
     let $log;
 
     beforeEach(() => {
-      $module(function($logProvider) {
+      $module($logProvider => {
         $logProvider.debugEnabled(false);
       });
 
