@@ -1,8 +1,9 @@
 /// <reference path="../typings/browser.d.ts" />
 
+import routing from './app.route';
 import {components} from './components/components';
 import {Service}   from './services/names-list';
-
+/*
 let routing = ($locationProvider: angular.ILocationProvider,
   $stateProvider: angular.ui.IStateProvider,
   $urlRouterProvider: angular.ui.IUrlRouterProvider) => {
@@ -46,10 +47,12 @@ let routing = ($locationProvider: angular.ILocationProvider,
 };
 
 routing.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+*/
+
+const ngMainComponentName = 'tsfnApp';
 
 let app = angular.module('app', [
-  // 'ngNewRouter',
-  'ui.router',
+  'ngComponentRouter',
   'ngAnimate',
   'ngCookies',
   'ngSanitize',
@@ -57,7 +60,8 @@ let app = angular.module('app', [
   'nvd3',
   components.name,
   Service.NamesList.moduleName,
-]).config(routing);
+]).config(routing)
+  .value('$routerRootComponent', ngMainComponentName);
 
 // @at.controller('app', 'AppController')
 @at.directive('app', 'app', {
@@ -93,15 +97,13 @@ class App {
 }
 */
 
-const ngComponentName = 'tsfnApp';
-
-@at.component('app', ngComponentName, {
+@at.component('app', ngMainComponentName, {
   templateUrl: 'app.html?v=<%= VERSION %>'
 })
 @at.inject('$log')
 class App {
   constructor(private log: angular.ILogService) {
-    log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
+    log.debug(['ngComponent', ngMainComponentName, 'loaded'].join(' '));
   }
 }
 
