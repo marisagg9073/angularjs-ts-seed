@@ -73,34 +73,12 @@ let app = angular.module('app', [
   templateUrl: 'app.html?v=<%= VERSION %>'
 })
 class AppController {
-
-  // constructor( @at.inject('$router') $router) {
-
-  //   let appRoutes: Array<angular.RouteDefinition> = [
-  //     { component: 'home', path: '/', useAsDefault: true },
-  //     { component: 'feature1', path: '/feature1' },
-  //     { component: 'about', path: '/about' }
-  //   ];
-
-  //   $router.config(appRoutes);
-  // }
 }
-/*
-@at.directive('app', 'app')
-class App {
-  public static restrict = 'E';
-  public static templateUrl = 'app.html?v=<%= VERSION %>';
-  public static controller = AppController;
-  public static link: angular.IDirectiveLinkFn = (scope, element, attrs, ctrl: App) => {
-    console.log('App.directive', 'init');
-  };
-}
-*/
 
 @at.component('app', ngMainComponentName, {
   templateUrl: 'app.html?v=<%= VERSION %>',
   $routeConfig: [
-    {path: '/...', name: 'Main', component: 'tsfnMain'},
+    { path: '/...', name: 'Main', component: 'tsfnMain' },
   ]
 })
 @at.inject('$log')

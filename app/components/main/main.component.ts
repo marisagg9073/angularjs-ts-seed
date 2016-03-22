@@ -20,7 +20,7 @@ const ngComponentName = 'tsfnMain';
       } }
   ]
 })
-@at.inject('navigationService', '$log', '$q', '$state', '$mdSidenav', '$mdBottomSheet', '$mdToast')
+@at.inject('navigationService', '$log', '$q', '$mdSidenav', '$mdBottomSheet', '$mdToast')
 export default class MainComponent implements at.IComponent {
 
   public menuItems: Array<IMenuItem> = [];
@@ -29,7 +29,6 @@ export default class MainComponent implements at.IComponent {
   constructor(private navigationService: NavigationService,
     private log: angular.ILogService,
     private q: angular.IQService,
-    private state: angular.ui.IStateService,
     private mdSidenav: angular.material.ISidenavService,
     private mdBottomSheet: angular.material.IBottomSheetService,
     private mdToast: angular.material.IToastService) {
@@ -42,6 +41,7 @@ export default class MainComponent implements at.IComponent {
   }
 
   public $routerOnActivate(next) {
+    console.log(next);
     this.title = next.data.title;
   }
 

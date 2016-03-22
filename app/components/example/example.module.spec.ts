@@ -22,7 +22,7 @@ describe('# Example Module', () => {
     });
 
     it('should have deps', () => {
-      expect(mod.requires).toContain('ngNewRouter');
+      expect(mod.requires).toContain('ngComponentRouter');
     });
   });
 
