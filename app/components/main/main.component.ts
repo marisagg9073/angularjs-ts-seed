@@ -7,7 +7,7 @@ import NavigationService from '../common/navigation.service';
 const ngComponentName = 'tsfnMain';
 
 @at.component(ngModuleName, ngComponentName, {
-  templateUrl: 'main/main.tpl.html',
+  templateUrl: 'main/main.component.html',
   $routeConfig: [
     { path: '/dashboard', name: 'Dashboard', component: 'tsfnDashboard', data: {
         title: 'Dashboard'
@@ -32,10 +32,10 @@ export default class MainComponent implements at.IComponent {
     private mdSidenav: angular.material.ISidenavService,
     private mdBottomSheet: angular.material.IBottomSheetService,
     private mdToast: angular.material.IToastService) {
-    log.debug(['ngController', ngComponentName, 'loaded'].join(' '));
+    log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
 
-  public $onInit(): void {
+  public $onInit() {
     this.navigationService.loadAllItems()
       .then(menuItems => this.menuItems = [].concat(menuItems));
   }
