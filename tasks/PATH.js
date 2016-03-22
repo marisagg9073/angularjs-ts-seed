@@ -14,6 +14,9 @@ module.exports = {
     prod: {
       all: 'dist/prod',
       lib: 'dist/prod/lib'
+    },
+    pkg: {
+      prod: 'dist/pkg/prod'
     }
   },
   src: {

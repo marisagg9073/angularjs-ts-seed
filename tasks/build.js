@@ -211,7 +211,7 @@ gulp.task('build.app.prod', function(done) {
 });
 
 gulp.task('build.prod', function(done) {
-  runSequence('clean.prod', 'build.lib.prod', 'clean.tmp', 'build.app.prod',
+  runSequence('clean.prod', 'clean.pkg', 'build.lib.prod', 'clean.tmp', 'build.app.prod',
     done);
 });
 

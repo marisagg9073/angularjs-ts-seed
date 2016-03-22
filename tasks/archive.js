@@ -16,6 +16,6 @@ gulp.task('build.prod.zip', ['build.prod'], function() {
 
     return gulp.src(PATH.dest.prod.all + '/**/*.*')
         .pipe(zip(filename))
-        .pipe(gulp.dest(PATH.dest.pkg.all));
+        .pipe(gulp.dest(PATH.dest.pkg.prod));
 
 });

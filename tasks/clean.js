@@ -30,6 +30,10 @@ gulp.task('clean.app.prod', function(done) {
     PATH.dest.prod.lib, '!' + join(PATH.dest.prod.lib, '*')], done);
 });
 
+gulp.task('clean.pkg', function(done) {
+  del(PATH.dest.pkg.prod, done);
+});
+
 gulp.task('clean.tmp', function(done) {
   del('tmp', done);
 });
