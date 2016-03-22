@@ -217,6 +217,40 @@ module at {
   }
 
   /**
+   * RouteData is an immutable map of additional data you can configure in your Route.
+   * You can inject RouteData into the constructor of a component to use it.
+   */
+  export interface RouteData {
+    data: { [key: string]: any };
+    get(key: string): any;
+  }
+
+  /**
+   * A `ComponentInstruction` represents the route state for a single component. An `Instruction` is
+   * composed of a tree of these `ComponentInstruction`s.
+   *
+   * `ComponentInstructions` is a public API. Instances of `ComponentInstruction` are passed
+   * to route lifecycle hooks, like {@link CanActivate}.
+   *
+   * `ComponentInstruction`s are [https://en.wikipedia.org/wiki/Hash_consing](hash consed). You should
+   * never construct one yourself with "new." Instead, rely on {@link Router/RouteRecognizer} to
+   * construct `ComponentInstruction`s.
+   *
+   * You should not modify this object. It should be treated as immutable.
+   */
+  export interface ComponentInstruction {
+    reuse: boolean;
+    routeData: RouteData;
+    urlPath: string;
+    urlParams: string[];
+    data: RouteData;
+    componentType: any;
+    terminal: boolean;
+    specificity: number;
+    params: { [key: string]: any };
+  }
+
+  /**
    * Defines route lifecycle method `routerOnActivate`, which is called by the router at the end of a
    * successful route navigation.
    *
@@ -235,7 +269,7 @@ module at {
    * {@example router/ts/on_activate/on_activate_example.ts region='routerOnActivate'}
    */
   export interface OnActivate {
-    $routerOnActivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
+    $routerOnActivate(next?: ComponentInstruction, prev?: ComponentInstruction): any;
   }
 
   /**
@@ -258,7 +292,7 @@ module at {
    * {@example router/ts/can_deactivate/can_deactivate_example.ts region='routerCanDeactivate'}
    */
   export interface CanDeactivate {
-    $routerCanDeactivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): boolean | angular.IPromise<boolean>;
+    $routerCanDeactivate(next?: ComponentInstruction, prev?: ComponentInstruction): boolean | angular.IPromise<boolean>;
   }
 
   /**
@@ -277,7 +311,7 @@ module at {
    * {@example router/ts/on_deactivate/on_deactivate_example.ts region='routerOnDeactivate'}
    */
   export interface OnDeactivate {
-    $routerOnDeactivate(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
+    $routerOnDeactivate(next?: ComponentInstruction, prev?: ComponentInstruction): any;
   }
 
   /**
@@ -301,7 +335,7 @@ module at {
    * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
    */
   export interface CanReuse {
-    $routerCanReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): boolean | angular.IPromise<boolean>;
+    $routerCanReuse(next?: ComponentInstruction, prev?: ComponentInstruction): boolean | angular.IPromise<boolean>;
   }
 
   /**
@@ -320,7 +354,7 @@ module at {
    * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
    */
   export interface OnReuse {
-    $routerOnReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
+    $routerOnReuse(next?: ComponentInstruction, prev?: ComponentInstruction): any;
   }
 
   const componentProperties: string[] = [
