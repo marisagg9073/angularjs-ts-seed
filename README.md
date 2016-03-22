@@ -6,7 +6,7 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 
 # Features
 * AngularJS **1.5.x**
-* Angular New Router _(out-of-date, awaiting angularjs 1.5.x with the new router to update)_
+* Angular Component Router
 * Angular Material **1.1.0-RC1** ([doc](https://material.angularjs.org/latest/))
 * SystemJS
 * Livereload (install [Chrome Plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) to enable this feature)
@@ -24,8 +24,14 @@ You can find some useful recipes (eg. how to test $timeout and $interval) here:
      |-- common
          |-- common.config.spec.ts       # angular values and constants
      |-- example
+         |-- example-external.directive.html     # template for example-external.directive
+         |-- example-external.directive.ts       # directive with external template (templateUrl needs the relative path from app/components)
+         |-- example-external.directive.spec.ts  # test for a directive with external template
+         |-- example-simple.directive.spec.ts    # test for a directive with inline-template
          |-- example.controller.spec.ts  # $interval and $timeout with jasmine spies
+         |-- example.filter.spec.ts      # test for a custom filter
          |-- example.module.spec.ts      # injection and logs
+         |-- example.provider.spec.ts    # test for a provider and its generated service with an example of module-level configuration
          |-- example.service.spec.ts     # angular services and Date
 ```
 
@@ -46,7 +52,7 @@ You can replicate these behaviours by running the following commands:
 
 ```bash
 # If the tools have not been installed
-npm install --global typings gulp-cli
+npm install --save-dev typings gulp-cli
 
 # If the TS definitions need to be updated
 typings install
