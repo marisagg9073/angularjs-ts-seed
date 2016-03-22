@@ -12,12 +12,18 @@ var join = require('path').join;
 var exists = require('path-exists');
 var yargs = require('yargs');
 
-function component() {
+function generator() {
   var cap = function(val) {
     return val.charAt(0).toUpperCase() + val.slice(1);
   };
+  var camel = function(val) {
+    return val.split('-').map(function(token, index) {
+      if (index === 0) return token;
+      return cap(token);
+    }).join('');
+  };
   var argv = yargs.reset()
-    .usage('Usage: gulp component -n [string] -p [string]')
+    .usage('Usage: gulp gen:component -n [string] -p [string]')
     .alias('n', 'name')
     .demand('n')
     .string('n')
@@ -30,7 +36,7 @@ function component() {
     .alias('s', 'support')
     .help('s')
     .check(function(args) {
-      if (!/^[a-z]+$/.test(args.name)) {
+      if (!/^[a-z-]+$/.test(args.name)) {
         gutil.log(gutil.colors.red('Invalid name: only lowercase letters are allowed.'));
         return false;
       }
@@ -45,10 +51,26 @@ function component() {
   var parentPath = argv.parent;
   var destPath = join(resolveToComponents(), parentPath, name);
 
-  return gulp.src(PATH.src.blankTemplates)
+  var modName = (function() {
+    var parts = parentPath.split('/');
+    if (parts[0] === '')
+      return camel(name);
+    gutil.log('Parts of path', parts);
+    if (parts[parts.length - 1] !== name)
+      parts.push(name);
+    parts = parts.map(camel);
+    gutil.log('Parts camelCased', parts);
+    return parts.join('.');
+  })();
+
+  var toComponents = parentPath.split('/').map(function() { return '..'; });
+
+  return gulp.src(PATH.src.blankTemplates.all)
     .pipe(template({
       name: name,
-      upCaseName: cap(name)
+      upCaseName: cap(camel(name)),
+      modName: modName,
+      toComponents: toComponents.join('/')
     }))
     .pipe(rename(function(path) {
       path.basename = path.basename.replace('temp', name);
@@ -69,15 +91,15 @@ function component() {
     }));
 }
 
-component.description = 'Generate Component template';
+generator.description = 'Generate Component template';
 
-component.flags = {
+generator.flags = {
   '-n, --name': 'Component name',
   '-p, --parent': 'Parent path from Components folder',
   '-s, --support': 'Show help'
 };
 
-gulp.task('component', component);
+gulp.task('gen:component', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');

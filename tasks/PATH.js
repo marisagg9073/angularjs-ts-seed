@@ -1,4 +1,5 @@
 var join = require('path').join;
+var generator = join(__dirname, '..', 'generator', 'component');
 
 module.exports = {
   dest: {
@@ -48,7 +49,10 @@ module.exports = {
       ]
     },
     scss: ['./{app,components}/**/*.scss', '!' + './app/index.scss', '!' + './app/vendor.scss'],
-    blankTemplates: join(__dirname, '..', 'generator', 'component/**/*.**'),
+    blankTemplates: {
+      all: join(generator, '**/*.**'),
+      mod: [join(generator, 'temp.ts'), join(generator, 'temp.module*.ts')],
+    },
     html: {
       all: ['./app/**/*.html'],
       directive: ['./app/components/**/*.{directive,component,tpl}.html']

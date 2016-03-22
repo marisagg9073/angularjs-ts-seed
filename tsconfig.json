@@ -15,6 +15,7 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
+    "generator",
     "node_modules",
     "typings/main",
     "typings/main.d.ts"

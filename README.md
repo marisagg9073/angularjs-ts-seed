@@ -72,7 +72,13 @@ gulp <task> --support
 You can generate a scaffolded component by using the following command:
 
 ```bash
-gulp component --name <componentName>
+gulp gen:component --name <componentName>
+```
+
+You can generate a new angular module by using the following command:
+
+```bash
+gulp gen:module --name <snakeCasedModuleName> --path <existingPathFromComponents>
 ```
 
 ### Build, test and run
