@@ -24,6 +24,12 @@ export default class ProfileComponent {
     postalCode: '220007'
   };
 
+  public files = [
+    'components/profile/profile.component.html',
+    'components/profile/profile.component.ts',
+    'components/profile/profile.module.ts'
+  ];
+
   constructor(private log: angular.ILogService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }

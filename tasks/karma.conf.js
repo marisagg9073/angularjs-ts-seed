@@ -33,6 +33,11 @@ module.exports = function(config) {
       '../node_modules/nvd3/build/nv.d3.js',
       '../node_modules/angular-nvd3/dist/angular-nvd3.js',
 
+      '../node_modules/codemirror/lib/codemirror.js',
+      '../node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
+      '../node_modules/codemirror/mode/javascript/javascript.js',
+      '../node_modules/angular-ui-codemirror/src/ui-codemirror.js',
+
       '../test/**/*.js',
       '../test/**/*.spec.js'
     ],
