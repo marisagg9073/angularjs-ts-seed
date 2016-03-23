@@ -1,0 +1,10 @@
+<md-content class="md-padding showcase">
+  <md-tabs class="md-accent" md-selected="$ctrl.selected">
+    <md-tab ng-repeat="tab in $ctrl.tabs">
+      <md-tab-label ng-bind="tab.title"></md-tab-label>
+      <md-tab-body>
+        <ui-codemirror ui-codemirror-opts="tab.options" ng-model="tab.content"></ui-codemirror>
+      </md-tab-body>
+    </md-tab>
+  </md-tabs>
+</md-content>
