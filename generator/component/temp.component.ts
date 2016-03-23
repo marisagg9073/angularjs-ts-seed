@@ -5,6 +5,10 @@ import ngModuleName from './<%= modName %>.module';
 const ngComponentName = '<%= fullName %>';
 
 @at.component(ngModuleName, ngComponentName, {
+  bindings: {
+    myAttribute: '@',
+    myOneWayBinding: '<'
+  },
   templateUrl: '<%= path %>/<%= name %>.component.html'
 })
 @at.inject('$log')
