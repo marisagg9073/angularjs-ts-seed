@@ -111,6 +111,12 @@ You can generate a new angular *provider* by using the following command:
 gulp gen:provider --name <snakeCasedProviderName> --path <existingPathFromComponents> [--module <moduleName>]
 ```
 
+You can generate a new angular *directive* by using the following command:
+
+```bash
+gulp gen:directive --name <snakeCasedDirectiveNameWithoutPrefix> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
 ### Build, test and run
 
 If you are ready to test and run the application:

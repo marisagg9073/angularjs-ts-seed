@@ -64,10 +64,12 @@ function generator() {
   })();
 
   var toComponents = parentPath.split('/').map(function() { return '..'; });
+  var prefix = 'tsfn';
 
   return gulp.src(PATH.src.blankTemplates.all)
     .pipe(template({
       name: name,
+      fullName: camel([prefix, name].join('-')),
       upCaseName: cap(camel(name)),
       modName: modName,
       toComponents: toComponents.join('/')

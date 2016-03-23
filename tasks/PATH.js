@@ -55,10 +55,11 @@ module.exports = {
     blankTemplates: {
       all: join(generator, '**/*.**'),
       mod: [join(generator, 'temp.ts'), join(generator, 'temp.module*.ts')],
-      ctrl: [join(generator, 'temp.controller*.ts')],
+      controller: [join(generator, 'temp.controller*.ts')],
       filter: [join(generator, 'temp.filter*.ts')],
       service: [join(generator, 'temp.service*.ts')],
-      provider: [join(generator, 'temp.provider*.ts')]
+      provider: [join(generator, 'temp.provider*.ts')],
+      directive: [join(generator, 'temp.directive*.{ts,html}')]
     },
     html: {
       all: ['./app/**/*.html'],

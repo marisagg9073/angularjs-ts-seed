@@ -24,10 +24,10 @@ function generator() {
     }).join('');
   };
   var argv = yargs.reset()
-    .usage('Usage: gulp gen:controller -n [string] -p [string] -m [string]')
+    .usage('Usage: gulp gen:directive -n [string] -p [string] -m [string]')
     .alias('n', 'name')
     .string('n')
-    .describe('n', 'Controller name')
+    .describe('n', 'Directive name without prefix')
     .alias('m', 'module')
     .string('m')
     .describe('m', 'Module name')
@@ -65,10 +65,12 @@ function generator() {
   })();
 
   var toComponents = parentPath.split('/').map(function() { return '..'; });
+  var prefix = 'tsfn';
 
-  return gulp.src(PATH.src.blankTemplates.controller)
+  return gulp.src(PATH.src.blankTemplates.directive)
     .pipe(template({
       name: name,
+      fullName: camel([prefix, name].join('-')),
       upCaseName: cap(camel(name)),
       modName: modName,
       toComponents: toComponents.join('/')
@@ -78,13 +80,13 @@ function generator() {
     }))
     .pipe(gulp.dest(destPath))
     .pipe(notify({
-      message: 'Controller files generated in <%= options.folder %>.',
+      message: 'Directive files generated in <%= options.folder %>.',
       templateOptions: {
         folder: destPath
       },
       onLast: true
     })).pipe(notify({
-      message: 'Remember to register the new ngController in <%= options.collector %>.',
+      message: 'Remember to register the new ngDirective in <%= options.collector %>.',
       templateOptions: {
         collector: destPath + ' > ' + modName + '.ts'
       },
@@ -92,16 +94,16 @@ function generator() {
     }));
 }
 
-generator.description = 'Generate Controller template';
+generator.description = 'Generate Directive template';
 
 generator.flags = {
-  '-n, --name': 'Controller name',
+  '-n, --name': 'Directive name without prefix',
   '-p, --path': 'Path from Components folder',
   '-m, --module': 'Module name (optional)',
   '-s, --support': 'Show help'
 };
 
-gulp.task('gen:controller', generator);
+gulp.task('gen:directive', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');
