@@ -66,7 +66,7 @@ function generator() {
 
   var toComponents = parentPath.split('/').map(function() { return '..'; });
 
-  return gulp.src(PATH.src.blankTemplates.ctrl)
+  return gulp.src(PATH.src.blankTemplates.controller)
     .pipe(template({
       name: name,
       upCaseName: cap(camel(name)),

@@ -22,17 +22,17 @@ You can find some useful recipes (eg. how to test $timeout and $interval) here:
  app
  |-- components
      |-- common
-         |-- common.config.spec.ts       # angular values and constants
+         |-- common.config.spec.ts               # angular values and constants
      |-- example
          |-- example-external.directive.html     # template for example-external.directive
          |-- example-external.directive.ts       # directive with external template (templateUrl needs the relative path from app/components)
          |-- example-external.directive.spec.ts  # test for a directive with external template
          |-- example-simple.directive.spec.ts    # test for a directive with inline-template
-         |-- example.controller.spec.ts  # $interval and $timeout with jasmine spies
-         |-- example.filter.spec.ts      # test for a custom filter
-         |-- example.module.spec.ts      # injection and logs
-         |-- example.provider.spec.ts    # test for a provider and its generated service with an example of module-level configuration
-         |-- example.service.spec.ts     # angular services and Date
+         |-- example.controller.spec.ts          # $interval and $timeout with jasmine spies
+         |-- example.filter.spec.ts              # test for a custom filter
+         |-- example.module.spec.ts              # injection and logs
+         |-- example.provider.spec.ts            # test for a provider and its generated service with an example of module-level configuration
+         |-- example.service.spec.ts             # angular services and Date
 ```
 
 # How to start
@@ -78,7 +78,7 @@ gulp <task> --support
 You can generate a **scaffolded component** by using the following command:
 
 ```bash
-gulp gen:component --name <componentName>
+gulp gen:scaffold --name <snakeCasedComponentName> [--parent <existingPathFromComponents>]
 ```
 
 You can generate a new angular *module* by using the following command:
@@ -111,6 +111,18 @@ You can generate a new angular *provider* by using the following command:
 gulp gen:provider --name <snakeCasedProviderName> --path <existingPathFromComponents> [--module <moduleName>]
 ```
 
+You can generate a new angular *directive* by using the following command:
+
+```bash
+gulp gen:directive --name <snakeCasedDirectiveNameWithoutPrefix> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
+You can generate a new angular *component* by using the following command:
+
+```bash
+gulp gen:component --name <snakeCasedDirectiveNameWithoutPrefix> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
 ### Build, test and run
 
 If you are ready to test and run the application:
@@ -136,7 +148,7 @@ gulp serve -p
 The new component generator:
 
 ```bash
-gulp component --name about
+gulp gen:scaffold --name about
 ```
 
 will create the following structure:
@@ -145,17 +157,32 @@ will create the following structure:
  app
  |-- components
      |-- about
-         |-- about.css            # styles
-         |-- about.html           # main template
-         |-- about.ts             # entry point for imports / main definition
-         |-- about.controller.ts  # main controller
-         |-- about.module.ts      # angular module
-         |-- about.spec.ts        # unit test specs
+         |-- about.css                 # styles (TBD)
+         |-- about.ts                  # entry point for imports / main definition (*)
+         |-- about.component.html      # component template
+         |-- about.component.ts        # component definition
+         |-- about.component.spec.ts   # component unit test specs
+         |-- about.controller.ts       # controller definition
+         |-- about.controller.spec.ts  # controller unit test specs
+         |-- about.directive.html      # directive template
+         |-- about.directive.ts        # directive definition
+         |-- about.directive.spec.ts   # directive unit test specs
+         |-- about.filter.ts           # filter definition
+         |-- about.filter.spec.ts      # filter unit test specs
+         |-- about.module.ts           # module definition
+         |-- about.module.spec.ts      # module unit test specs
+         |-- about.provider.ts         # provider definition (**)
+         |-- about.provider.spec.ts    # provider unit test specs
+         |-- about.service.ts          # service definition (**)
+         |-- about.service.spec.ts     # service unit test specs
+         |-- about.tpl.html            # generic template
 
          components.ts            # *update manually* to register the module
 ```
 
-Then, you can link this component to a specific route, by using it in `app.ts`.
+(*) Remember to remove comments where necessary in `about.ts` for registration.
+
+(**) Remember to choose between the provider and the service, because they export the same service (and unit tests will fail!).
 
 # Conventions
 

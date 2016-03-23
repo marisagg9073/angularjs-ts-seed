@@ -8,7 +8,8 @@ var rename = require('gulp-rename');
 var template = require('gulp-template');
 var gutil = require('gulp-util');
 
-var join = require('path').join;
+var path = require('path');
+var join = path.join;
 var exists = require('path-exists');
 var yargs = require('yargs');
 
@@ -66,7 +67,7 @@ function generator() {
   var toComponents = parentPath.split('/').map(function() { return '..'; });
   var prefix = 'tsfn';
 
-  return gulp.src(PATH.src.blankTemplates.component)
+  return gulp.src(PATH.src.blankTemplates.directive)
     .pipe(template({
       name: name,
       fullNameSnake: [prefix, name].join('-'),
@@ -81,13 +82,13 @@ function generator() {
     }))
     .pipe(gulp.dest(destPath))
     .pipe(notify({
-      message: 'Component files generated in <%= options.folder %>.',
+      message: 'Directive files generated in <%= options.folder %>.',
       templateOptions: {
         folder: destPath
       },
       onLast: true
     })).pipe(notify({
-      message: 'Remember to register the new ngComponent in <%= options.collector %>.',
+      message: 'Remember to register the new ngDirective in <%= options.collector %>.',
       templateOptions: {
         collector: destPath + ' > ' + modName + '.ts'
       },
@@ -95,16 +96,16 @@ function generator() {
     }));
 }
 
-generator.description = 'Generate Component template';
+generator.description = 'Generate Directive template';
 
 generator.flags = {
-  '-n, --name': 'Component name',
+  '-n, --name': 'Directive name without prefix',
   '-p, --path': 'Path from Components folder',
   '-m, --module': 'Module name (optional)',
   '-s, --support': 'Show help'
 };
 
-gulp.task('gen:component', generator);
+gulp.task('gen:directive', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');
