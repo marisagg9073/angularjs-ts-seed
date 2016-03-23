@@ -22,19 +22,18 @@ const ngComponentName = 'tsfnShowcase';
 export default class ShowcaseComponent implements at.OnInit {
   public fileList: string[];
 
-  public selected: number;
+  public selected = 0;
   public tabs: ITab[] = [];
 
   private modes = {
-    js: { name: 'javascript' },
+    html: 'htmlmixed',
+    js: 'javascript',
     json: { name: 'javascript', json: true },
     ts: { name: 'javascript', typescript: true }
   };
 
   constructor(private showcase: ShowcaseService, private log: angular.ILogService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
-
-    this.selected = 0;
   }
 
   public $onInit() {
@@ -53,11 +52,13 @@ export default class ShowcaseComponent implements at.OnInit {
     let ext = parts[parts.length - 1];
 
     let options = {
-      mode: this.modes[ext] || ext,
+      mode: this.modes[ext], // || ext,
       theme: 'material',
       lineNumbers: true,
       readOnly: true
     };
+
+    this.log.debug(name, options);
 
     return {
       title: name,
