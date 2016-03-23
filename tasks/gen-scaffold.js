@@ -23,14 +23,15 @@ function generator() {
     }).join('');
   };
   var argv = yargs.reset()
-    .usage('Usage: gulp gen:component -n [string] -p [string]')
+    .usage('Usage: gulp gen:scaffold -n [string] -p [string]')
     .alias('n', 'name')
+    .demand('n')
     .string('n')
     .describe('n', 'Component name')
-    .alias('p', 'path')
+    .alias('p', 'parent')
     .string('p')
-    .describe('p', 'Path from Components folder')
-    .demand(['n', 'p'])
+    .default('p', '')
+    .describe('p', 'Parent path from Components folder')
 
     .alias('s', 'support')
     .help('s')
@@ -47,8 +48,8 @@ function generator() {
     })
     .argv;
   var name = argv.name;
-  var parentPath = argv.path;
-  var destPath = join(resolveToComponents(), parentPath);
+  var parentPath = argv.parent;
+  var destPath = join(resolveToComponents(), parentPath, name);
 
   var modName = (function() {
     var parts = parentPath.split('/');
@@ -65,7 +66,7 @@ function generator() {
   var toComponents = parentPath.split('/').map(function() { return '..'; });
   var prefix = 'tsfn';
 
-  return gulp.src(PATH.src.blankTemplates.component)
+  return gulp.src(PATH.src.blankTemplates.all)
     .pipe(template({
       name: name,
       fullNameSnake: [prefix, name].join('-'),
@@ -94,15 +95,15 @@ function generator() {
     }));
 }
 
-generator.description = 'Generate Component template';
+generator.description = 'Generate Scaffold template';
 
 generator.flags = {
-  '-n, --name': 'Component name',
-  '-p, --path': 'Path from Components folder',
+  '-n, --name': 'Scaffolded Component name',
+  '-p, --parent': 'Parent path from Components folder',
   '-s, --support': 'Show help'
 };
 
-gulp.task('gen:component', generator);
+gulp.task('gen:scaffold', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');

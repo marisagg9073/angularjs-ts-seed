@@ -78,7 +78,7 @@ gulp <task> --support
 You can generate a **scaffolded component** by using the following command:
 
 ```bash
-gulp gen:component --name <componentName>
+gulp gen:scaffold --name <snakeCasedComponentName> [--parent <existingPathFromComponents>]
 ```
 
 You can generate a new angular *module* by using the following command:
@@ -115,6 +115,12 @@ You can generate a new angular *directive* by using the following command:
 
 ```bash
 gulp gen:directive --name <snakeCasedDirectiveNameWithoutPrefix> --path <existingPathFromComponents> [--module <moduleName>]
+```
+
+You can generate a new angular *component* by using the following command:
+
+```bash
+gulp gen:component --name <snakeCasedDirectiveNameWithoutPrefix> --path <existingPathFromComponents> [--module <moduleName>]
 ```
 
 ### Build, test and run

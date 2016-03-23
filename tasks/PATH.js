@@ -59,7 +59,8 @@ module.exports = {
       filter: [join(generator, 'temp.filter*.ts')],
       service: [join(generator, 'temp.service*.ts')],
       provider: [join(generator, 'temp.provider*.ts')],
-      directive: [join(generator, 'temp.directive*.{ts,html}')]
+      directive: [join(generator, 'temp.directive*.{ts,html}')],
+      component: [join(generator, 'temp.component*.{ts,html}')]
     },
     html: {
       all: ['./app/**/*.html'],
