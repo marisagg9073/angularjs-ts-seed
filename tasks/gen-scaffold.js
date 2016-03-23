@@ -74,7 +74,7 @@ function generator() {
       upCaseName: cap(camel(name)),
       modName: modName,
       toComponents: toComponents.join('/'),
-      path: parentPath
+      path: join(parentPath, name)
     }))
     .pipe(rename(function(path) {
       path.basename = path.basename.replace('temp', name);
