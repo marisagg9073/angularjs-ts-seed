@@ -44,11 +44,23 @@ module.exports = {
 
         './node_modules/d3/d3.js',
         './node_modules/nvd3/build/nv.d3.js',
-        './node_modules/angular-nvd3/dist/angular-nvd3.js'
+        './node_modules/angular-nvd3/dist/angular-nvd3.js',
+
+        './node_modules/codemirror/lib/codemirror.js',
+        './node_modules/codemirror/mode/meta.js',
+        './node_modules/codemirror/mode/css/css.js',
+        './node_modules/codemirror/mode/xml/xml.js',
+        './node_modules/codemirror/mode/javascript/javascript.js',
+        './node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
+        './node_modules/codemirror/mode/sass/sass.js',
+        './node_modules/codemirror/addon/display/autorefresh.js',
+        './node_modules/angular-ui-codemirror/src/ui-codemirror.js',
       ],
       css: [
         './node_modules/angular-material/angular-material.css',
         './node_modules/nvd3/build/nv.d3.css',
+        './node_modules/codemirror/lib/codemirror.css',
+        './node_modules/codemirror/theme/material.css'
       ]
     },
     scss: ['./{app,components}/**/*.scss', '!' + './app/index.scss', '!' + './app/vendor.scss'],
