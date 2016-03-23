@@ -19,7 +19,7 @@ gulp.task('build.styles.dev', function() {
   var injectOptions = {
     transform: function(filePath) {
       filePath = filePath.replace('app/', '');
-      filePath = filePath.replace('components/', '../components/');
+      // filePath = filePath.replace('components/', '../components/');
       return '@import \'' + filePath + '\';';
     },
     starttag: '// injector',

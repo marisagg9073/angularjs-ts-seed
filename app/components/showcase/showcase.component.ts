@@ -14,7 +14,8 @@ const ngComponentName = 'tsfnShowcase';
 
 @at.component(ngModuleName, ngComponentName, {
   bindings: {
-    fileList: '<'
+    fileList: '<',
+    title: '@'
   },
   templateUrl: 'showcase/showcase.component.html'
 })
@@ -22,6 +23,7 @@ const ngComponentName = 'tsfnShowcase';
 export default class ShowcaseComponent implements at.OnInit {
   public fileList: string[];
 
+  public showSource = false;
   public selected = 0;
   public tabs: ITab[] = [];
 
@@ -42,6 +44,10 @@ export default class ShowcaseComponent implements at.OnInit {
         this.tabs.push(this.fileToTab(path, files[path]));
       }
     });
+  }
+
+  public toggleSource() {
+    this.showSource = !this.showSource;
   }
 
   private fileToTab(path: string, content: string): ITab {

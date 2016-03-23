@@ -8,7 +8,8 @@ const ngComponentName = 'tsfnProfile';
   templateUrl: 'profile/profile.component.html',
 })
 @at.inject('$log')
-export default class ProfileComponent {
+export default class ProfileComponent implements at.OnActivate {
+  public title: string;
 
   public user = {
     title: 'Admin',
@@ -32,5 +33,9 @@ export default class ProfileComponent {
 
   constructor(private log: angular.ILogService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
+  }
+
+  public $routerOnActivate(next: at.ComponentInstruction) {
+    this.title = next.routeData.data['title'];
   }
 }
