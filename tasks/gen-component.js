@@ -69,10 +69,12 @@ function generator() {
   return gulp.src(PATH.src.blankTemplates.all)
     .pipe(template({
       name: name,
+      fullNameSnake: [prefix, name].join('-'),
       fullName: camel([prefix, name].join('-')),
       upCaseName: cap(camel(name)),
       modName: modName,
-      toComponents: toComponents.join('/')
+      toComponents: toComponents.join('/'),
+      path: parentPath
     }))
     .pipe(rename(function(path) {
       path.basename = path.basename.replace('temp', name);
