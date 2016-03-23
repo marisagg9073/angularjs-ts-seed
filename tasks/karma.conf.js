@@ -40,6 +40,7 @@ module.exports = function(config) {
       '../node_modules/codemirror/mode/javascript/javascript.js',
       '../node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
       '../node_modules/codemirror/mode/sass/sass.js',
+      '../node_modules/codemirror/addon/display/autorefresh.js',
       '../node_modules/angular-ui-codemirror/src/ui-codemirror.js',
 
       '../test/**/*.js',

@@ -1,6 +1,6 @@
-<div class="showcase" layout="column" ng-cloak>
+<div class="showcase" layout="column">
   <md-content class="md-padding">
-    <md-tabs class="md-accent" md-selected="$ctrl.selected" md-border-bottom md-autoselect>
+    <md-tabs class="md-accent" md-selected="$ctrl.selected" md-border-bottom md-dynamic-height>
       <md-tab ng-repeat="tab in $ctrl.tabs" label="{{tab.title}}">
         <ui-codemirror ui-codemirror-opts="tab.options" ng-model="tab.content"></ui-codemirror>
       </md-tab>

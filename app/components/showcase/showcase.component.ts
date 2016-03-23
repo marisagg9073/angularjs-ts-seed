@@ -52,10 +52,11 @@ export default class ShowcaseComponent implements at.OnInit {
     let ext = parts[parts.length - 1];
 
     let options = {
-      mode: this.modes[ext], // || ext,
+      mode: this.modes[ext] || ext,
       theme: 'material',
       lineNumbers: true,
-      readOnly: true
+      readOnly: true,
+      autoRefresh: true
     };
 
     this.log.debug(name, options);
