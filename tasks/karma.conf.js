@@ -24,7 +24,6 @@ module.exports = function(config) {
       '../node_modules/angular-messages/angular-messages.js',
       '../node_modules/angular-material/angular-material.js',
       '../node_modules/angular-material/angular-material-mocks.js',
-      '../node_modules/angular-ui-router/release/angular-ui-router.js',
       '../node_modules/angular-cookies/angular-cookies.js',
       // '../node_modules/angular-touch/angular-touch.js',
       '../node_modules/angular-sanitize/angular-sanitize.js',
@@ -57,8 +56,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '../test/**/!(at-)*.js': ['commonjs'],
-      '../test/components/**/!(*.spec)+(.js)': ['sourcemap', 'coverage'],
-      // '../test/components/**/*.js': ['sourcemap'],
+      '../test/components/**/!(*.spec)+(.js)': ['coverage'],
     },
 
     // Generate json used for remap-istanbul
