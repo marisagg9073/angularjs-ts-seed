@@ -26,12 +26,12 @@ body {
 }
 
 .toolbar-button {
-  min-width: 20px;
+  min-width: $layout-gutter-width * 1.5;
 }
 
 .share-label {
   vertical-align: middle;
-  margin-left: 10px;
+  margin-left: $layout-gutter-width;
 }
 
 .page-content {
@@ -40,7 +40,7 @@ body {
 
 .widget-progress {
   width: 95% !important;
-  margin-left: 10px;
+  margin-left: $layout-gutter-width;
 }
 
 // UTILS
@@ -49,9 +49,9 @@ body {
 }
 
 .img-circle {
-  height: 50px;
+  height: $layout-gutter-width * 3;
   border-radius: 50%;
-  margin: 0 10px;
+  margin: 0 $layout-gutter-width;
 }
 
 // COMPONENTS
@@ -64,9 +64,9 @@ body {
 }
 
 .notifications-label {
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
+  width: $layout-gutter-width;
+  height: $layout-gutter-width;
+  line-height: $layout-gutter-width;
   text-align: center;
   border-radius: 50%;
   position: absolute;
