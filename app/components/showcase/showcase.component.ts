@@ -67,7 +67,7 @@ export default class ShowcaseComponent implements at.OnInit {
       autoRefresh: true
     };
 
-    this.log.debug(name, options);
+    // this.log.debug(name, options);
 
     return {
       title: name,

@@ -23,9 +23,9 @@ export class ShowcaseProvider implements IShowcaseProvider {
   }
 
   // $get must be declared as method, not as function property (eg. `$get = () => new Service();`)
-  @at.injectMethod('$log', '$http', '$q')
-  public $get(log: angular.ILogService, http: angular.IHttpService, q: angular.IQService) {
-    return new ShowcaseProviderService(log, http, q, this.notify);
+  @at.injectMethod('$log', '$http', '$q', '$timeout')
+  public $get(log: angular.ILogService, http: angular.IHttpService, q: angular.IQService, timeout: angular.ITimeoutService) {
+    return new ShowcaseProviderService(log, http, q, timeout, this.notify);
   }
 }
 
@@ -33,6 +33,7 @@ export default class ShowcaseProviderService {
   constructor(private log: angular.ILogService,
     private http: angular.IHttpService,
     private q: angular.IQService,
+    private timeout: angular.ITimeoutService,
     private notify: boolean) {
     let s = ['ngProvider', ngProviderName, 'has loaded an', 'ShowcaseProviderService'].join(' ');
     if (notify)
@@ -48,6 +49,9 @@ export default class ShowcaseProviderService {
   }
 
   private loadFile(file: string) {
-    return this.http.get<string>(file).then(response => response.data);
+    let deferred = this.q.defer();
+    this.timeout(() => deferred.resolve(this.http.get<string>(file)
+      .then(response => response.data)), Math.random() * 1000);
+    return deferred.promise;
   }
 }
