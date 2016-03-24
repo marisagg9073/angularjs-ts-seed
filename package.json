@@ -93,6 +93,7 @@
     "angular-new-router": "^0.5.3",
     "angular-nvd3": "^1.0.5",
     "angular-sanitize": "^1.5.1",
+    "angular-typescript": "git+https://github.com/lucaoliano/angular-typescript.git#develop",
     "angular-touch": "^1.5.1",
     "angular-ui-codemirror": "^0.3.0",
     "angular-ui-router": "^0.2.18",
