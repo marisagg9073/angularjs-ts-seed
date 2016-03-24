@@ -9,7 +9,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-tabs ng-show="$ctrl.showSource" md-selected="$ctrl.selected" md-border-bottom md-dynamic-height>
+    <md-tabs ng-if="$ctrl.loaded" ng-show="$ctrl.showSource" md-selected="$ctrl.selected" md-border-bottom md-dynamic-height>
       <md-tab ng-repeat="tab in $ctrl.tabs" label="{{::tab.title}}">
         <ui-codemirror ui-codemirror-opts="::tab.options" ng-model="::tab.content"></ui-codemirror>
       </md-tab>

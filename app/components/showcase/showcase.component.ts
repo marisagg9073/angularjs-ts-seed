@@ -15,17 +15,21 @@ const ngComponentName = 'tsfnShowcase';
 @at.component(ngModuleName, ngComponentName, {
   bindings: {
     fileList: '<',
+    lazy: '<',
     title: '@'
   },
   templateUrl: 'showcase/showcase.component.html'
 })
-@at.inject('showcase', '$log')
+@at.inject('showcase', '$log', '$q')
 export default class ShowcaseComponent implements at.OnInit {
   public fileList: string[];
+  public lazy: boolean;
 
   public showSource = false;
   public selected = 0;
   public tabs: ITab[] = [];
+
+  public loaded = false;
 
   private modes = {
     html: 'htmlmixed',
@@ -35,21 +39,35 @@ export default class ShowcaseComponent implements at.OnInit {
     ts: { name: 'javascript', typescript: true }
   };
 
-  constructor(private showcase: ShowcaseService, private log: angular.ILogService) {
+  constructor(private showcase: ShowcaseService,
+    private log: angular.ILogService,
+    private q: angular.IQService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
 
   public $onInit() {
-    // this.fileList.push('components/showcase/showcase.scss');
-    this.showcase.load(this.fileList).then(files => {
-      for (let path in files) {
-        this.tabs.push(this.fileToTab(path, files[path]));
-      }
-    });
+    if (!this.lazy)
+      this.load();
   }
 
   public toggleSource() {
+    this.load().then(loaded => loaded ? this.toggleSourceInternal() : this.q.reject());
+  }
+
+  private toggleSourceInternal() {
     this.showSource = !this.showSource;
+  }
+
+  private load() {
+    if (!this.loaded) {
+      // this.fileList.push('components/showcase/showcase.scss');
+      return this.showcase.load(this.fileList).then(files => {
+        for (let path in files) {
+          this.tabs.push(this.fileToTab(path, files[path]));
+        }
+      }).then(() => this.loaded = true);
+    } else
+      return this.q.when(true);
   }
 
   private fileToTab(path: string, content: string): ITab {
