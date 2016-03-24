@@ -130,7 +130,9 @@ If you are ready to test and run the application:
 
 ```bash
 # Unit test with PhantomJS or Chrome
-gulp test
+gulp test [--debug] [--coverage]
+# ... or
+gulp test [-d] [-c]
 
 # Dev run (default task)
 gulp
