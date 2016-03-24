@@ -24,7 +24,6 @@ module.exports = function(config) {
       '../node_modules/angular-messages/angular-messages.js',
       '../node_modules/angular-material/angular-material.js',
       '../node_modules/angular-material/angular-material-mocks.js',
-      '../node_modules/angular-ui-router/release/angular-ui-router.js',
       '../node_modules/angular-cookies/angular-cookies.js',
       // '../node_modules/angular-touch/angular-touch.js',
       '../node_modules/angular-sanitize/angular-sanitize.js',
@@ -56,7 +55,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '../test/**/!(at-)*.js': ['commonjs']
+      '../test/**/!(at-)*.js': ['commonjs'],
+      '../test/components/**/!(*.spec)+(.js)': ['coverage'],
+    },
+
+    // Generate json used for remap-istanbul
+    coverageReporter: {
+      dir: '../test/report/',
+      reporters: [
+        { type: 'json', subdir: 'report-json' }
+      ]
     },
 
     // plugins: [
@@ -67,7 +75,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
 
 
     // web server port
