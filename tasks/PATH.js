@@ -9,7 +9,8 @@ module.exports = {
       lib: 'dist/dev/lib'
     },
     test: {
-      all: 'test'
+      all: 'test',
+      report: 'test/report'
     },
     prod: {
       all: 'dist/prod',
