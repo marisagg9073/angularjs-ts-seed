@@ -31,6 +31,7 @@ export default class ShowcaseComponent implements at.OnInit {
     html: 'htmlmixed',
     js: 'javascript',
     json: { name: 'javascript', json: true },
+    scss: 'sass',
     ts: { name: 'javascript', typescript: true }
   };
 
@@ -39,6 +40,7 @@ export default class ShowcaseComponent implements at.OnInit {
   }
 
   public $onInit() {
+    // this.fileList.push('components/showcase/showcase.scss');
     this.showcase.load(this.fileList).then(files => {
       for (let path in files) {
         this.tabs.push(this.fileToTab(path, files[path]));
