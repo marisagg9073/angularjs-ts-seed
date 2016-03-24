@@ -42,6 +42,9 @@ module.exports = function(config) {
       '../node_modules/codemirror/addon/display/autorefresh.js',
       '../node_modules/angular-ui-codemirror/src/ui-codemirror.js',
 
+      '../node_modules/angular-typescript/lib/at-angular.js',
+      '../node_modules/angular-typescript/lib/at-angular-resource.js',
+
       '../test/**/*.js',
       '../test/**/*.spec.js'
     ],
