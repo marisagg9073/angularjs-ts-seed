@@ -95,6 +95,7 @@
     "angular-nvd3": "^1.0.5",
     "angular-sanitize": "^1.5.1",
     "angular-touch": "^1.5.1",
+    "angular-typescript": "git+https://github.com/bsorrentino/angular-typescript.git",
     "angular-ui-codemirror": "^0.3.0",
     "codemirror": "^5.13.2",
     "d3": "^3.5.16",

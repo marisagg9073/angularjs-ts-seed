@@ -55,6 +55,8 @@ module.exports = {
         './node_modules/codemirror/mode/sass/sass.js',
         './node_modules/codemirror/addon/display/autorefresh.js',
         './node_modules/angular-ui-codemirror/src/ui-codemirror.js',
+        './node_modules/angular-typescript/lib/at-angular.js',
+        './node_modules/angular-typescript/lib/at-angular-resource.js'
       ],
       css: [
         './node_modules/angular-material/angular-material.css',
