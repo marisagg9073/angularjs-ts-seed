@@ -9,7 +9,8 @@ module.exports = {
       lib: 'dist/dev/lib'
     },
     test: {
-      all: 'test'
+      all: 'test',
+      report: 'test/report'
     },
     prod: {
       all: 'dist/prod',
@@ -37,7 +38,6 @@ module.exports = {
         './node_modules/angular-animate/angular-animate.js',
         './node_modules/angular-messages/angular-messages.js',
         './node_modules/angular-material/angular-material.js',
-        './node_modules/angular-ui-router/release/angular-ui-router.js',
         './node_modules/angular-cookies/angular-cookies.js',
         // './node_modules/angular-touch/angular-touch.js',
         './node_modules/angular-sanitize/angular-sanitize.js',
