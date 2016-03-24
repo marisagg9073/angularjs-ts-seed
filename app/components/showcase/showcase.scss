@@ -1,5 +1,8 @@
 .showcase {
-  padding-bottom: 16px;
+  padding-bottom: $layout-gutter-width / 2;
+  @media screen and (min-width: $layout-breakpoint-sm) {
+    padding-bottom: $layout-gutter-width;
+  }
 
   md-tabs {
     // opacity: 1;

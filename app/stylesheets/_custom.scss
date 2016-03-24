@@ -10,6 +10,16 @@ $widget-height: 310px;
 $font-weight-bold: 600;
 $font-size-large: 22px;
 
+// Layout (from angular-material.scss)
+
+$baseline-grid:            8px !default;
+$layout-gutter-width:      ($baseline-grid * 2) !default;
+
+$layout-breakpoint-xs:     600px !default;
+$layout-breakpoint-sm:     960px !default;
+$layout-breakpoint-md:     1280px !default;
+$layout-breakpoint-lg:     1920px !default;
+
 // LAYOUT
 body {
   color: $text-color;
