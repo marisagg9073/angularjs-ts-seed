@@ -39,7 +39,7 @@ describe('# Panel Module', () => {
 
     it('should log registration', () => {
       let loaded = ['ngModule', Panel, 'loaded'].join(' ');
-      expect($log.debug.logs[2]).toContain(loaded);
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 
