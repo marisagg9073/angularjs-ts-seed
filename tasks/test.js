@@ -43,12 +43,12 @@ gulp.task('build.test', ['build.html.test'], function(done) {
     .pipe(tsc(tsProject));
 
   return result.js
-    .pipe(sourcemaps.write('../test/maps', {
+    .pipe(sourcemaps.write({
       includeContent: false,
       sourceRoot: function(file) {
         console.log(file.path);
         var pathParts = file.path.split(path.sep),
-          root = pathParts.indexOf('app') - 1;
+          root = pathParts.indexOf('app');
         return pathParts.slice(root, -1).map(function() { return '..'; }).concat('app').join('/');
       }
     }))
