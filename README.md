@@ -10,6 +10,7 @@ _This project is heavily inspired by [angular2-seed](https://github.com/mgechev/
 * Angular Material **1.1.0-RC1** ([doc](https://material.angularjs.org/latest/))
 * SystemJS
 * Livereload (install [Chrome Plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) to enable this feature)
+* SCSS for styling ([doc](http://sass-lang.com/documentation/file.SASS_REFERENCE.html))
 
 # Unit tests
 * [jasmine](http://jasmine.github.io/2.4/introduction.html)
@@ -157,7 +158,7 @@ will create the following structure:
  app
  |-- components
      |-- about
-         |-- about.css                 # styles (TBD)
+         |-- about.scss                # styles
          |-- about.ts                  # entry point for imports / main definition (*)
          |-- about.component.html      # component template
          |-- about.component.ts        # component definition
@@ -183,6 +184,32 @@ will create the following structure:
 (*) Remember to remove comments where necessary in `about.ts` for registration.
 
 (**) Remember to choose between the provider and the service, because they export the same service (and unit tests will fail!).
+
+## Styles
+
+For styling components, every scaffold comes with a `.scss` file ready for use. Its first line is a *class-selector* that matches the component's name.
+
+All these files are compiled and injected in an `index.css` file, included in the home page, by the gulp-task `build.styles.<env>`.
+
+### Why SCSS?
+
+The acronym **SCSS** stands for *Sassy CSS*, so both SASS and SCSS share the same specs, available [here](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
+
+For starter, it is **fully CSS compliant**. It means, you can rename a CSS file in `.scss` and it will just work.
+Making SCSS fully compatible with CSS has always been a priority for Sass maintainers since SCSS was released, and this is a big deal.
+Moreover, they try to stick as close as possible to what could become a valid CSS syntax in the future (hence `@directives`).
+
+Because SCSS is compatible with CSS, it means there is **little to no learning curve**. The syntax is already known: after all, it’s just CSS with a few extras.
+
+Moreover, it is **easier to read** because it actually makes sense.
+When you read `@mixin`, you know it is a mixin declaration; when you see `@include`, you are calling a mixin.
+It doesn’t make any shortcuts, and everything makes sense when read out loud.
+
+Also, almost all existing tools, plugins and demo for Sass are developed using the SCSS syntax.
+As time goes, this syntax is becoming pro-eminent and the default (if only) choice, mostly for the above reasons.
+For instance, it is getting quite hard to find a clean syntax highlighter for Sass indented syntax; usually, there is only SCSS available.
+
+SCSS has been preferred to LESS for reasons very well explained in [this article](https://css-tricks.com/sass-vs-less/).
 
 # Conventions
 

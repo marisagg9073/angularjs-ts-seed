@@ -54,7 +54,10 @@ gulp.task('serve.dev', ['build.dev'], function() {
   // });
 
   app.use(serveStatic(join(__dirname, '..', PATH.dest.dev.all)));
+
+  // this instruction enables .ts debugging and in-page source code display
   app.use(serveStatic(join(__dirname, '..', 'app')));
+
   app.listen(port, function() {
     openResource('http://localhost:' + port);
   });
