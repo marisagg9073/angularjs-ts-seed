@@ -4,13 +4,11 @@ $text-color: #7A7A7A;
 $accent-color: rgb(0, 150, 136);
 $warning-color: #E75753;
 
-
 // VARIABLES
 $left-sidenav-width: 110px;
 $widget-height: 310px;
 $font-weight-bold: 600;
 $font-size-large: 22px;
-
 
 // LAYOUT
 body {
@@ -22,7 +20,7 @@ body {
 }
 
 .share-label {
-  vert-align: middle;
+  vertical-align: middle;
   margin-left: 10px;
 }
 
@@ -35,7 +33,6 @@ body {
   margin-left: 10px;
 }
 
-
 // UTILS
 .capitalize {
   text-transform: capitalize;
@@ -46,7 +43,6 @@ body {
   border-radius: 50%;
   margin: 0 10px;
 }
-
 
 // COMPONENTS
 .messages {
@@ -108,7 +104,6 @@ body {
   text-align: center;
 }
 
-
 // OVERRIDES
 // angular material overrides
 md-radio-group {
@@ -136,7 +131,6 @@ md-radio-button.md-accent.md-checked .md-label span {
 .md-toolbar-tools h1 {
   font-size: $font-size-large;
 }
-
 
 md-backdrop.md-sidenav-backdrop {
   position: fixed;
