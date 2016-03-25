@@ -57,7 +57,9 @@ module.exports = {
         './node_modules/angular-ui-codemirror/src/ui-codemirror.js',
 
         './node_modules/angular-typescript/lib/at-angular.js',
-        './node_modules/angular-typescript/lib/at-angular-resource.js'
+        './node_modules/angular-typescript/lib/at-angular-resource.js',
+        './node_modules/angular-typescript/lib/at-angular.js.map',
+        './node_modules/angular-typescript/lib/at-angular-resource.js.map'
       ],
       css: [
         './node_modules/angular-material/angular-material.css',
