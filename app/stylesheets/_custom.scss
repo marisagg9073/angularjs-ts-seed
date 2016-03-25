@@ -4,13 +4,21 @@ $text-color: #7A7A7A;
 $accent-color: rgb(0, 150, 136);
 $warning-color: #E75753;
 
-
 // VARIABLES
 $left-sidenav-width: 110px;
 $widget-height: 310px;
 $font-weight-bold: 600;
 $font-size-large: 22px;
 
+// Layout (from angular-material.scss)
+
+$baseline-grid:            8px !default;
+$layout-gutter-width:      ($baseline-grid * 2) !default;
+
+$layout-breakpoint-xs:     600px !default;
+$layout-breakpoint-sm:     960px !default;
+$layout-breakpoint-md:     1280px !default;
+$layout-breakpoint-lg:     1920px !default;
 
 // LAYOUT
 body {
@@ -18,12 +26,12 @@ body {
 }
 
 .toolbar-button {
-  min-width: 20px;
+  min-width: $layout-gutter-width * 1.5;
 }
 
 .share-label {
-  vert-align: middle;
-  margin-left: 10px;
+  vertical-align: middle;
+  margin-left: $layout-gutter-width;
 }
 
 .page-content {
@@ -32,9 +40,8 @@ body {
 
 .widget-progress {
   width: 95% !important;
-  margin-left: 10px;
+  margin-left: $layout-gutter-width;
 }
-
 
 // UTILS
 .capitalize {
@@ -42,11 +49,10 @@ body {
 }
 
 .img-circle {
-  height: 50px;
+  height: $layout-gutter-width * 3;
   border-radius: 50%;
-  margin: 0 10px;
+  margin: 0 $layout-gutter-width;
 }
-
 
 // COMPONENTS
 .messages {
@@ -58,9 +64,9 @@ body {
 }
 
 .notifications-label {
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
+  width: $layout-gutter-width;
+  height: $layout-gutter-width;
+  line-height: $layout-gutter-width;
   text-align: center;
   border-radius: 50%;
   position: absolute;
@@ -108,7 +114,6 @@ body {
   text-align: center;
 }
 
-
 // OVERRIDES
 // angular material overrides
 md-radio-group {
@@ -136,7 +141,6 @@ md-radio-button.md-accent.md-checked .md-label span {
 .md-toolbar-tools h1 {
   font-size: $font-size-large;
 }
-
 
 md-backdrop.md-sidenav-backdrop {
   position: fixed;

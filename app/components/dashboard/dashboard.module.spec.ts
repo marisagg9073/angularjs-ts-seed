@@ -25,6 +25,7 @@ describe('# Dashboard Module', () => {
       expect(mod.requires).toContain('ngComponentRouter');
       expect(mod.requires).toContain('app.components.material');
       expect(mod.requires).toContain('app.components.dashboard.panel');
+      expect(mod.requires).toContain('app.components.showcase');
     });
   });
 
@@ -39,7 +40,7 @@ describe('# Dashboard Module', () => {
 
     it('should log registration', () => {
       let loaded = ['ngModule', Dashboard, 'loaded'].join(' ');
-      expect($log.debug.logs[3]).toContain(loaded);
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 

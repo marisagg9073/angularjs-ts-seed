@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  <!--<base href="http://localhost:5555/">-->
-  <base href="/">
+  <!--<base href="/">-->
+  <script>document.write(['<base href=', document.location, '>'].join('"'));</script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Angular Material Dashboard</title>
@@ -32,9 +32,6 @@
 
   <!-- inject:js -->
   <!-- endinject -->
-
-  <script src="at-angular.js?v=<%= VERSION %>"></script>
-  <script src="at-angular-resource.js?v=<%= VERSION %>"></script>
 
   <script src="./init.js?v=<%= VERSION %>"></script>
 
