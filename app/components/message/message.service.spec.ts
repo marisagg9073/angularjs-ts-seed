@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import ngModuleName from './table';
-import TableService from './table.service';
+import ngModuleName from './message';
+import MessageService from './message.service';
 
 'use strict';
 
@@ -9,17 +9,17 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Table Service', () => {
+describe('# Message Service', () => {
   let $log, $rootScope;
-  let service: TableService;
+  let service: MessageService;
 
   beforeEach(() => {
     $module(ngModuleName);
 
-    $inject((_$log_, _$rootScope_, _tableService_) => {
+    $inject((_$log_, _$rootScope_, _messageService_) => {
       $log = _$log_;
       $rootScope = _$rootScope_;
-      service = _tableService_;
+      service = _messageService_;
     });
   });
 
@@ -29,14 +29,14 @@ describe('# Table Service', () => {
       expect(service).not.toBeNull();
     });
 
-    it('should be an instance of TableService', () => {
-      expect(service).toEqual(jasmine.any(TableService));
+    it('should be an instance of MessageService', () => {
+      expect(service).toEqual(jasmine.any(MessageService));
     });
   });
 
   describe('## Log enabled', () => {
     it('should log registration', () => {
-      let loaded = ['ngService', 'tableService', 'loaded'].join(' ');
+      let loaded = ['ngService', 'messageService', 'loaded'].join(' ');
       expect($log.debug.logs).toContain([loaded]);
     });
   });
@@ -48,10 +48,12 @@ describe('# Table Service', () => {
       $rootScope.$apply();
       expect(data).toBeNonEmptyArray();
       data.forEach(x => {
-        expect(x).toHaveNonEmptyString('issue');
-        expect(x).toHaveNumber('progress');
-        expect(x).toHaveNonEmptyString('status');
-        expect(x).toHaveString('class');
+        expect(x).toHaveNonEmptyString('userPhoto');
+        expect(x.userPhoto).toStartWith('/assets');
+        expect(x).toHaveNonEmptyString('subject');
+        expect(x).toHaveNonEmptyString('userName');
+        expect(x).toHaveNonEmptyString('date');
+        expect(x).toHaveNonEmptyString('text');
       });
     });
   });
