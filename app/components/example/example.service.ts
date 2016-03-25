@@ -25,7 +25,7 @@ export default class ExampleService {
       'UTC Date:    ' + d.toISOString(),
       'UTC Hours:   ' + d.getUTCHours()
     ];
-    if (flush) info.map(this.log.debug);
+    if (flush) info.map(x => this.log.debug(x));
     return info.join('\n');
   }
 

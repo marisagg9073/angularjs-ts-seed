@@ -36,7 +36,7 @@ describe('# Example Service', () => {
   describe('## Log enabled', () => {
     it('should log registration', () => {
       let loaded = ['ngService', 'example', 'loaded'].join(' ');
-      expect($log.debug.logs[1]).toContain(loaded);
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 
@@ -54,6 +54,20 @@ describe('# Example Service', () => {
       service.nextYear = 2015;
       // $dump(service.dumpDate(service.nowTime, false));
       expect(service.message).toBe('Keep on counting down...!');
+    });
+
+    it('should dump as string', () => {
+      service.nowTime = angular.mock.TzDate(+1, '2014-12-31T23:00:00Z');
+      expect(service.dumpDate(service.nowTime, false)).toBeString();
+      expect(service.dumpDate(service.nowTime, false).split('\n')).toBeArrayOfStrings();
+      expect(service.dumpDate(service.nowTime, false).split('\n')).toBeArrayOfSize(4);
+    });
+
+    it('should dump as debug logs', () => {
+      service.nowTime = angular.mock.TzDate(+1, '2014-12-31T23:00:00Z');
+      let info = service.dumpDate(service.nowTime).split('\n');
+      expect(service.dumpDate(service.nowTime, true).split('\n')).toBeArrayOfSize(4);
+      info.forEach(x => expect($log.debug.logs).toContain([x]));
     });
 
     it('should increment the time by the given hours', () => {

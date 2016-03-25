@@ -29,7 +29,7 @@ describe('# <%= upCaseName %> Service', () => {
       expect(service).not.toBeNull();
     });
 
-    it('should be an instance of ExampleService', () => {
+    it('should be an instance of <%= upCaseName %>Service', () => {
       expect(service).toEqual(jasmine.any(<%= upCaseName %>Service));
     });
   });
