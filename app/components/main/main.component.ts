@@ -14,7 +14,7 @@ const ngComponentName = 'tsfnMain';
     { path: '/table', name: 'Table', component: 'tsfnTable', data: { title: 'Table' } }
   ]
 })
-@at.inject('navigationService', '$log', '$q', '$mdSidenav', '$mdBottomSheet', '$mdToast')
+@at.inject('navigationService', '$log', '$q', '$mdSidenav', '$mdBottomSheet', '$mdMenu', '$mdToast')
 export default class MainComponent implements at.OnInit {
 
   public menuItems: Array<IMenuItem> = [];
@@ -25,6 +25,7 @@ export default class MainComponent implements at.OnInit {
     private q: angular.IQService,
     private mdSidenav: angular.material.ISidenavService,
     private mdBottomSheet: angular.material.IBottomSheetService,
+    private mdMenu: angular.material.IMenuService,
     private mdToast: angular.material.IToastService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
@@ -68,7 +69,9 @@ export default class MainComponent implements at.OnInit {
   }
 
   public toggleRightSidebar() {
-    this.mdSidenav('right').toggle().then(() => this.log.debug('Left sidenav toggled'));
+    this.mdMenu.hide()
+      .then(this.mdSidenav('right').toggle)
+      .then(() => this.log.debug('Right sidenav toggled'));
   }
 
   private clearSidebars() {
