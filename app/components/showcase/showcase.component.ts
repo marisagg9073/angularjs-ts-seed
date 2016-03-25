@@ -20,7 +20,7 @@ const ngComponentName = 'tsfnShowcase';
   },
   templateUrl: 'showcase/showcase.component.html'
 })
-@at.inject('showcase', '$log', '$q', '$timeout', '$mdDialog')
+@at.inject('showcase', '$log', '$q', '$timeout')
 export default class ShowcaseComponent implements at.OnInit {
   public fileList: string[];
   public lazy: boolean;
@@ -30,6 +30,7 @@ export default class ShowcaseComponent implements at.OnInit {
   public tabs: ITab[] = [];
 
   public loaded = false;
+  public loading = false;
 
   private modes = {
     html: 'htmlmixed',
@@ -42,8 +43,7 @@ export default class ShowcaseComponent implements at.OnInit {
   constructor(private showcase: ShowcaseService,
     private log: angular.ILogService,
     private q: angular.IQService,
-    private timeout: angular.ITimeoutService,
-    private mdDialog: angular.material.IDialogService) {
+    private timeout: angular.ITimeoutService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
 
@@ -52,43 +52,34 @@ export default class ShowcaseComponent implements at.OnInit {
       this.load();
   }
 
-  public toggleSource($event) {
-    this.load($event).then(loaded => loaded ? this.toggleSourceInternal() : this.q.reject());
+  public toggleSource() {
+    this.load().then(loaded => loaded ? this.toggleSourceInternal() : this.q.reject());
   }
 
   private toggleSourceInternal() {
     this.showSource = !this.showSource;
   }
 
-  private load($event?: PointerEvent) {
+  private load() {
     if (!this.loaded) {
       // this.fileList.push('components/showcase/showcase.scss');
-      this.showLoadingAlert($event);
-      return this.showcase.load(this.fileList)
+      return this.showLoading()
+        .then(() => this.showcase.load(this.fileList))
         .then(files => this.tabs = this.fileList.map(path => this.fileToTab(path, files[path])))
         .then(() => this.loaded = true)
-        .then(() => this.hideLoadingAlert());
+        .then(() => this.hideLoading());
     } else
       return this.q.when(true);
   }
 
-  private showLoadingAlert($event: PointerEvent) {
-    let alert = this.mdDialog.alert()
-      .title('Loading')
-      .textContent('Fecthing source code files...')
-      .ok('Ok')
-      .targetEvent($event);
-    this.mdDialog
-      .show(alert)
-      .finally(() => {
-        alert = undefined;
-      });
+  private showLoading() {
+    return this.q.when(this.loading = true);
   }
 
-  private hideLoadingAlert() {
+  private hideLoading() {
     let deferred = this.q.defer();
     let delay = 200 + 15 * this.fileList.length;
-    this.timeout(() => deferred.resolve(this.mdDialog.hide(true)), delay);
+    this.timeout(() => deferred.resolve((this.loading = false) || true), delay);
     return deferred.promise;
   }
 

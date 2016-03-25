@@ -4,7 +4,8 @@
       <div class="md-toolbar-tools">
         <h3 ng-bind="::$ctrl.title"></h3>
         <span flex></span>
-        <md-button class="toolbar-button" aria-label="View Source" ng-click="$ctrl.toggleSource($event)">
+        <md-progress-circular class="md-accent md-hue-3" md-diameter="24" ng-if="$ctrl.loading"></md-progress-circular>
+        <md-button class="toolbar-button" aria-label="View Source" ng-click="$ctrl.toggleSource()">
           <i class="material-icons">code</i>
         </md-button>
       </div>
