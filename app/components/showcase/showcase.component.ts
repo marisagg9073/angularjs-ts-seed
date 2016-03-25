@@ -65,11 +65,7 @@ export default class ShowcaseComponent implements at.OnInit {
       // this.fileList.push('components/showcase/showcase.scss');
       this.showLoadingAlert($event);
       return this.showcase.load(this.fileList)
-        .then(files => {
-          for (let path in files) {
-            this.tabs.push(this.fileToTab(path, files[path]));
-          }
-        })
+        .then(files => this.tabs = this.fileList.map(path => this.fileToTab(path, files[path])))
         .then(() => this.loaded = true)
         .then(() => this.hideLoadingAlert());
     } else
