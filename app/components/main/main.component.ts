@@ -77,7 +77,7 @@ export default class MainComponent implements at.OnInit {
   private clearSidebars() {
     this.mdBottomSheet.hide();
     this.mdSidenav('left').close().then(() => this.log.debug('Left sidenav closed'));
-    this.mdSidenav('right').close().then(() => this.log.debug('Left sidenav closed'));
+    this.mdSidenav('right').close().then(() => this.log.debug('Right sidenav closed'));
   }
 }
 
