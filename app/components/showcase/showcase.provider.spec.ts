@@ -136,8 +136,10 @@ describe('# Showcase Provider', () => {
 
       expect($httpBackend.flush).not.toThrow();
 
-      fileList.forEach(file => {
-        all.then(content => expect(content[file]).toBe(file));
+      all.then(content => {
+        fileList.forEach(file => {
+          expect(content[file]).toBe(file);
+        });
       });
 
       $rootScope.$apply();
