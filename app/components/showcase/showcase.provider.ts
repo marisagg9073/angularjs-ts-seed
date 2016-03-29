@@ -48,15 +48,11 @@ export default class ShowcaseProviderService {
     return this.q.all(promises);
   }
 
-  // private loadFile(file: string) {
-  //   let deferred = this.q.defer();
-  //   this.timeout(() => deferred.resolve(this.http.get<string>(file)
-  //     .then(response => response.data)), Math.random() * 1000);
-  //   return deferred.promise;
-  // }
-
   private loadFile(file: string) {
-    return this.http.get<string>(file)
-      .then(response => response.data);
+    let deferred = this.q.defer();
+    this.timeout(() => deferred.resolve(this.http.get<string>(file)
+      .then(response => response.data)), Math.random() * 1000);
+    return deferred.promise;
   }
+
 }

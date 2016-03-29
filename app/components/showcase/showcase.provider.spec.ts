@@ -115,7 +115,7 @@ describe('# Showcase Provider', () => {
       });
     });
 
-    it('should load files', () => {
+    it('should load files', $inject($timeout => {
       let fake = (method, url) => {
         let parts = url.split('/'),
           file = parts[parts.length - 1];
@@ -131,6 +131,9 @@ describe('# Showcase Provider', () => {
       let fileList = ['example.html', 'example.ts'];
       let all = service.load(fileList);
 
+      $timeout.flush(1000);
+      expect($timeout.verifyNoPendingTasks).not.toThrow();
+
       expect($httpBackend.flush).not.toThrow();
 
       fileList.forEach(file => {
@@ -138,7 +141,7 @@ describe('# Showcase Provider', () => {
       });
 
       $rootScope.$apply();
-    });
+    }));
 
     afterEach(() => {
       expect($httpBackend.verifyNoOutstandingExpectation).not.toThrow();
