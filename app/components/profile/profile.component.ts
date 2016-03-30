@@ -38,10 +38,8 @@ export default class ProfileComponent implements at.OnActivate {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
 
-<<<<<<< HEAD
-=======
   public $routerOnActivate(next: at.ComponentInstruction) {
     this.title = next.routeData.data['title'];
   }
->>>>>>> 9a2fa9a43f161adb7d115bb54387fa5b4dde92e7
+
 }
