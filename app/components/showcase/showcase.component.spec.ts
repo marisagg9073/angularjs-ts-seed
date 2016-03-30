@@ -86,7 +86,6 @@ describe('# Showcase Component', () => {
       expect(controller.showSource).toBe(false);
     }));
 
-
     describe('### Load Feature', () => {
       beforeEach($inject($q => {
         spyOn(controller, 'load').and.callThrough();
