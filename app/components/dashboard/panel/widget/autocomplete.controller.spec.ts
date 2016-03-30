@@ -9,7 +9,7 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-fdescribe('# Autocomplete Controller', () => {
+describe('# Autocomplete Controller', () => {
   let $controller, $log, $rootScope;
   let controller: AutocompleteController;
 
