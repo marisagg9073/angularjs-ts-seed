@@ -32,18 +32,14 @@ describe('# Markdown Filter', () => {
 
   describe('## Features', () => {
 
-    it('returns 0 when given null', () => {
-      expect(filter(null)).toEqual(0);
+    it('returns "" when given null', () => {
+      expect(filter(null)).toEqual('');
     });
 
     it('returns the correct value when given a string', () => {
-      expect(filter('')).toEqual(0);
-      expect(filter('abc')).toEqual(3);
-    });
-
-    it('returns the correct value when given an array', () => {
-      expect(filter([])).toEqual(0);
-      expect(filter(['a', 1, 'asd', {}])).toEqual(4);
+      expect(filter('')).toEqual('');
+      expect(filter('abc')).toEqual('<p>abc</p>');
+      expect(filter('# abc')).toEqual('<h1>abc</h1>');
     });
   });
 });

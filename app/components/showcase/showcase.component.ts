@@ -50,15 +50,15 @@ export default class ShowcaseComponent implements at.OnInit {
     private showdown) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
 
-    this.fileList = [
-      'components/showcase/showcase.scss',
-      'components/showcase/showcase.readme.md'
-    ];
-
     this.markdownFilter = filter('markdown');
   }
 
   public $onInit() {
+    if (!this.fileList)
+      this.fileList = [
+        'components/showcase/showcase.scss',
+        'components/showcase/showcase.readme.md'
+      ];
     if (!this.lazy)
       this.load();
   }

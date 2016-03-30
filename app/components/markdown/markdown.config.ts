@@ -10,8 +10,7 @@ decorator.$inject = ['$sanitize', '$delegate'];
 
 let config = ($provide, $showdownProvider) => {
   $showdownProvider
-    .setOption('omitExtraWLInCodeBlocks', true)
-    .setOption('sanitize', false);
+    .setOption('omitExtraWLInCodeBlocks', true);
 
   $provide.decorator('$showdown', decorator);
 };
