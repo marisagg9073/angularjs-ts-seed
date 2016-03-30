@@ -56,11 +56,11 @@ describe('# ControlPanel Controller', () => {
   describe('## Progress Feature', () => {
     let mdDialog;
 
-    beforeEach($inject(_$mdDialog_ => {
+    beforeEach($inject(($q, _$mdDialog_) => {
       mdDialog = _$mdDialog_;
 
       spyOn(mdDialog, 'alert').and.callThrough();
-      spyOn(mdDialog, 'show').and.callThrough();
+      spyOn(mdDialog, 'show').and.callFake(() => $q.when(true));
     }));
 
     it('should perform progress', () => {
@@ -77,6 +77,8 @@ describe('# ControlPanel Controller', () => {
       expect(controller.showProgress).toBe(false);
       expect(mdDialog.alert).toHaveBeenCalled();
       expect(mdDialog.show).toHaveBeenCalled();
+
+      $rootScope.$apply();
     });
   });
 });
