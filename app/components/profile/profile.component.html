@@ -1,20 +1,30 @@
 <!-- TODO: Add validations -->
-<md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-  <md-input-container>
-    <label for="title">Username</label>
-    <input id="title" ng-model="$ctrl.user.title">
-  </md-input-container>
-  <md-input-container>
-    <label for="email">Email</label>
-    <input id="email" ng-model="$ctrl.user.email" type="email">
-  </md-input-container>
-</md-content>
-<md-content class="md-padding">
-  <form name="userForm">
+<form name="userForm" ng-submit="" novalidate ng-valid>
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+    <md-input-container>
+      <label for="title">Username</label>
+      <input id="title" name="name" ng-model="$ctrl.user.title" tsfn-validation>
+      <div class="help-block" ng-messages="userForm.name.$error">
+        <div ng-messages-include="profile/valid-messages.tpl.html"></div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label for="email">Email</label>
+      <input id="email" name="email" ng-model="$ctrl.user.email" required tsfn-validation-sync>
+      <div class="help-block" ng-messages="userForm.email.$error">
+        <div ng-messages-include="profile/valid-messages.tpl.html"></div>
+      </div>
+    </md-input-container>
+  </md-content>
+
+  <md-content class="md-padding">
     <div layout layout-sm="column">
-      <md-input-container flex="80">
-        <label for="company">Company (Disabled)</label>
-        <input id="company" ng-model="$ctrl.user.company" disabled>
+      <md-input-container flex="50">
+        <label for="company">Company</label>
+        <input id="company" name="company" ng-model="$ctrl.user.company" required>
+        <div class="help-block" ng-messages="userForm.company.$error" role="alert" style="color:red">
+          <div ng-messages-include="profile/valid-messages.tpl.html"></div>
+        </div>
       </md-input-container>
       <md-input-container flex>
         <label for="submission-date">Submission Date</label>
@@ -24,17 +34,27 @@
     <div layout layout-sm="column">
       <md-input-container flex>
         <label for="first-name">First Name</label>
-        <input id="first-name" ng-model="$ctrl.user.firstName" placeholder="Placeholder text">
+        <input id="first-name" ng-model="$ctrl.user.firstName" md-no-asterisk placeholder="Placeholder text">
       </md-input-container>
       <md-input-container flex>
         <label for="last-name">Last Name</label>
-        <input id="last-name" ng-model="$ctrl.user.lastName">
+        <input id="last-name" ng-model="$ctrl.user.lastName" md-no-asterisk>
       </md-input-container>
     </div>
-    <md-input-container flex>
-      <label for="address">Address</label>
-      <input id="address" ng-model="$ctrl.user.address">
-    </md-input-container>
+    <div layout layout-sm="column">
+      <md-input-container flex="50">
+        <label for="address">Address</label>
+        <input id="address" ng-model="$ctrl.user.address">
+      </md-input-container>
+      Gender
+      <md-input-container flex>
+        <md-radio-group flex="5">
+          <md-radio-button ng-repeat="int in $ctrl.user.gender" ng-model="int" aria-label="radioButton" ng-selected="true" ng-value="int">
+            {{int}}
+          </md-radio-button>
+        </md-radio-group>
+      </md-input-container>
+    </div>
     <div layout layout-sm="column">
       <md-input-container flex>
         <label for="city">City</label>
@@ -49,9 +69,19 @@
         <input id="postal-code" ng-model="$ctrl.user.postalCode">
       </md-input-container>
     </div>
-    <md-input-container flex>
-      <label for="biography">About us</label>
-      <textarea id="biography" ng-model="$ctrl.user.biography" columns="1" md-maxlength="150"></textarea>
+    <div layout layout-sm="column">
+      <md-input-container flex="50">
+        <label for="biography">About us</label>
+        <textarea id="biography" ng-model="$ctrl.user.biography" columns="1" md-maxlength="150"></textarea>
+      </md-input-container>
+      Interests
+      <md-input-container layout="row">
+        <md-checkbox ng-repeat="int in $ctrl.user.interests" ng-model="int" ng-false-value="'{{int}}'" ng-true-value="'{{int}}'"
+        aria-label="label">{{int}}</md-checkbox>
+      </md-input-container>
+    </div>
+    <md-input-container layout="row" layout-align="end end">
+      <md-button id="button-id" class="md-raised" aria-label="button-label" type="submit">Submit</md-button>
     </md-input-container>
-  </form>
-</md-content>
+  </md-content>
+</form>

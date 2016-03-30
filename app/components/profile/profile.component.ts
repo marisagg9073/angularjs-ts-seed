@@ -13,11 +13,14 @@ export default class ProfileComponent {
   public user = {
     title: 'Admin',
     email: 'contact@flatlogic.com',
+    urlImg: '/assets/images/avatar.jpg',
     firstName: '',
     lastName: '',
     company: 'FlatLogic Inc.',
     address: 'Fabritsiusa str, 4',
     city: 'Minsk',
+    gender: ['M', 'F'],
+    interests: ['music', 'sport', ' books'],
     state: '',
     biography: ['We are young and ambitious full service design and technology company.',
       'Our focus is JavaScript development and User Interface design.'].join(' '),
@@ -27,4 +30,5 @@ export default class ProfileComponent {
   constructor(private log: angular.ILogService) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
   }
+
 }

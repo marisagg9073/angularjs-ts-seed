@@ -6,6 +6,7 @@ import Dashboard from './dashboard/dashboard';
 import Message from './message/message';
 import Profile from './profile/profile';
 import Table from './table/table';
+import Users from './users/users';
 
 let components = angular.module('app.components', [
   Common,
@@ -15,6 +16,7 @@ let components = angular.module('app.components', [
   Message,
   Profile,
   Table,
+  Users,
 
   Example
 ]);

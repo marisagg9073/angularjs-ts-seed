@@ -1,0 +1,17 @@
+<div layout layout-sm="column" flex>
+  <md-input-container flex>
+    <label for="search-text">Search text...</label>
+    <input ng-model="$ctrl.searchText" type="search" id="search-text" ng-change="$ctrl.searchUser()">
+  </md-input-container>
+  <md-input-container class="md-block" flex>
+    <md-select ng-model="data">
+      <md-option id="search-for" ng-repeat="data in $ctrl.user.searchFor" ng-value="{{data}}">
+        {{data}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <md-button hide-sm class="toolbar-button" aria-label="Search" type="submit">
+    <i class="material-icons">search</i>
+  </md-button>
+</div>
+<tsfn-users-table></tsfn-users-table>

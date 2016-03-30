@@ -1,0 +1,16 @@
+<md-dialog flex="30" aria-label="label" ng-controller="LoadimageController as vm">
+  <md-dialog-content>
+    <div layout="column" layout-margin>
+      <md-card>
+        <md-card-header>
+          <md-card-header-text>
+            <span class="md-title">Full Image</span>
+          </md-card-header-text>
+        </md-card-header>
+        <md-media-small>
+          <img class="md-card-image" src="{{vm.imgSrc}}" alt="Image caption">
+        </md-media-small>
+      </md-card>
+    </div>
+  </md-dialog-content>
+</md-dialog>
