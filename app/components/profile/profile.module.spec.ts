@@ -24,6 +24,7 @@ describe('# Profile Module', () => {
     it('should have deps', () => {
       expect(mod.requires).toContain('ngComponentRouter');
       expect(mod.requires).toContain('app.components.material');
+      expect(mod.requires).toContain('app.components.showcase');
     });
   });
 
@@ -38,7 +39,7 @@ describe('# Profile Module', () => {
 
     it('should log registration', () => {
       let loaded = ['ngModule', Profile, 'loaded'].join(' ');
-      expect($log.debug.logs[1]).toContain(loaded);
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 

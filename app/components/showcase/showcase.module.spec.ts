@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/browser.d.ts" />
 
-import Dashboard from './dashboard';
+import Showcase from './showcase';
 
 'use strict';
 
@@ -8,13 +8,13 @@ let $module = angular.mock.module;
 let $inject = angular.mock.inject;
 let $dump = (arg: any): void => console.log(angular.mock.dump(arg));
 
-describe('# Dashboard Module', () => {
-  beforeEach($module(Dashboard));
+describe('# Showcase Module', () => {
+  beforeEach($module(Showcase));
 
   describe('## Existence', () => {
     let mod;
 
-    beforeEach(() => mod = angular.module(Dashboard));
+    beforeEach(() => mod = angular.module(Showcase));
 
     it('should exist', () => {
       expect(mod).not.toBeUndefined();
@@ -24,8 +24,7 @@ describe('# Dashboard Module', () => {
     it('should have deps', () => {
       expect(mod.requires).toContain('ngComponentRouter');
       expect(mod.requires).toContain('app.components.material');
-      expect(mod.requires).toContain('app.components.dashboard.panel');
-      expect(mod.requires).toContain('app.components.showcase');
+      expect(mod.requires).toContain('ui.codemirror');
     });
   });
 
@@ -39,7 +38,7 @@ describe('# Dashboard Module', () => {
     });
 
     it('should log registration', () => {
-      let loaded = ['ngModule', Dashboard, 'loaded'].join(' ');
+      let loaded = ['ngModule', Showcase, 'loaded'].join(' ');
       expect($log.debug.logs).toContain([loaded]);
     });
   });

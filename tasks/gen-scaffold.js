@@ -23,17 +23,15 @@ function generator() {
     }).join('');
   };
   var argv = yargs.reset()
-    .usage('Usage: gulp gen:directive -n [string] -p [string] -m [string]')
+    .usage('Usage: gulp gen:scaffold -n [string] -p [string]')
     .alias('n', 'name')
+    .demand('n')
     .string('n')
-    .describe('n', 'Directive name without prefix')
-    .alias('m', 'module')
-    .string('m')
-    .describe('m', 'Module name')
-    .alias('p', 'path')
+    .describe('n', 'Component name')
+    .alias('p', 'parent')
     .string('p')
-    .describe('p', 'Path from Components folder')
-    .demand(['n', 'p'])
+    .default('p', '')
+    .describe('p', 'Parent path from Components folder')
 
     .alias('s', 'support')
     .help('s')
@@ -42,7 +40,7 @@ function generator() {
         gutil.log(gutil.colors.red('Invalid name: only lowercase letters are allowed.'));
         return false;
       }
-      if (!exists.sync(join(resolveToComponents(), args.path))) {
+      if (!exists.sync(join(resolveToComponents(), args.parent))) {
         gutil.log(gutil.colors.red('Invalid parent path: it does not exists.'));
         return false;
       }
@@ -50,23 +48,25 @@ function generator() {
     })
     .argv;
   var name = argv.name;
-  var parentPath = argv.path;
-  var destPath = join(resolveToComponents(), parentPath);
+  var parentPath = argv.parent;
+  var destPath = join(resolveToComponents(), parentPath, name);
 
   var modName = (function() {
-    var mod = argv.module && argv.module.length > 0 ? argv.module : null;
-    if (!mod) {
-      var parts = parentPath.split('/');
-      mod = parts[parts.length - 1];
-    }
-    gutil.log('Module file chosen:', mod);
-    return mod;
+    var parts = parentPath.split('/');
+    if (parts[0] === '')
+      return camel(name);
+    gutil.log('Parts of path', parts);
+    if (parts[parts.length - 1] !== name)
+      parts.push(name);
+    parts = parts.map(camel);
+    gutil.log('Parts camelCased', parts);
+    return parts.join('.');
   })();
 
   var toComponents = parentPath.split('/').map(function() { return '..'; });
   var prefix = 'tsfn';
 
-  return gulp.src(PATH.src.blankTemplates.component)
+  return gulp.src(PATH.src.blankTemplates.all)
     .pipe(template({
       name: name,
       fullNameSnake: [prefix, name].join('-'),
@@ -74,7 +74,7 @@ function generator() {
       upCaseName: cap(camel(name)),
       modName: modName,
       toComponents: toComponents.join('/'),
-      path: parentPath
+      path: join(parentPath, name)
     }))
     .pipe(rename(function(path) {
       path.basename = path.basename.replace('temp', name);
@@ -87,24 +87,23 @@ function generator() {
       },
       onLast: true
     })).pipe(notify({
-      message: 'Remember to register the new ngComponent in <%= options.collector %>.',
+      message: 'Remember to register the new ngModule in <%= options.collector %>.',
       templateOptions: {
-        collector: destPath + ' > ' + modName + '.ts'
+        collector: resolveToComponents() + ' > components.ts'
       },
       onLast: true
     }));
 }
 
-generator.description = 'Generate Component template';
+generator.description = 'Generate Scaffold template';
 
 generator.flags = {
-  '-n, --name': 'Component name',
-  '-p, --path': 'Path from Components folder',
-  '-m, --module': 'Module name (optional)',
+  '-n, --name': 'Scaffolded Component name',
+  '-p, --parent': 'Parent path from Components folder',
   '-s, --support': 'Show help'
 };
 
-gulp.task('gen:component', generator);
+gulp.task('gen:scaffold', generator);
 
 function resolveToComponents(glob) {
   return join(__dirname, '..', 'app/components', glob || '');

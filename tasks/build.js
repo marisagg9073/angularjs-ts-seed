@@ -82,15 +82,15 @@ gulp.task('build.html.dev', ['lint.html'], function() {
     .pipe($.livereload());
 });
 
-gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev', 'build.copy.assets.dev', 'build.styles.dev'], function() {
-  return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
-    .pipe(gulp.dest(PATH.dest.dev.all))
-    .pipe($.livereload());
-});
-
 gulp.task('build.copy.assets.dev', function() {
   return gulp.src(['./app/assets/**/*'])
     .pipe(gulp.dest(join(PATH.dest.dev.all, 'assets')))
+    .pipe($.livereload());
+});
+
+gulp.task('build.assets.dev', ['build.js.dev', 'build.html.dev', 'build.copy.assets.dev', 'build.styles.dev'], function() {
+  return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
+    .pipe(gulp.dest(PATH.dest.dev.all))
     .pipe($.livereload());
 });
 
@@ -164,7 +164,7 @@ gulp.task('build.js.tmp', ['build.html.tmp'], function() {
 
 // TODO: add inline source maps (System only generate separate source maps file).
 gulp.task('build.js.prod', ['build.js.tmp'], function() {
-  gulp.src(['./tmp/at-angular*.js', './tmp/partials*.js']).pipe(gulp.dest(PATH.dest.prod.all));
+  gulp.src(['./tmp/partials*.js']).pipe(gulp.dest(PATH.dest.prod.all));
   return appProdBuilder.build('app', join(PATH.dest.prod.all, 'app.js'),
     { minify: true }).catch(console.error.bind(console));
 });
@@ -182,7 +182,12 @@ gulp.task('build.init.prod', function() {
     .pipe(gulp.dest(PATH.dest.prod.all));
 });
 
-gulp.task('build.assets.prod', ['build.js.prod'], function() {
+gulp.task('build.copy.assets.prod', function() {
+  return gulp.src(['./app/assets/**/*'])
+    .pipe(gulp.dest(join(PATH.dest.prod.all, 'assets')));
+});
+
+gulp.task('build.assets.prod', ['build.js.prod', 'build.styles.prod'], function() {
   var filterHTML = filter('*.html');
   var filterCSS = filter('*.css');
   return gulp.src(['./app/**/!(*.directive|*.component|*.tpl).html', './app/**/*.css'])
@@ -196,8 +201,8 @@ gulp.task('build.assets.prod', ['build.js.prod'], function() {
 });
 
 gulp.task('build.index.prod', function() {
-  var target = gulp.src([join(PATH.dest.prod.lib, 'lib.js'),
-    join(PATH.dest.prod.all, '**/*.css')], { read: false });
+  var target = gulp.src([join(PATH.dest.prod.lib, 'lib.{css,js}'),
+    join(PATH.dest.prod.all, '*.css')], { read: false });
   return gulp.src('./app/index.html')
     .pipe(inject(target, { transform: transformPath('prod') }))
     .pipe(template({ VERSION: getVersion() }))
@@ -207,7 +212,7 @@ gulp.task('build.index.prod', function() {
 gulp.task('build.app.prod', function(done) {
   // build.init.prod does not work as sub tasks dependencies so placed it here.
   runSequence('clean.app.prod', 'build.init.prod', 'build.assets.prod',
-    'build.index.prod', 'clean.tmp', done);
+    'build.index.prod', 'build.copy.assets.prod', 'clean.tmp', done);
 });
 
 gulp.task('build.prod', function(done) {

@@ -38,7 +38,7 @@ describe('# BottomSheet Module', () => {
 
     it('should log registration', () => {
       let loaded = ['ngModule', BottomSheet, 'loaded'].join(' ');
-      expect($log.debug.logs[1]).toContain(loaded);
+      expect($log.debug.logs).toContain([loaded]);
     });
   });
 
