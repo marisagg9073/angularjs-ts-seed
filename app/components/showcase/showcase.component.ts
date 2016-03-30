@@ -20,7 +20,7 @@ const ngComponentName = 'tsfnShowcase';
   },
   templateUrl: 'showcase/showcase.component.html'
 })
-@at.inject('showcase', '$log', '$q', '$sanitize', '$timeout', '$showdown')
+@at.inject('showcase', '$log', '$q', '$timeout', '$showdown')
 export default class ShowcaseComponent implements at.OnInit {
   public fileList: string[];
   public lazy: boolean;
@@ -43,7 +43,6 @@ export default class ShowcaseComponent implements at.OnInit {
   constructor(private showcase: ShowcaseService,
     private log: angular.ILogService,
     private q: angular.IQService,
-    private sanitize: angular.sanitize.ISanitizeService,
     private timeout: angular.ITimeoutService,
     private showdown) {
     log.debug(['ngComponent', ngComponentName, 'loaded'].join(' '));
@@ -66,7 +65,7 @@ export default class ShowcaseComponent implements at.OnInit {
   public markdown(tab: ITab, convert = false) {
     if (tab.options.mode === 'md') {
       if (convert)
-        tab.content = this.sanitize(this.showdown.makeHtml(tab.content));
+        tab.content = this.showdown.makeHtml(tab.content);
       return true;
     }
 
