@@ -1,6 +1,8 @@
 <tsfn-showcase file-list="::$ctrl.files" title="{{::$ctrl.title}}"></tsfn-showcase>
 
-<ng-outlet></ng-outlet>
+<md-content  layout="column" md-theme="dark">
+  <ng-outlet></ng-outlet>
+</md-content>
 
 <!-- TODO: Replace table to table component when https://github.com/angular/material/issues/796 will closed -->
 <div class="table-responsive-vertical md-whiteframe-z1">
