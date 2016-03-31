@@ -10,7 +10,7 @@
     </thead>
     <md-divider md-inset></md-divider>
     <tbody>
-      <tr ng-repeat="data in $ctrl.listData | filter:$ctrl.searchText">
+      <tr ng-repeat="data in $ctrl.listData | filter:$ctrl.searchText" >
         <td data-title="FirstName">{{data.firstName | uppercase}}</td>
         <td data-title="LastName">{{data.lastName}}</td>
         <td data-title="Company">{{data.company}}</td>
