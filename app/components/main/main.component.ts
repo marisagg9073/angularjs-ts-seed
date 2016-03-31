@@ -11,6 +11,7 @@ const ngComponentName = 'tsfnMain';
   $routeConfig: [
     { path: '/dashboard', name: 'Dashboard', component: 'tsfnDashboard', data: { title: 'Dashboard' }, useAsDefault: true },
     { path: '/profile', name: 'Profile', component: 'tsfnProfile', data: { title: 'Profile' } },
+    { path: '/list', name: 'List', component: 'tsfnList', data: { title: 'List' } },
     { path: '/table', name: 'Table', component: 'tsfnTable', data: { title: 'Table' } },
     { path: '/users', name: 'Users', component: 'tsfnUsers', data: { title: 'Users' } }
 

@@ -10,11 +10,11 @@
     </md-input-container>
     <md-input-container flex>
       <label for="search-text">Search text...</label>
-      <input id="search-text" ng-model="$ctrl.searchText.$" type="search">
+      <input ng-model="$ctrl.searchText.$" type="search" id="search-text">
     </md-input-container>
     <!--<md-button class="md-fab md-mini" aria-label="Search" type="button" ng-click="$ctrl.searchUser($ctrl.searchText)">
     <i class="material-icons">search</i>
   </md-button>-->
   </div>
-  <tsfn-users-table></tsfn-users-table>
+  <tsfn-users-list></tsfn-users-list>
 </md-content>

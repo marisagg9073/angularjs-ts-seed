@@ -10,17 +10,15 @@
     </thead>
     <md-divider md-inset></md-divider>
     <tbody>
-      <tr ng-repeat="data in $ctrl.usersData | filter:$ctrl.searchText">
-        <td data-title="ID">{{$index + 1}}</td>
-        <td data-title="FirstName">{{data.firstName}}</td>
-        <td data-title="LastName">{{data.lastName | userfilt}}</td>
+      <tr ng-repeat="data in $ctrl.listData | filter:$ctrl.searchText">
+        <td data-title="FirstName">{{data.firstName | uppercase}}</td>
+        <td data-title="LastName">{{data.lastName}}</td>
         <td data-title="Company">{{data.company}}</td>
         <td data-title="City">{{data.city}}</td>
         <td data-title="Address">{{data.address}}</td>
         <td data-title="State">{{data.state}}</td>
-        <md-progress-linear class="table-progress" ng-class="data.class" md-mode="determinate" ng-value="data.progress">
-        </md-progress-linear>
         </td>
+         <ng-outlet></ng-outlet>
       </tr>
     </tbody>
   </table>

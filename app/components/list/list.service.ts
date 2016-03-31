@@ -1,36 +1,23 @@
-import ngModuleName from './users.module';
+import ngModuleName from './list.module';
 
 'use strict';
 
-export interface IUser {
-  title: string;
-  email: string;
-  urlImg: string;
+export interface IUserList {
   firstName: string;
   lastName: string;
   company: string;
   address: string;
   city: string;
   state: string;
-  biography: string;
-  postalCode: string;
+  urlImg: string;
 }
 
-export interface IHeadUser {
-  name: string;
-  field: string;
-}
-const ngServiceName = 'usersService';
+const ngServiceName = 'userListService';
 
 @at.service(ngModuleName, ngServiceName)
 @at.inject('$log', '$q')
-export default class UsersService {
-
-  public userHeaders: Array<IHeadUser> = [
-    {
-      name: 'ID',
-      field: '#'
-    },
+export default class UserListService {
+  public userHeaders = [
     {
       name: 'FirstName',
       field: 'firstName'
@@ -57,47 +44,33 @@ export default class UsersService {
     }
   ];
 
-  public usersData: Array<IUser> = [
+  public userListData: Array<IUserList> = [
     {
-      title: 'MR',
-      email: 'einstein@gmail.com',
-      urlImg: '/assets/images/einstein.jpg',
       firstName: 'Albert',
       lastName: 'Einstein',
-      company: 'WBA',
-      address: 'Isola G7',
-      city: 'Naples',
+      company: 'RX',
+      address: 'Isola G8',
+      city: 'Milan',
       state: 'Italy',
-      biography: 'A famous Phisician',
-      postalCode: '80100'
+      urlImg: '/assets/images/einstein.jpg'
     },
     {
-      title: 'MR',
-      email: 'feynman@gmail.com',
-      urlImg: '/assets/images/feynman.jpg',
       firstName: 'Richard',
       lastName: 'Feynman',
       company: 'WBA',
-      address: 'Isola G7',
-      city: 'Naples',
-      state: 'Italy',
-      biography: ['American theoretical physicist known for ',
-        'his work in the path integral formulation',
-        ' of quantum mechanics'].join(' '),
-      postalCode: '80100'
+      address: 'Rue Merci',
+      city: 'Paris',
+      state: 'France',
+      urlImg: '/assets/images/feynman.jpg'
     },
     {
-      title: 'MSS',
-      email: 'mguglielmo@gmail.com',
-      urlImg: '/assets/images/avatar.jpg',
       firstName: 'Marisa',
       lastName: 'Guglielmo',
       company: 'WBA',
       address: 'Isola G7',
       city: 'Naples',
       state: 'Italy',
-      biography: 'A young italian programmer',
-      postalCode: '80100'
+      urlImg: '/assets/images/avatar.jpg'
     }
   ];
 
@@ -106,7 +79,7 @@ export default class UsersService {
   }
 
   public loadAllItems() {
-    return this.q.when(this.usersData);
+    return this.q.when(this.userListData);
   }
 
   public loadHeaders() {
@@ -122,8 +95,8 @@ export default class UsersService {
   }
 
   public searchItems(searchFor: string) {
-    let userSearch: Array<IUser> = [];
-    this.usersData.forEach(element => {
+    let userSearch: Array<IUserList> = [];
+    this.userListData.forEach(element => {
       if (!(element.firstName.indexOf(searchFor) === -1))
         userSearch.push(element);
     });
