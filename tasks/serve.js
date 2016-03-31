@@ -80,12 +80,18 @@ gulp.task('serve.prod', ['build.prod'], function() {
     gulp.start('build.app.prod');
   });
 
-  app.use('/', express.static(join(__dirname, '..', PATH.dest.prod.all)));
+  // app.use('/', express.static(join(__dirname, '..', PATH.dest.prod.all)));
+  // app.use('/components', express.static(join(__dirname, '..', 'app', 'components')));
+  // app.use('/lib', express.static(join(__dirname, '..', PATH.dest.prod.lib)));
+  // app.all('/*', function(req, res, next) {
+  //   // Just send the index.html for other files to support HTML5Mode
+  //   res.sendFile('index.html', { root: join(__dirname, '..', PATH.dest.prod.all) });
+  // });
+
   app.use('/components', express.static(join(__dirname, '..', 'app', 'components')));
-  app.use('/lib', express.static(join(__dirname, '..', PATH.dest.prod.lib)));
-  app.all('/*', function(req, res, next) {
-    // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('index.html', { root: join(__dirname, '..', PATH.dest.prod.all) });
+  app.use(express.static(join(__dirname, '..', PATH.dest.prod.all)));
+  app.get('/*', function(req, res) {
+    res.sendFile(join(__dirname, '..', PATH.dest.prod.all, 'index.html'));
   });
 
   app.listen(port, function() {

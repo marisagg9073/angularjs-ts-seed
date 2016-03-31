@@ -3,7 +3,10 @@
 
 <head>
   <!--<base href="/">-->
-  <script>document.write(['<base href=', document.location, '>'].join('"'));</script>
+  <script>
+    var base = [document.location.protocol, document.location.host].join('//') + '/';
+    document.write(['<base href=', base, '>'].join('"'));
+  </script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Angular Material Dashboard</title>
