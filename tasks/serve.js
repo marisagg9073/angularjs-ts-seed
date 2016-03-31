@@ -52,9 +52,20 @@ gulp.task('serve.dev', ['build.dev'], function() {
   });
 
   app.use('*/components', express.static(join(__dirname, '..', 'app', 'components')));
+  app.use('*/lib', express.static(join(__dirname, '..', PATH.dest.dev.lib)));
   app.use(express.static(join(__dirname, '..', PATH.dest.dev.all)));
   app.get('/*', function(req, res) {
-    res.sendFile(join(__dirname, '..', PATH.dest.dev.all, 'index.html'));
+    // console.log(req.url);
+    var resource = (/([.a-z-]+\.(css|js))/.exec(req.url) || [])[0];
+    if (resource) {
+      var index = req.url.indexOf('components');
+      if (index > -1) {
+        resource = req.url.substring(index, req.url.indexOf('?'));
+      }
+      // console.log(req.url, resource);
+      res.sendFile(join(__dirname, '..', PATH.dest.dev.all, resource));
+    } else
+      res.sendFile(join(__dirname, '..', PATH.dest.dev.all, 'index.html'));
   });
 
   app.listen(port, function() {
